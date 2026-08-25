@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>T.I. Libras - Início</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/inicio.css">
+</head>
+<body>
+
+  <header class="header">
+    <a href="index.html" class="logo"><div class="logo-icon">🤟</div> T.I Libras</a>
+    <nav class="nav-links">
+      <a href="index.html" class="active">Início</a>
+      <a href="praticar.html">Praticar</a>
+      <a href="sinalario.html">Sinalário</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn">♿</button>
+      <button class="icon-btn">👤</button>
+    </div>
+  </header>
+
+  <div class="container dashboard">
+    <!-- Sidebar / Menus da Esquerda -->
+    <aside class="sidebar">
+      <div class="user-card">
+        <p style="font-size: 0.75rem; opacity: 0.9;">Bem-vindo(a) 🤟</p>
+        <h3 style="font-size: 1.1rem;">Olá, Estudante!</h3>
+      </div>
+
+      <div class="card menu-card">
+        <span class="card-title">MENU</span>
+        <a href="#" class="menu-item">📋 Acessar Tarefas</a>
+        <a href="#" class="menu-item">🔑 Fazer Login</a>
+        <a href="#" class="menu-item">✏️ Fazer Cadastro</a>
+      </div>
+
+      <!-- Progresso Dinâmico via LocalStorage -->
+      <div class="card progress-card">
+        <span class="card-title">📊 SEU PROGRESSO</span>
+        <div class="prog-item">
+          <span>Sinais aprendidos</span> <strong id="lblSinais">0/60</strong>
+          <div class="bar"><div class="fill" id="barSinais" style="width: 0%; background: var(--primary);"></div></div>
+        </div>
+        <div class="prog-item">
+          <span>Quizzes feitos</span> <strong id="lblQuizzes">0/40</strong>
+          <div class="bar"><div class="fill" id="barQuizzes" style="width: 0%; background: var(--accent-blue);"></div></div>
+        </div>
+      </div>
+
+      <!-- Mini-Cards na Sidebar -->
+      <div class="sidebar-features-grid">
+        <div class="mini-feature-card">
+          <span>🎯</span>
+          <div>
+            <h5>Quizzes Interativos</h5>
+            <small>Teste conhecimentos</small>
+          </div>
+        </div>
+        <div class="mini-feature-card">
+          <span>📚</span>
+          <div>
+            <h5>Sinalário Digital</h5>
+            <small>Dicionário visual</small>
+          </div>
+        </div>
+        <div class="mini-feature-card">
+          <span>🎬</span>
+          <div>
+            <h5>Vídeos em Libras</h5>
+            <small>Aprenda na prática</small>
+          </div>
+        </div>
+        <div class="mini-feature-card">
+          <span>♿</span>
+          <div>
+            <h5>Acessível</h5>
+            <small>Feito para surdos</small>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+      <div class="hero-banner">
+        <span style="font-size: 0.75rem; letter-spacing: 1px; font-weight: 700;">PLATAFORMA EDUCACIONAL</span>
+        <h2>Aprenda TI em Libras 🤟</h2>
+        <p>Domine termos de TI através de vídeos de sinais, quizzes interativos e dicionário completo.</p>
+        <div class="hero-btns">
+          <a href="praticar.html" class="btn btn-white">Começar Agora</a>
+          <a href="sinalario.html" class="btn btn-transp">Ver Sinalário</a>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card info-card">
+          <h4>📖 Sobre o Projeto</h4>
+          <p style="font-size: 0.85rem; margin-top: 5px;">Plataforma inclusiva que ensina terminologia de TI em Língua Brasileira de Sinais para a comunidade surda.</p>
+          <div class="stats-row">
+            <div class="stat-box"><strong>200+</strong><span>Termos</span></div>
+            <div class="stat-box"><strong>40</strong><span>Quizzes</span></div>
+            <div class="stat-box"><strong>180+</strong><span>Vídeos</span></div>
+          </div>
+        </div>
+
+        <div class="card video-card">
+          <h4>▶️ Vídeo Explicativo</h4>
+          <!-- Container ajustado em proporção 16:9 -->
+          <div class="video-container-16-9">
+            <button class="play-btn">▶</button>
+            <span>Introdução ao T.I Libras</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="logo">🤟 T.I Libras</div>
+    <div class="footer-nav">
+      <a href="#">Sobre nós</a>
+      <a href="#">Ajuda</a>
+      <a href="#">Contato</a>
+    </div>
+    <div class="footer-copy">♿ Plataforma inclusiva para surdos · 2025</div>
+  </footer>
+
+  <script src="js/dados.js"></script>
+  <script src="js/inicio.js"></script>
+</body>
+</html>

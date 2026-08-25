@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>T.I. Libras - Praticar</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/praticar.css">
+</head>
+<body>
+
+  <header class="header">
+    <a href="index.html" class="logo"><div class="logo-icon">🤟</div> T.I Libras</a>
+    <nav class="nav-links">
+      <a href="index.html">Início</a>
+      <a href="praticar.html" class="active">Praticar</a>
+      <a href="sinalario.html">Sinalário</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn">♿</button>
+      <button class="icon-btn">👤</button>
+    </div>
+  </header>
+
+  <div class="container main-praticar">
+    <!-- Banner de Progresso Geral -->
+    <div class="card progress-banner">
+      <div class="banner-info">
+        <span class="banner-subtitle">SEU PROGRESSO GERAL</span>
+        <h2>Continuar Praticando 🎯</h2>
+      </div>
+      
+      <div class="progress-stats">
+        <div class="stat-item">
+          <strong id="lblTotalQuestoes">0/40</strong>
+          <span>Questões concluídas</span>
+        </div>
+        <div class="stat-item">
+          <strong id="lblTotalQuizzes">0/10</strong>
+          <span>Quizzes finalizados</span>
+        </div>
+      </div>
+      
+      <div class="bar-container">
+        <div class="bar-fill" id="barProgressoGeral" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Seção de Categorias -->
+    <h3 class="section-title">Categorias de Estudo</h3>
+    
+    <div class="categories-grid">
+      <!-- Card Hardware -->
+      <div class="card cat-card">
+        <div class="cat-header">
+          <div class="cat-icon icon-hardware">💻</div>
+          <div>
+            <h4>Hardware</h4>
+            <span class="q-count" id="count-hardware">0/10 questões feitas</span>
+          </div>
+        </div>
+        <p>Aprenda componentes físicos, periféricos e peças de computadores em Libras.</p>
+        <div class="cat-actions">
+          <a href="sinalario.html?categoria=hardware" class="btn-secundary">Consultar</a>
+          <a href="quiz.html?categoria=hardware" class="btn-primary">Fazer Quiz</a>
+        </div>
+      </div>
+
+      <!-- Card Software -->
+      <div class="card cat-card">
+        <div class="cat-header">
+          <div class="cat-icon icon-software">🖥️</div>
+          <div>
+            <h4>Software</h4>
+            <span class="q-count" id="count-software">0/10 questões feitas</span>
+          </div>
+        </div>
+        <p>Sistemas operacionais, aplicativos, códigos e programas de computador.</p>
+        <div class="cat-actions">
+          <a href="sinalario.html?categoria=software" class="btn-secundary">Consultar</a>
+          <a href="quiz.html?categoria=software" class="btn-primary">Fazer Quiz</a>
+        </div>
+      </div>
+
+      <!-- Card Redes -->
+      <div class="card cat-card">
+        <div class="cat-header">
+          <div class="cat-icon icon-redes">🌐</div>
+          <div>
+            <h4>Redes de Computadores</h4>
+            <span class="q-count" id="count-redes">0/10 questões feitas</span>
+          </div>
+        </div>
+        <p>Conexões, roteadores, protocolos de internet e infraestrutura de rede.</p>
+        <div class="cat-actions">
+          <a href="sinalario.html?categoria=redes" class="btn-secundary">Consultar</a>
+          <a href="quiz.html?categoria=redes" class="btn-primary">Fazer Quiz</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/praticar.js"></script>
+</body>
+</html>

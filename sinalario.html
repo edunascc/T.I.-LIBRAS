@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>T.I. Libras - Sinalário</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/sinalario.css">
+</head>
+<body>
+
+  <header class="header">
+    <a href="index.html" class="logo"><div class="logo-icon">🤟</div> T.I Libras</a>
+    <nav class="nav-links">
+      <a href="index.html">Início</a>
+      <a href="praticar.html">Praticar</a>
+      <a href="sinalario.html" class="active">Sinalário</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn">♿</button>
+      <button class="icon-btn">👤</button>
+    </div>
+  </header>
+
+  <div class="container main-sinalario">
+    <!-- Coluna da Esquerda: Busca, Filtros e Lista de Termos -->
+    <aside class="sinalario-sidebar">
+      <div class="sidebar-header">
+        <h2>Sinalário</h2>
+        <p>Dicionário visual de termos de TI em Libras</p>
+        
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="🔍 Buscar termo...">
+        </div>
+
+        <div class="pills-container" id="filterPills">
+          <button class="pill active" data-cat="todos">Todos</button>
+          <button class="pill" data-cat="hardware">Hardware</button>
+          <button class="pill" data-cat="software">Software</button>
+          <button class="pill" data-cat="redes">Redes</button>
+          <button class="pill" data-cat="logica">Lógica</button>
+        </div>
+
+        <span class="terms-counter" id="termsCounter">0 TERMOS</span>
+      </div>
+
+      <!-- Lista Scrollável de Termos -->
+      <div class="terms-list" id="termsList">
+        <!-- Itens inseridos dinamicamente pelo JS -->
+      </div>
+    </aside>
+
+    <!-- Coluna da Direita: Card Principal de Detalhes -->
+    <main class="sinalario-detail-container" id="detailPanel">
+      <!-- Conteúdo inserido dinamicamente pelo JS -->
+    </main>
+  </div>
+
+  <script src="js/dados.js"></script>
+  <script src="js/sinalario.js"></script>
+</body>
+</html>

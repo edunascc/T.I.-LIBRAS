@@ -1,0 +1,106 @@
+.quiz-top-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 10%;
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.quiz-container { max-width: 800px; }
+
+.quiz-card { padding: 2rem; margin-bottom: 20px; }
+
+.quiz-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.q-number {
+  background: #f3e8ff;
+  color: var(--primary);
+  font-weight: 800;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+}
+
+.video-quiz-box {
+  background: #0f172a;
+  border-radius: var(--border-radius);
+  padding: 3rem 1rem;
+  text-align: center;
+  color: white;
+}
+
+.quiz-play-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.2);
+  color: white;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.option-btn {
+  background: white;
+  border: 2px solid transparent;
+  border-radius: var(--border-radius);
+  padding: 1rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  text-align: left;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-main);
+  transition: all 0.2s;
+}
+
+.option-btn:hover { border-color: #cbd5e1; }
+.option-btn .opt-icon { font-size: 1.5rem; }
+
+/* Feedback Status (Correct / Incorrect) */
+.option-btn.correct {
+  border-color: var(--accent-green) !important;
+  background: #ecfdf5 !important;
+  color: #065f46 !important;
+}
+
+.option-btn.incorrect {
+  border-color: var(--accent-red) !important;
+  background: #fef2f2 !important;
+  color: #991b1b !important;
+}
+
+.status-badge {
+  display: block;
+  font-size: 0.75rem;
+  margin-top: 2px;
+}
+
+.quiz-actions { display: flex; justify-content: flex-end; }
+.btn-next {
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
