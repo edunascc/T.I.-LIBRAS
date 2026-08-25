@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
 
             <div class="info-box glosa">
-              <h5>🤟 Exemplo em Libras (Glosa)</h5>
+              <h5>🤟 Exemplo em Libras</h5>
               <p><strong>${termo.exemploGlosa}</strong></p>
             </div>
           </div>

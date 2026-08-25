@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>T.I. Libras - Sinalário</title>
+  <title>T.I Libras - Sinalário</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/sinalario.css">
 </head>
 <body>
 
+  <!-- CABEÇALHO GLOBAL -->
   <header class="header">
     <a href="index.html" class="logo"><div class="logo-icon">🤟</div> T.I Libras</a>
     <nav class="nav-links">
@@ -22,41 +23,221 @@
     </div>
   </header>
 
-  <div class="container main-sinalario">
-    <!-- Coluna da Esquerda: Busca, Filtros e Lista de Termos -->
-    <aside class="sinalario-sidebar">
-      <div class="sidebar-header">
+  <!-- CONTEÚDO PRINCIPAL (LAYOUT EM DUAS COLUNAS) -->
+  <div class="container main-layout">
+    
+    <!-- SIDEBAR DA ESQUERDA -->
+    <aside class="sidebar-column">
+      <div class="card search-card">
         <h2>Sinalário</h2>
-        <p>Dicionário visual de termos de TI em Libras</p>
+        <p class="subtitle">Dicionário visual de termos de TI em Libras</p>
         
         <div class="search-box">
-          <input type="text" id="searchInput" placeholder="🔍 Buscar termo...">
+          <input type="text" placeholder="🔍 Buscar termo...">
         </div>
 
-        <div class="pills-container" id="filterPills">
-          <button class="pill active" data-cat="todos">Todos</button>
-          <button class="pill" data-cat="hardware">Hardware</button>
-          <button class="pill" data-cat="software">Software</button>
-          <button class="pill" data-cat="redes">Redes</button>
-          <button class="pill" data-cat="logica">Lógica</button>
+        <div class="category-pills">
+          <button class="pill active">Todos</button>
+          <button class="pill">Hardware</button>
+          <button class="pill">Software</button>
+          <button class="pill">Redes</button>
+          <button class="pill">Lógica</button>
         </div>
 
-        <span class="terms-counter" id="termsCounter">0 TERMOS</span>
-      </div>
+        <span class="terms-count">6 TERMOS</span>
 
-      <!-- Lista Scrollável de Termos -->
-      <div class="terms-list" id="termsList">
-        <!-- Itens inseridos dinamicamente pelo JS -->
+        <div class="terms-list">
+          <div class="term-item active">
+            <span class="dot purple"></span>
+            <div>
+              <strong>Computador</strong>
+              <small>Hardware</small>
+            </div>
+          </div>
+
+          <div class="term-item">
+            <span class="dot purple"></span>
+            <div>
+              <strong>Mouse</strong>
+              <small>Hardware</small>
+            </div>
+          </div>
+
+          <div class="term-item">
+            <span class="dot purple"></span>
+            <div>
+              <strong>Teclado</strong>
+              <small>Hardware</small>
+            </div>
+          </div>
+
+          <div class="term-item">
+            <span class="dot green"></span>
+            <div>
+              <strong>Internet</strong>
+              <small>Redes</small>
+            </div>
+          </div>
+
+          <div class="term-item">
+            <span class="dot blue"></span>
+            <div>
+              <strong>Software</strong>
+              <small>Software</small>
+            </div>
+          </div>
+        </div>
       </div>
     </aside>
 
-    <!-- Coluna da Direita: Card Principal de Detalhes -->
-    <main class="sinalario-detail-container" id="detailPanel">
-      <!-- Conteúdo inserido dinamicamente pelo JS -->
+    <!-- COLUNA DIREITA: DETALHES DO TERMO -->
+    <main class="content-column">
+      <div class="card term-detail-card">
+        
+        <!-- Header Roxo/Azul do Card -->
+        <div class="term-header">
+          <span class="category-tag">HARDWARE</span>
+          <h2>Computador</h2>
+        </div>
+
+        <!-- CORPO REORGANIZADO -->
+        <div class="term-body">
+          
+          <!-- Vídeo do Sinal -->
+          <div class="video-container">
+            <span class="section-title">▶ Vídeo do Sinal</span>
+            <div class="video-preview-169">
+              <button class="play-button">▶</button>
+              <span>Sinal de: Computador</span>
+            </div>
+          </div>
+
+          <!-- Coluna Direita: Imagem + Definição + Fonte -->
+          <div class="right-top-container">
+            <div class="term-image-box">
+              <img src="img/computador.png" alt="Computador" id="termImage">
+            </div>
+            
+            <div class="info-card definition-card">
+              <span class="info-label">📖 DEFINIÇÃO</span>
+              <p>Máquina eletrônica capaz de processar dados e executar programas por meio de instruções.</p>
+            </div>
+
+            <div class="info-card source-card">
+              <span class="info-label">🔗 FONTE</span>
+              <p><a href="#" target="_blank">Dicionário de TI / Glossário W3C</a></p>
+            </div>
+          </div>
+
+          <!-- Abaixo do Vídeo: Exemplos lado a lado -->
+          <div class="bottom-examples-grid">
+            <div class="info-card border-blue">
+              <span class="info-label">BR EXEMPLO EM PORTUGUÊS</span>
+              <p class="quote">"O computador é essencial para o trabalho moderno."</p>
+            </div>
+
+            <div class="info-card border-green">
+              <span class="info-label">🤟 EXEMPLO EM LIBRAS</span>
+              <p class="libras-text">COMPUTADOR TRABALHO ESSENCIAL</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Rodapé do Card -->
+        <div class="term-footer">
+          <button class="btn-nav">← Anterior</button>
+          <a href="praticar.html" class="btn-quiz">🎯 Praticar Quiz de Hardware</a>
+          <button class="btn-nav">Próximo →</button>
+        </div>
+
+      </div>
     </main>
+
   </div>
 
-  <script src="js/dados.js"></script>
-  <script src="js/sinalario.js"></script>
+  <!-- RODAPÉ ORIGINAL DO SITE (FORA DO CONTAINER) -->
+  <footer class="footer">
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo">
+        <span class="emoji">🤟</span>
+        <span class="brand">T.I Libras</span>
+      </a>
+      
+      <div class="footer-links">
+        <a href="#" class="footer-btn">Sobre nós</a>
+        <a href="#" class="footer-btn">Ajuda</a>
+        <a href="#" class="footer-btn">Contato</a>
+      </div>
+
+      <div class="footer-tag">
+        <span>♿ Plataforma inclusiva para surdos · 2026</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT DE INTERATIVIDADE -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const termItems = Array.from(document.querySelectorAll('.term-item'));
+      const categoryBtns = document.querySelectorAll('.category-pills .pill');
+      const btnPrev = document.querySelector('.btn-nav:first-child');
+      const btnNext = document.querySelector('.btn-nav:last-child');
+
+      let currentIndex = 0;
+
+      function selectTerm(index) {
+        if (index < 0 || index >= termItems.length) return;
+        
+        termItems.forEach(item => item.classList.remove('active'));
+        termItems[index].classList.add('active');
+        currentIndex = index;
+
+        const termName = termItems[index].querySelector('strong').textContent;
+        const categoryName = termItems[index].querySelector('small').textContent;
+        
+        document.querySelector('.term-header h2').textContent = termName;
+        document.querySelector('.category-tag').textContent = categoryName.toUpperCase();
+        document.querySelector('.video-preview-169 span').textContent = `Sinal de: ${termName}`;
+      }
+
+      termItems.forEach((item, index) => {
+        item.addEventListener('click', () => selectTerm(index));
+      });
+
+      if (btnPrev) {
+        btnPrev.addEventListener('click', () => {
+          const prevIndex = (currentIndex - 1 + termItems.length) % termItems.length;
+          selectTerm(prevIndex);
+        });
+      }
+
+      if (btnNext) {
+        btnNext.addEventListener('click', () => {
+          const nextIndex = (currentIndex + 1) % termItems.length;
+          selectTerm(nextIndex);
+        });
+      }
+
+      categoryBtns.forEach(button => {
+        button.addEventListener('click', () => {
+          categoryBtns.forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+
+          const filter = button.textContent.trim().toLowerCase();
+
+          termItems.forEach(item => {
+            const category = item.querySelector('small').textContent.trim().toLowerCase();
+            if (filter === 'todos' || category === filter) {
+              item.style.display = 'flex';
+            } else {
+              item.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+  </script>
+
 </body>
 </html>

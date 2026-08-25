@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const totalSinais = 60;
   const totalQuizzes = 40;
 
-  // Busca dados salvos do localStorage
   const sinaisAprendidos = JSON.parse(localStorage.getItem('sinaisAprendidos') || '[]');
   const quizzesFeitos = JSON.parse(localStorage.getItem('quizzesConcluidos') || '[]');
 
@@ -12,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const pctSinais = Math.min(Math.round((qtdSinais / totalSinais) * 100), 100);
   const pctQuizzes = Math.min(Math.round((qtdQuizzes / totalQuizzes) * 100), 100);
 
-  // Atualiza HTML
   document.getElementById('lblSinais').innerText = `${qtdSinais}/${totalSinais}`;
   document.getElementById('barSinais').style.width = `${pctSinais}%`;
 
