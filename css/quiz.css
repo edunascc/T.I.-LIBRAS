@@ -75,7 +75,6 @@
 .option-btn:hover { border-color: #cbd5e1; }
 .option-btn .opt-icon { font-size: 1.5rem; }
 
-/* Feedback Status (Correct / Incorrect) */
 .option-btn.correct {
   border-color: var(--accent-green) !important;
   background: #ecfdf5 !important;

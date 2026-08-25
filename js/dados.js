@@ -9,7 +9,7 @@ const bancoDadosTI = [
     exemploPt: 'O computador é essencial para o trabalho moderno.',
     exemploGlosa: 'COMPUTADOR TRABALHO ESSENCIAL',
     fonte: 'Grupo de Pesquisa em Libras e TI - UFSC, 2023.',
-    videoUrl: 'assets/img/videos/computador.png' // Substitua pelo caminho real do vídeo/imagem
+    videoUrl: 'assets/img/videos/computador.png' // Substituir pelo caminho real do vídeo/imagem dps
   },
   {
     id: 'mouse',

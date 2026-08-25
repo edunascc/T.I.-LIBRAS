@@ -1,8 +1,6 @@
 .main-praticar {
   padding: 1.5rem 0;
 }
-
-/* Card de Progresso Geral */
 .progress-banner {
   background: white;
   border-radius: var(--border-radius, 16px);

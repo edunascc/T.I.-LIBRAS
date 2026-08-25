@@ -97,8 +97,6 @@ body {
   place-items: center;
   color: var(--primary);
 }
-
-/* Structural Layout */
 .container {
   max-width: 1280px;
   width: 90%;
@@ -136,12 +134,9 @@ body {
   color: var(--text-muted);
   font-size: 0.85rem;
 }
-/* ==========================================
-   RODAPÉ GLOBAL COMPACTO (TODAS AS PÁGINAS)
-   ========================================== */
 footer.footer {
   width: 100%;
-  height: 75px; /* Altura fixa para não esticar */
+  height: 75px;
   min-height: 75px;
   background: #ffffff;
   border-top: 1px solid #e2e8f0;

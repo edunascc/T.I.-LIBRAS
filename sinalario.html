@@ -22,11 +22,8 @@
       <button class="icon-btn">👤</button>
     </div>
   </header>
-
-  <!-- CONTEÚDO PRINCIPAL (LAYOUT EM DUAS COLUNAS) -->
   <div class="container main-layout">
     
-    <!-- SIDEBAR DA ESQUERDA -->
     <aside class="sidebar-column">
       <div class="card search-card">
         <h2>Sinalário</h2>
@@ -44,7 +41,7 @@
           <button class="pill">Lógica</button>
         </div>
 
-        <span class="terms-count">6 TERMOS</span>
+        <span class="terms-count">5 TERMOS</span>
 
         <div class="terms-list">
           <div class="term-item active">
@@ -89,21 +86,14 @@
         </div>
       </div>
     </aside>
-
-    <!-- COLUNA DIREITA: DETALHES DO TERMO -->
     <main class="content-column">
       <div class="card term-detail-card">
-        
-        <!-- Header Roxo/Azul do Card -->
         <div class="term-header">
           <span class="category-tag">HARDWARE</span>
           <h2>Computador</h2>
         </div>
-
-        <!-- CORPO REORGANIZADO -->
         <div class="term-body">
           
-          <!-- Vídeo do Sinal -->
           <div class="video-container">
             <span class="section-title">▶ Vídeo do Sinal</span>
             <div class="video-preview-169">
@@ -112,7 +102,6 @@
             </div>
           </div>
 
-          <!-- Coluna Direita: Imagem + Definição + Fonte -->
           <div class="right-top-container">
             <div class="term-image-box">
               <img src="img/computador.png" alt="Computador" id="termImage">
@@ -128,8 +117,6 @@
               <p><a href="#" target="_blank">Dicionário de TI / Glossário W3C</a></p>
             </div>
           </div>
-
-          <!-- Abaixo do Vídeo: Exemplos lado a lado -->
           <div class="bottom-examples-grid">
             <div class="info-card border-blue">
               <span class="info-label">BR EXEMPLO EM PORTUGUÊS</span>
@@ -143,8 +130,6 @@
           </div>
 
         </div>
-
-        <!-- Rodapé do Card -->
         <div class="term-footer">
           <button class="btn-nav">← Anterior</button>
           <a href="praticar.html" class="btn-quiz">🎯 Praticar Quiz de Hardware</a>
@@ -156,7 +141,6 @@
 
   </div>
 
-  <!-- RODAPÉ ORIGINAL DO SITE (FORA DO CONTAINER) -->
   <footer class="footer">
     <div class="footer-container">
       <a href="index.html" class="footer-logo">
@@ -176,7 +160,6 @@
     </div>
   </footer>
 
-  <!-- SCRIPT DE INTERATIVIDADE -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const termItems = Array.from(document.querySelectorAll('.term-item'));

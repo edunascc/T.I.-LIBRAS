@@ -1,27 +1,17 @@
-/* ==========================================
-   ESTRUTURA PRINCIPAL E ALINHAMENTO
-   ========================================== */
-
-/* Garante que o body ocupe toda a tela */
 body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Container alinhado com o Header e Footer */
 .main-layout {
   display: grid;
   grid-template-columns: 280px 1fr;
   gap: 20px;
   margin-top: 20px;
   margin-bottom: 30px;
-  align-items: stretch; /* Estica ambos os lados para alinhamento perfeito na base */
+  align-items: stretch; 
 }
-
-/* ==========================================
-   SIDEBAR (COLUNA ESQUERDA)
-   ========================================== */
 .sidebar-column {
   display: flex;
   flex-direction: column;
@@ -125,14 +115,11 @@ body {
   font-size: 1.1rem;
 }
 
-/* ==========================================
-   CONTEÚDO PRINCIPAL (COLUNA DIREITA)
-   ========================================== */
 .content-column {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  justify-content: space-between; /* Distribui para alinhar com o final da sidebar */
+  justify-content: space-between; 
 }
 
 .hero-box {
@@ -232,13 +219,11 @@ body {
   font-size: 0.68rem;
   color: #64748b;
 }
-
-/* VÍDEO EM PROPORÇÃO 16:9 PERFEITA */
 .video-preview {
   background: #0f172a;
   border-radius: 10px;
   width: 100%;
-  aspect-ratio: 16 / 9; /* Proporção 16:9 exata */
+  aspect-ratio: 16 / 9; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -263,16 +248,12 @@ body {
   font-size: 0.78rem;
   opacity: 0.9;
 }
-
-/* ==========================================
-   RODAPÉ (CORRIGIDO DE PONTA A PONTA)
-   ========================================== */
 .footer {
   width: 100%;
   background: #ffffff;
   border-top: 1px solid #e2e8f0;
   padding: 0.1px 0;
-  margin-top: auto; /* Empurra o footer pro final da tela */
+  margin-top: auto;
 }
 
 .footer-wrapper {

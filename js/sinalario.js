@@ -7,8 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let termoAtualIndex = 0;
   let dadosFiltrados = [...bancoDadosTI];
-
-  // Leitura de parâmetros da URL (?categoria=xxx)
   const urlParams = new URLSearchParams(window.location.search);
   const catParam = urlParams.get('categoria');
 
@@ -18,8 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
       p.classList.toggle('active', p.dataset.cat === catParam);
     });
   }
-
-  // Registra o sinal visualizado no localStorage
   function registrarSinalVisto(idTermo) {
     let aprendidos = JSON.parse(localStorage.getItem('sinaisAprendidos') || '[]');
     if (!aprendidos.includes(idTermo)) {
@@ -59,8 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
       detailPanel.innerHTML = '<div class="card"><p>Nenhum termo encontrado para este filtro.</p></div>';
       return;
     }
-
-    // Marca termo como aprendido ao visualizar
     registrarSinalVisto(termo.id || termo.nome);
 
     detailPanel.innerHTML = `

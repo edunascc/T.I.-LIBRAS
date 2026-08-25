@@ -1,7 +1,3 @@
-/* ==========================================
-   LAYOUT PRINCIPAL DO SINALÁRIO
-   ========================================== */
-
 .main-layout {
   display: grid;
   grid-template-columns: 280px 1fr;
@@ -10,11 +6,6 @@
   margin-bottom: 30px;
   align-items: stretch;
 }
-
-/* ==========================================
-   SIDEBAR DA ESQUERDA
-   ========================================== */
-
 .search-card {
   padding: 16px;
   background: #ffffff;
@@ -124,10 +115,6 @@
 .dot.green { background: #10b981; }
 .dot.blue { background: #3b82f6; }
 
-/* ==========================================
-   COLUNA DA DIREITA (CARD DO TERMO)
-   ========================================== */
-
 .term-detail-card {
   padding: 0;
   display: flex;
@@ -157,8 +144,6 @@
   font-size: 1.3rem;
   margin: 0;
 }
-
-/* Grid do Corpo */
 .term-body {
   display: grid;
   grid-template-columns: 1.25fr 0.75fr;
@@ -174,8 +159,6 @@
   margin-bottom: 6px;
   display: block;
 }
-
-/* Vídeo 16:9 */
 .video-preview-169 {
   background: #0f172a;
   border-radius: 12px;
@@ -204,15 +187,12 @@
   font-size: 0.78rem;
   opacity: 0.9;
 }
-
-/* Coluna Direita: Imagem + Definição + Fonte */
 .right-top-container {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-/* Caixa da Imagem */
 .term-image-box {
   background: #f8fafc;
   border: 1px solid #e2e8f0;
@@ -232,8 +212,6 @@
   max-height: 100%;
   object-fit: contain;
 }
-
-/* Exemplos em Baixo Ocupando 2 Colunas */
 .bottom-examples-grid {
   grid-column: span 2;
   display: grid;
@@ -241,8 +219,6 @@
   gap: 12px;
   margin-top: 2px;
 }
-
-/* Cards de Informação */
 .info-card {
   background: #f8fafc;
   border-left: 4px solid #6366f1;
@@ -334,11 +310,6 @@
   font-size: 0.8rem;
   font-weight: 700;
 }
-
-/* ==========================================
-   RODAPÉ ORIGINAL (ESTILO FIEL AO PRINT + OUPAGEM TOTAL)
-   ========================================== */
-
 footer.footer {
   width: 100vw !important;
   position: relative !important;
