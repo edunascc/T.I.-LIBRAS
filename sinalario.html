@@ -7,6 +7,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/sinalario.css">
+
+  <!-- REGISTRO DOS WEB COMPONENTS (Funciona em file:// e http://) -->
+  <script src="js/components.js"></script>
+
   <style>
     /* Estilos customizados para o botão de Favoritar e Layout dos Itens */
     .term-item {
@@ -88,19 +92,8 @@
 </head>
 <body>
 
-  <!-- CABEÇALHO GLOBAL -->
-  <header class="header">
-    <a href="index.html" class="logo"><div class="logo-icon"><i class="fa-solid fa-hand"></i></div> T.I Libras</a>
-    <nav class="nav-links">
-      <a href="index.html">Início</a>
-      <a href="praticar.html">Praticar</a>
-      <a href="sinalario.html" class="active">Sinalário</a>
-    </nav>
-    <div class="header-actions">
-      <button class="icon-btn"><i class="fa-solid fa-universal-access"></i></button>
-      <button class="icon-btn"><i class="fa-solid fa-user"></i></button>
-    </div>
-  </header>
+  <!-- CABEÇALHO DINÂMICO -->
+  <app-header></app-header>
 
   <!-- CONTEÚDO PRINCIPAL COMPACTO -->
   <div class="container main-layout">
@@ -217,41 +210,26 @@
 
   </div>
 
-  <!-- RODAPÉ GLOBAL -->
-  <footer class="footer">
-    <div class="footer-container">
-      <a href="index.html" class="footer-logo">
-        <span class="emoji"><i class="fa-solid fa-hand"></i></span>
-        <span class="brand">T.I Libras</span>
-      </a>
-      
-      <div class="footer-links">
-        <a href="#" class="footer-btn">Sobre nós</a>
-        <a href="#" class="footer-btn">Ajuda</a>
-        <a href="#" class="footer-btn">Contato</a>
-      </div>
+  <!-- RODAPÉ DINÂMICO -->
+  <app-footer></app-footer>
 
-      <div class="footer-tag">
-        <span><i class="fa-solid fa-universal-access"></i> Plataforma inclusiva para surdos · IFRN Santa Cruz · 2026</span>
-      </div>
+  <!-- INÍCIO DO COMPONENTE VLIBRAS -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
     </div>
-  </footer>
-<!-- INÍCIO DO COMPONENTE VLIBRAS -->
-<div vw class="enabled">
-  <div vw-access-button class="active"></div>
-  <div vw-plugin-wrapper>
-    <div class="vw-plugin-top-wrapper"></div>
   </div>
-</div>
-<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-<script>
-  new window.VLibras.Widget('https://vlibras.gov.br/app');
-</script>
-<!-- FIM DO COMPONENTE VLIBRAS -->
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
+  <!-- FIM DO COMPONENTE VLIBRAS -->
+
   <script>
     const database = [
       // Hardware (17)
-      { term: "Monitor", cat: "Hardware", youtubeId: "https://www.youtube.com/watch?v=Ndzqo_R9334", def: "Dispositivo de saída que exibe a interface visual do computador.", exPt: "O monitor exibe a imagem em alta definição.", exGlosa: "MONITOR MOSTRAR IMAGEM BONITO", source: "Infolibras (IFBA)", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=1&page=3" },
+      { term: "Monitor", cat: "Hardware", youtubeId: "Ndzqo_R9334", def: "Dispositivo de saída que exibe a interface visual do computador.", exPt: "O monitor exibe a imagem em alta definição.", exGlosa: "MONITOR MOSTRAR IMAGEM BONITO", source: "Infolibras (IFBA)", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=1&page=3" },
       { term: "Mouse", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Periférico de entrada usado para mover o ponteiro na tela.", exPt: "Clique com o botão direito do mouse.", exGlosa: "MOUSE APONTAR CLICAR TELA", source: "Infolibras (IFBA)", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=1&page=3" },
       { term: "Teclado", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Periférico de entrada com teclas para digitação de texto e comandos.", exPt: "Estou digitando o código no teclado.", exGlosa: "TECLADO DIGITAR RÁPIDO CÓDIGO", source: "Infolibras (IFBA)", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=1&page=2" },
       { term: "Fone de ouvido", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Dispositivo de áudio individual colocado nas orelhas.", exPt: "Coloque os fones de ouvido para ouvir a aula.", exGlosa: "FONE ORELHA OUVIR AULA", source: "Canal Integra Surdos", link: "https://www.youtube.com/watch?v=swhKLnJlFeA" },
@@ -390,7 +368,7 @@
               </div>
             </div>
             <button class="btn-fav" data-term="${item.term}" title="Favoritar">
-              ${isFav ? '<i class="fa-solid fa-heart"></i>' : '<i class="fa-regular fa-heart"></i>'}
+              ${isFav ? '<i class="fa-solid fa-heart" style="color: #ef4444;"></i>' : '<i class="fa-regular fa-heart"></i>'}
             </button>
           `;
 
@@ -402,7 +380,6 @@
             toggleFavorito(item.term);
             renderSidebarList();
             renderTerm(currentIndex);
-            applyFilter();
           });
 
           termsListContainer.appendChild(div);
@@ -424,70 +401,78 @@
         document.getElementById('displayExPt').textContent = `"${data.exPt}"`;
         document.getElementById('displayExGlosa').textContent = data.exGlosa;
 
-        // Atualiza o player do YouTube dinamicamente
-        const yId = data.youtubeId || "SEU_ID_AQUI";
-        ytPlayer.src = `https://www.youtube.com/embed/${yId}`;
+        const srcEl = document.getElementById('displaySource');
+        if (srcEl) {
+          srcEl.textContent = `${data.source} 🔗`;
+          srcEl.href = data.link;
+        }
 
-        // Contabiliza automaticamente que o sinal foi visto
-        registrarSinalVisto(data.term);
+        const imgEl = document.getElementById('termImage');
+        if (imgEl) {
+          const slug = data.term.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-');
+          imgEl.src = `img/${slug}.png`;
+        }
 
-        btnMainFav.innerHTML = isFav ? '<i class="fa-solid fa-heart"></i>' : '<i class="fa-regular fa-heart"></i>';
-
-        const sourceLink = document.getElementById('displaySource');
-        sourceLink.innerHTML = `<i class="fa-solid fa-link"></i> ${data.source}`;
-        sourceLink.href = data.link;
-
-        btnQuizLink.onclick = () => {
-          window.location.href = `praticar.html?cat=${encodeURIComponent(data.cat)}`;
-        };
-
-        const allItems = document.querySelectorAll('.term-item');
-        allItems.forEach(item => item.classList.remove('active'));
-        if (allItems[idx]) allItems[idx].classList.add('active');
-      }
-
-      // Favoritar pelo botão principal do card
-      btnMainFav.addEventListener('click', () => {
-        const currentTerm = database[currentIndex].term;
-        toggleFavorito(currentTerm);
-        renderSidebarList();
-        renderTerm(currentIndex);
-      });
-
-      function applyFilter() {
-        const searchVal = searchInput.value.toLowerCase();
-        const favs = getFavoritos();
-        const allItems = document.querySelectorAll('.term-item');
-        let visibleCount = 0;
-
-        allItems.forEach(item => {
-          const idx = parseInt(item.getAttribute('data-idx'));
-          const data = database[idx];
-          const termName = data.term.toLowerCase();
-          const itemCat = item.getAttribute('data-cat');
-
-          let matchesCat = false;
-          if (activeCategory === 'todos') {
-            matchesCat = true;
-          } else if (activeCategory === 'favoritos') {
-            matchesCat = favs.includes(data.term);
+        if (ytPlayer) {
+          if (data.youtubeId && data.youtubeId !== "SEU_ID_AQUI") {
+            ytPlayer.src = data.youtubeId.includes("youtube.com") || data.youtubeId.includes("youtu.be")
+              ? data.youtubeId 
+              : `https://www.youtube.com/embed/${data.youtubeId}`;
           } else {
-            matchesCat = (itemCat === activeCategory);
+            ytPlayer.src = "https://www.youtube.com/embed/SEU_ID_AQUI";
           }
+        }
 
-          let matchesSearch = termName.includes(searchVal);
+        if (btnMainFav) {
+          btnMainFav.innerHTML = isFav 
+            ? '<i class="fa-solid fa-heart" style="color: #ef4444;"></i>' 
+            : '<i class="fa-regular fa-heart"></i>';
+        }
 
-          if (matchesCat && matchesSearch) {
-            item.style.display = 'flex';
-            visibleCount++;
+        // Destaca o item ativo na lista
+        document.querySelectorAll('.term-item').forEach(el => {
+          const itemIdx = parseInt(el.getAttribute('data-idx'), 10);
+          if (itemIdx === idx) {
+            el.classList.add('active');
+            el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           } else {
-            item.style.display = 'none';
+            el.classList.remove('active');
           }
         });
 
-        document.getElementById('termsCount').textContent = `${visibleCount} TERMOS`;
+        registrarSinalVisto(data.term);
       }
 
+      function applyFilter() {
+        const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+        const favs = getFavoritos();
+        let visibleCount = 0;
+
+        document.querySelectorAll('.term-item').forEach(el => {
+          const idx = parseInt(el.getAttribute('data-idx'), 10);
+          const item = database[idx];
+          const catClean = item.cat.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+          const termClean = item.term.toLowerCase();
+
+          const matchesCategory = (activeCategory === 'todos') ||
+            (activeCategory === 'favoritos' ? favs.includes(item.term) : catClean === activeCategory);
+          const matchesSearch = termClean.includes(query);
+
+          if (matchesCategory && matchesSearch) {
+            el.style.display = 'flex';
+            visibleCount++;
+          } else {
+            el.style.display = 'none';
+          }
+        });
+
+        const countEl = document.getElementById('termsCount');
+        if (countEl) {
+          countEl.textContent = `${visibleCount} TERMOS`;
+        }
+      }
+
+      // EVENTOS
       categoryBtns.forEach(btn => {
         btn.addEventListener('click', () => {
           categoryBtns.forEach(b => b.classList.remove('active'));
@@ -497,31 +482,42 @@
         });
       });
 
-      searchInput.addEventListener('input', applyFilter);
+      if (searchInput) {
+        searchInput.addEventListener('input', applyFilter);
+      }
 
-      document.getElementById('btnPrev').addEventListener('click', () => {
-        renderTerm((currentIndex - 1 + database.length) % database.length);
+      if (btnMainFav) {
+        btnMainFav.addEventListener('click', () => {
+          const data = database[currentIndex];
+          if (data) {
+            toggleFavorito(data.term);
+            renderSidebarList();
+            renderTerm(currentIndex);
+          }
+        });
+      }
+
+      document.getElementById('btnPrev')?.addEventListener('click', () => {
+        let prev = currentIndex - 1;
+        if (prev < 0) prev = database.length - 1;
+        renderTerm(prev);
       });
 
-      document.getElementById('btnNext').addEventListener('click', () => {
-        renderTerm((currentIndex + 1) % database.length);
+      document.getElementById('btnNext')?.addEventListener('click', () => {
+        let next = currentIndex + 1;
+        if (next >= database.length) next = 0;
+        renderTerm(next);
       });
 
-      // Inicialização
+      if (btnQuizLink) {
+        btnQuizLink.addEventListener('click', () => {
+          window.location.href = 'praticar.html';
+        });
+      }
+
+      // INICIALIZAÇÃO
       renderSidebarList();
       renderTerm(0);
-
-      // Tratamento da URL para filtro inicial
-      const urlParams = new URLSearchParams(window.location.search);
-      const categoriaURL = urlParams.get('cat') || urlParams.get('categoria');
-
-      if (categoriaURL) {
-        const catTarget = categoriaURL.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        const targetBtn = Array.from(categoryBtns).find(b => b.getAttribute('data-cat') === catTarget);
-        if (targetBtn) {
-          targetBtn.click();
-        }
-      }
     });
   </script>
 </body>

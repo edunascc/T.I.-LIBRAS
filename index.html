@@ -10,20 +10,14 @@
   
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/inicio.css">
+
+  <!-- REGISTRO DOS WEB COMPONENTS (Funciona em file:// e http://) -->
+  <script src="js/components.js"></script>
 </head>
 <body>
-  <header class="header">
-    <a href="index.html" class="logo"><div class="logo-icon"><i class="fa-solid fa-hands-asl-interpreting"></i></div> T.I Libras</a>
-    <nav class="nav-links">
-      <a href="index.html" class="active">Início</a>
-      <a href="praticar.html">Praticar</a>
-      <a href="sinalario.html">Sinalário</a>
-    </nav>
-    <div class="header-actions">
-      <button class="icon-btn" title="Acessibilidade"><i class="fa-solid fa-universal-access"></i></button>
-      <button class="icon-btn" title="Perfil"><i class="fa-solid fa-user"></i></button>
-    </div>
-  </header>
+
+  <!-- CABEÇALHO DINÂMICO -->
+  <app-header></app-header>
 
   <div class="container main-layout">
     <aside class="sidebar-column">
@@ -137,18 +131,10 @@
     </main>
   </div>
 
-  <footer class="footer">
-    <div class="container footer-wrapper">
-      <div class="footer-brand"><i class="fa-solid fa-hands-asl-interpreting"></i> T.I Libras</div>
-      <div class="footer-nav">
-        <a href="#" class="pill-link">Sobre nós</a>
-        <a href="#" class="pill-link">Ajuda</a>
-        <a href="#" class="pill-link">Contato</a>
-      </div>
-      <div class="footer-copy"><i class="fa-solid fa-universal-access"></i> Plataforma inclusiva para surdos · 2026</div>
-    </div>
-  </footer>
+  <!-- RODAPÉ DINÂMICO -->
+  <app-footer></app-footer>
 
+  <!-- VLIBRAS -->
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
     <div vw-plugin-wrapper>
@@ -161,7 +147,7 @@
     new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
 
-  <!-- SCRIPT DE ATUALIZAÇÃO E SINCRONIZAÇÃO ÚNICO -->
+  <!-- LÓGICA DA PÁGINA INÍCIO -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const TOTAL_SINAIS = 63;
@@ -171,7 +157,7 @@
       const sinaisVistos = JSON.parse(localStorage.getItem('sinaisVistos') || '[]');
       const numSinais = Array.isArray(sinaisVistos) ? sinaisVistos.length : 0;
 
-      // 2. Busca Quizzes Concluídos nas chaves mais comuns do praticar.html
+      // 2. Busca Quizzes Concluídos
       let numQuizzes = 0;
       const possibleKeys = [
         'quizzesConcluidos', 
@@ -190,7 +176,6 @@
               numQuizzes = parsed.length;
               break;
             } else if (typeof parsed === 'object' && parsed !== null) {
-              // Caso o praticar salve como objeto { Software: true, Hardware: false }
               numQuizzes = Object.values(parsed).filter(Boolean).length;
               break;
             } else if (typeof parsed === 'number') {
@@ -212,11 +197,16 @@
       const quizzesPercent = Math.min(Math.round((numQuizzes / TOTAL_QUIZZES) * 100), 100);
 
       // 4. Renderização na Tela
-      document.getElementById('sinaisText').textContent = `${numSinais}/${TOTAL_SINAIS}`;
-      document.getElementById('quizzesText').textContent = `${numQuizzes}/${TOTAL_QUIZZES}`;
+      const sinaisTextEl = document.getElementById('sinaisText');
+      const quizzesTextEl = document.getElementById('quizzesText');
+      const sinaisFillEl = document.getElementById('sinaisFill');
+      const quizzesFillEl = document.getElementById('quizzesFill');
 
-      document.getElementById('sinaisFill').style.width = `${sinaisPercent}%`;
-      document.getElementById('quizzesFill').style.width = `${quizzesPercent}%`;
+      if (sinaisTextEl) sinaisTextEl.textContent = `${numSinais}/${TOTAL_SINAIS}`;
+      if (quizzesTextEl) quizzesTextEl.textContent = `${numQuizzes}/${TOTAL_QUIZZES}`;
+
+      if (sinaisFillEl) sinaisFillEl.style.width = `${sinaisPercent}%`;
+      if (quizzesFillEl) quizzesFillEl.style.width = `${quizzesPercent}%`;
     });
   </script>
 </body>

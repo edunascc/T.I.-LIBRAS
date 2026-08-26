@@ -178,3 +178,50 @@ footer.footer {
   font-weight: 600;
   line-height: 1;
 }
+.brand-logo {
+  height: 38px !important;
+  width: auto !important;
+  object-fit: contain;
+  vertical-align: middle;
+  border-radius: 10px; /* Arredonda os cantos para esconder a borda preta */
+  overflow: hidden;     /* Corta tudo o que estiver fora do arredondamento */
+}
+.footer-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.footer-links-left, .footer-social-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.github-btn {
+  background-color: #24292e;
+  color: #ffffff;
+}
+
+.youtube-btn {
+  background-color: #ff0000;
+  color: #ffffff;
+}
+
+.social-btn:hover {
+  opacity: 0.85;
+}
