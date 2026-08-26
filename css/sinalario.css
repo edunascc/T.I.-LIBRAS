@@ -414,3 +414,41 @@ footer .footer-tag span {
   font-size: 0.72rem !important;
   color: #64748b !important;
 }
+/* Adicione esta classe no seu CSS para estilizar a mensagem DENTRO do card */
+.answer-status-tag {
+  margin-left: auto;
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.option-btn-card.correct .answer-status-tag {
+  background: #10b981;
+  color: #ffffff;
+}
+
+.option-btn-card.wrong .answer-status-tag {
+  background: #ef4444;
+  color: #ffffff;
+}
+/* Botão de Coração dentro do Card */
+.btn-fav {
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  padding: 4px;
+}
+
+.btn-fav:hover {
+  transform: scale(1.2);
+}
+
+.btn-fav.active {
+  color: #ef4444; /* Coração vermelho quando favoritado */
+}

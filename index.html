@@ -4,57 +4,63 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>T.I. Libras - Início</title>
+  
+  <!-- Biblioteca Font Awesome para Ícones Vetoriais Profissionais -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/inicio.css">
 </head>
 <body>
   <header class="header">
-    <a href="index.html" class="logo"><div class="logo-icon">🤟</div> T.I Libras</a>
+    <a href="index.html" class="logo"><div class="logo-icon"><i class="fa-solid fa-hands-asl-interpreting"></i></div> T.I Libras</a>
     <nav class="nav-links">
       <a href="index.html" class="active">Início</a>
       <a href="praticar.html">Praticar</a>
       <a href="sinalario.html">Sinalário</a>
     </nav>
     <div class="header-actions">
-      <button class="icon-btn">♿</button>
-      <button class="icon-btn">👤</button>
+      <button class="icon-btn" title="Acessibilidade"><i class="fa-solid fa-universal-access"></i></button>
+      <button class="icon-btn" title="Perfil"><i class="fa-solid fa-user"></i></button>
     </div>
   </header>
+
   <div class="container main-layout">
     <aside class="sidebar-column">
       
       <div class="card user-card">
-        <span class="tag-label">Bem-vindo(a) 🤟</span>
+        <span class="tag-label">Bem-vindo(a) <i class="fa-solid fa-hands-asl-interpreting"></i></span>
         <h3>Olá, Estudante!</h3>
       </div>
 
       <div class="card card-section">
         <span class="section-label">MENU</span>
         <ul class="nav-menu">
-          <li><a href="login.html">🔑 Fazer Login</a></li>
-          <li><a href="cadastro.html">✏️ Fazer Cadastro</a></li>
+          <li><a href="login.html"><i class="fa-solid fa-key"></i> Fazer Login</a></li>
+          <li><a href="cadastro.html"><i class="fa-solid fa-user-plus"></i> Fazer Cadastro</a></li>
         </ul>
       </div>
 
+      <!-- SEÇÃO SEU PROGRESSO DINÂMICA -->
       <div class="card card-section">
         <span class="section-label">SEU PROGRESSO</span>
         
         <div class="progress-info">
           <span>Sinais Vistos</span>
-          <strong>0/63</strong>
+          <strong id="sinaisText">0/63</strong>
         </div>
-        <div class="progress-bar"><div class="progress-fill" style="width: 10%;"></div></div>
+        <div class="progress-bar"><div class="progress-fill" id="sinaisFill" style="width: 0%;"></div></div>
 
         <div class="progress-info" style="margin-top: 10px;">
           <span>Quizzes feitos</span>
-          <strong>0/6</strong>
+          <strong id="quizzesText">0/6</strong>
         </div>
-        <div class="progress-bar"><div class="progress-fill" style="width: 0%;"></div></div>
+        <div class="progress-bar"><div class="progress-fill" id="quizzesFill" style="width: 0%;"></div></div>
       </div>
 
       <div class="actions-list">
         <a href="praticar.html" class="card action-card">
-          <span class="action-icon">🎯</span>
+          <span class="action-icon"><i class="fa-solid fa-bullseye"></i></span>
           <div>
             <strong>Quizzes Interativos</strong>
             <p>Teste conhecimentos</p>
@@ -62,7 +68,7 @@
         </a>
 
         <a href="sinalario.html" class="card action-card">
-          <span class="action-icon">📚</span>
+          <span class="action-icon"><i class="fa-solid fa-book-bookmark"></i></span>
           <div>
             <strong>Sinalário Digital</strong>
             <p>Dicionário visual em Libras</p>
@@ -70,7 +76,7 @@
         </a>
 
         <a href="sinalario.html" class="card action-card">
-          <span class="action-icon">🎬</span>
+          <span class="action-icon"><i class="fa-solid fa-circle-play"></i></span>
           <div>
             <strong>Vídeos em Libras</strong>
             <p>Aprenda com prática</p>
@@ -78,7 +84,7 @@
         </a>
 
         <div class="card action-card static-card">
-          <span class="action-icon">♿</span>
+          <span class="action-icon"><i class="fa-solid fa-universal-access"></i></span>
           <div>
             <strong>Acessível</strong>
             <p>Feito para Todos os públicos</p>
@@ -87,19 +93,21 @@
       </div>
 
     </aside>
+
     <main class="content-column">
       <div class="card hero-box">
         <span class="hero-tag">PLATAFORMA EDUCACIONAL</span>
-        <h1>Aprenda TI em Libras 🤟</h1>
+        <h1>Aprenda TI em Libras <i class="fa-solid fa-hands-asl-interpreting"></i></h1>
         <p>Domine termos de TI através de vídeos de sinais, quizzes interativos e dicionário completo.</p>
         <div class="hero-buttons">
-          <a href="praticar.html" class="btn btn-primary">Começar á Praticar</a>
+          <a href="praticar.html" class="btn btn-primary">Começar a Praticar</a>
           <a href="sinalario.html" class="btn btn-secondary">Ver Sinalário</a>
         </div>
       </div>
+
       <div class="content-grid">
         <div class="card info-box">
-          <h3>📖 Sobre o Projeto</h3>
+          <h3><i class="fa-solid fa-book-open-reader"></i> Sobre o Projeto</h3>
           <p>Desenvolvida por alunos do IFRN Campus Santa Cruz, a plataforma T.I. Libras foi criada para democratizar o ensino de Tecnologia da Informação e impulsionar a inclusão digital da comunidade surda. O projeto conecta o ensino da Língua Brasileira de Sinais ao universo da computação por meio de um ecossistema prático e acessível: reúne vídeos explicativos gravados com alta qualidade para a demonstração precisa dos termos técnicos, quizzes interativos voltados à fixação do conhecimento e uma interface moderna construída sob as diretrizes internacionais de acessibilidade (WCAG), capacitando estudantes e profissionais para o mercado de tecnologia.</p>
           
           <div class="stats-counters">
@@ -117,36 +125,99 @@
             </div>
           </div>
         </div>
+
         <div class="card video-box">
-          <h3>▶️ Vídeo Explicativo</h3>
+          <h3><i class="fa-solid fa-video"></i> Vídeo Explicativo</h3>
           <div class="video-preview">
-            <button class="play-button">▶</button>
+            <button class="play-button"><i class="fa-solid fa-play"></i></button>
             <span>Introdução ao T.I Libras</span>
           </div>
         </div>
       </div>
     </main>
   </div>
+
   <footer class="footer">
     <div class="container footer-wrapper">
-      <div class="footer-brand">🤟 T.I Libras</div>
+      <div class="footer-brand"><i class="fa-solid fa-hands-asl-interpreting"></i> T.I Libras</div>
       <div class="footer-nav">
-      <a href="#" class="pill-link">Sobre nós</a>
-      <a href="#" class="pill-link">Ajuda</a>
-      <a href="#" class="pill-link">Contato</a>
+        <a href="#" class="pill-link">Sobre nós</a>
+        <a href="#" class="pill-link">Ajuda</a>
+        <a href="#" class="pill-link">Contato</a>
       </div>
-      <div class="footer-copy">♿ Plataforma inclusiva para surdos · 2026</div>
+      <div class="footer-copy"><i class="fa-solid fa-universal-access"></i> Plataforma inclusiva para surdos · 2026</div>
     </div>
   </footer>
+
   <div vw class="enabled">
-  <div vw-access-button class="active"></div>
-  <div vw-plugin-wrapper>
-    <div class="vw-plugin-top-wrapper"></div>
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
   </div>
-</div>
-<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-<script>
-  new window.VLibras.Widget('https://vlibras.gov.br/app');
-</script>
+
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
+
+  <!-- SCRIPT DE ATUALIZAÇÃO E SINCRONIZAÇÃO ÚNICO -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const TOTAL_SINAIS = 63;
+      const TOTAL_QUIZZES = 6;
+
+      // 1. Sinais Vistos
+      const sinaisVistos = JSON.parse(localStorage.getItem('sinaisVistos') || '[]');
+      const numSinais = Array.isArray(sinaisVistos) ? sinaisVistos.length : 0;
+
+      // 2. Busca Quizzes Concluídos nas chaves mais comuns do praticar.html
+      let numQuizzes = 0;
+      const possibleKeys = [
+        'quizzesConcluidos', 
+        'quizzesFeitos', 
+        'concluidos', 
+        'completedQuizzes', 
+        'quizzes'
+      ];
+
+      for (const key of possibleKeys) {
+        const rawData = localStorage.getItem(key);
+        if (rawData) {
+          try {
+            const parsed = JSON.parse(rawData);
+            if (Array.isArray(parsed)) {
+              numQuizzes = parsed.length;
+              break;
+            } else if (typeof parsed === 'object' && parsed !== null) {
+              // Caso o praticar salve como objeto { Software: true, Hardware: false }
+              numQuizzes = Object.values(parsed).filter(Boolean).length;
+              break;
+            } else if (typeof parsed === 'number') {
+              numQuizzes = parsed;
+              break;
+            }
+          } catch (e) {
+            const parsedInt = parseInt(rawData, 10);
+            if (!isNaN(parsedInt)) {
+              numQuizzes = parsedInt;
+              break;
+            }
+          }
+        }
+      }
+
+      // 3. Cálculos de Porcentagem
+      const sinaisPercent = Math.min(Math.round((numSinais / TOTAL_SINAIS) * 100), 100);
+      const quizzesPercent = Math.min(Math.round((numQuizzes / TOTAL_QUIZZES) * 100), 100);
+
+      // 4. Renderização na Tela
+      document.getElementById('sinaisText').textContent = `${numSinais}/${TOTAL_SINAIS}`;
+      document.getElementById('quizzesText').textContent = `${numQuizzes}/${TOTAL_QUIZZES}`;
+
+      document.getElementById('sinaisFill').style.width = `${sinaisPercent}%`;
+      document.getElementById('quizzesFill').style.width = `${quizzesPercent}%`;
+    });
+  </script>
 </body>
 </html>

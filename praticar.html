@@ -6,6 +6,7 @@
   <title>T.I Libras - Quiz Prático</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/sinalario.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
     /* CABEÇALHO LARGURA TOTAL */
     .header-fix {
@@ -140,21 +141,60 @@
       transition: width 0.4s ease;
     }
 
-    /* LISTA HORIZONTAL */
+    /* CABEÇALHO DO CARROSSEL DE CARDS */
+    .carousel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .carousel-nav-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-scroll {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #475569;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .btn-scroll:hover {
+      background: #6366f1;
+      color: #ffffff;
+      border-color: #6366f1;
+      transform: scale(1.05);
+    }
+
+    /* LISTA HORIZONTAL COM SCROLL SUAVE */
     .selection-grid {
       display: flex !important;
       overflow-x: auto !important;
       gap: 24px !important;
       padding: 12px 4px 24px 4px !important;
       scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
       scrollbar-width: thin;
       scrollbar-color: #cbd5e1 #f1f5f9;
     }
 
+    /* ALTURA AUMENTADA DO CARD */
     .category-card {
       min-width: 320px !important;
       max-width: 340px !important;
-      min-height: 340px !important;
+      min-height: 420px !important;
       flex: 0 0 auto !important;
       scroll-snap-align: start;
       background: #ffffff;
@@ -162,7 +202,6 @@
       border-radius: 20px;
       padding: 28px 24px !important;
       text-align: left !important;
-      cursor: pointer;
       transition: all 0.25s ease;
       position: relative;
       display: flex !important;
@@ -232,9 +271,59 @@
       border-radius: 10px;
       display: inline-block;
       width: fit-content;
+      margin-bottom: 16px;
     }
 
-    /* ESTRUTURA DO QUIZ (EM 2 COLUNAS) */
+    /* BOTÕES DO CARD DE SELEÇÃO */
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      margin-top: auto;
+    }
+
+    .btn-card-start {
+      flex: 1;
+      background: #6366f1;
+      color: #ffffff;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.2s;
+    }
+
+    .btn-card-start:hover {
+      background: #4f46e5;
+    }
+
+    .btn-card-consult {
+      flex: 1;
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-card-consult:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    /* ESTRUTURA DO QUIZ (LAYOUT 2 COLUNAS) */
     .quiz-card {
       background: #ffffff;
       border-radius: 20px;
@@ -261,7 +350,6 @@
       font-size: 0.85rem;
     }
 
-    /* LAYOUT DE 2 COLUNAS PARA AS PERGUNTAS */
     .quiz-body-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -269,7 +357,7 @@
       align-items: start;
     }
 
-    /* COLUNA DA ESQUERDA (VÍDEO/SINAL) */
+    /* COLUNA VÍDEO DO SINAL */
     .quiz-media-col {
       background: #f8fafc;
       border-radius: 16px;
@@ -283,7 +371,6 @@
       box-sizing: border-box;
     }
 
-    /* CARD DO VÍDEO EM PROPORÇÃO 16:9 E EXPANDIDO */
     .video-placeholder-box {
       width: 100%;
       aspect-ratio: 16 / 9;
@@ -301,16 +388,7 @@
       overflow: hidden;
     }
 
-    /* Suporte para tags real de video ou iframe inseridos no futuro */
-    .video-placeholder-box video,
-    .video-placeholder-box iframe {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border: none;
-    }
-
-    /* COLUNA DA DIREITA (OPÇÕES COM IMAGENS) */
+    /* COLUNA OPÇÕES DE RESPOSTA */
     .quiz-options-col {
       display: flex;
       flex-direction: column;
@@ -324,7 +402,7 @@
       border-radius: 14px;
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
       cursor: pointer;
       text-align: left;
       transition: all 0.2s ease;
@@ -339,8 +417,8 @@
     }
 
     .option-img-thumb {
-      width: 60px;
-      height: 60px;
+      width: 50px;
+      height: 50px;
       border-radius: 10px;
       object-fit: cover;
       background: #e2e8f0;
@@ -354,18 +432,38 @@
       color: #1e293b;
     }
 
-    /* ESTADOS DE CERTO / ERRO */
+    /* MENSAGEM / STATUS DENTRO DO CARD DA OPCÃO */
+    .answer-status-tag {
+      margin-left: auto;
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
     .option-btn-card.correct {
       background: #dcfce7 !important;
       border-color: #10b981 !important;
     }
     .option-btn-card.correct .option-term-text { color: #15803d !important; }
+    .option-btn-card.correct .answer-status-tag {
+      background: #10b981;
+      color: #ffffff;
+    }
 
     .option-btn-card.wrong {
       background: #fee2e2 !important;
       border-color: #ef4444 !important;
     }
     .option-btn-card.wrong .option-term-text { color: #b91c1c !important; }
+    .option-btn-card.wrong .answer-status-tag {
+      background: #ef4444;
+      color: #ffffff;
+    }
 
     .feedback-banner {
       margin-top: 16px;
@@ -390,6 +488,29 @@
         padding: 0 20px !important;
       }
     }
+    .brand-icon i, .action-btn i, .badge-icon i, .timer-badge i,
+    .completed-badge i, .feedback-banner i, .carousel-header h2 i,
+    .progress-info h4 i, .footer i, .quiz-header button i {
+      line-height: 1;
+    }
+
+    .badge-icon {
+      color: inherit;
+    }
+
+    .card-actions .btn-card-start::before {
+      content: "\f144";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      margin-right: 7px;
+    }
+
+    .card-actions .btn-card-consult::before {
+      content: "\f002";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      margin-right: 7px;
+    }
   </style>
 </head>
 <body>
@@ -398,7 +519,7 @@
   <header class="header-fix">
     <div class="header-grid">
       <a href="index.html" class="brand-logo">
-        <div class="brand-icon">🤟</div>
+        <div class="brand-icon"><i class="fa-solid fa-hand"></i></div>
         <span class="brand-text">T.I Libras</span>
       </a>
       
@@ -409,8 +530,8 @@
       </nav>
 
       <div class="actions-right">
-        <button type="button" class="action-btn" aria-label="Acessibilidade">♿</button>
-        <button type="button" class="action-btn" aria-label="Perfil">👤</button>
+        <button type="button" class="action-btn" aria-label="Acessibilidade"><i class="fa-solid fa-universal-access"></i></button>
+        <button type="button" class="action-btn" aria-label="Perfil"><i class="fa-solid fa-user"></i></button>
       </div>
     </div>
   </header>
@@ -421,7 +542,7 @@
     <div id="selectionScreen">
       <div class="progress-section">
         <div class="progress-info">
-          <h4>📊 Progresso nos Quizes</h4>
+          <h4><i class="fa-solid fa-chart-simple"></i> Progresso nos Quizes</h4>
           <span style="font-size: 0.85rem; font-weight: 700; color: #4f46e5;" id="progressText">0 / 6 Concluídos (0%)</span>
         </div>
         <div class="progress-bar-bg">
@@ -430,87 +551,137 @@
       </div>
 
       <div class="card" style="padding: 24px; background: #ffffff; border-radius: 20px; border: 1px solid #e2e8f0;">
-        <h2 style="margin: 0; color: #0f172a; font-size: 1.3rem;">🎯 Praticar Quiz de TI em Libras</h2>
-        <p style="color: #64748b; font-size: 0.9rem; margin-top: 4px; margin-bottom: 20px;">Escolha uma categoria técnica para testar seus conhecimentos. Ao errar uma questão, o quiz é reiniciado!</p>
-
-        <div class="selection-grid">
+        
+        <div class="carousel-header">
+          <div>
+            <h2 style="margin: 0; color: #0f172a; font-size: 1.3rem;"><i class="fa-solid fa-bullseye"></i> Praticar Quiz de TI em Libras</h2>
+            <p style="color: #64748b; font-size: 0.9rem; margin-top: 4px; margin-bottom: 0;">Escolha uma categoria técnica para testar seus conhecimentos. Ao errar uma questão, o quiz é reiniciado!</p>
+          </div>
+          <!-- BOTÕES DE NAVEGAÇÃO LATERAL (< >) -->
+          <div class="carousel-nav-btns">
+            <button class="btn-scroll" onclick="scrollCarousel(-360)" title="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="btn-scroll" onclick="scrollCarousel(360)" title="Próximo"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+<div class="selection-grid" id="selectionGrid">
           
-          <div class="category-card cat-hardware" id="card-Hardware" onclick="startQuiz('Hardware')">
-            <span class="completed-badge">✓ Concluído</span>
+          <!-- HARDWARE -->
+          <div class="category-card cat-hardware" id="card-Hardware">
+            <span class="completed-badge"><i class="fa-solid fa-check"></i> Concluído</span>
             <div>
-              <span class="badge-icon">💻</span>
+              <span class="badge-icon"><i class="fa-solid fa-desktop"></i></span>
               <h3>Hardware</h3>
               <p class="desc-text">Aprenda e fixe os sinais dos componentes físicos de computadores, periféricos e peças internas.</p>
             </div>
-            <div class="meta-info">17 Questões · Peças e Componentes</div>
+            <div>
+              <div class="meta-info">17 Questões · Peças e Componentes</div>
+              <div class="card-actions">
+                <button class="btn-card-start" onclick="startQuiz('Hardware')">Começar</button>
+                <a href="sinalario.html?cat=Hardware" class="btn-card-consult">Consultar</a>
+              </div>
+            </div>
           </div>
 
-          <div class="category-card cat-software" id="card-Software" onclick="startQuiz('Software')">
-            <span class="completed-badge">✓ Concluído</span>
+          <!-- SOFTWARE -->
+          <div class="category-card cat-software" id="card-Software">
+            <span class="completed-badge"><i class="fa-solid fa-check"></i> Concluído</span>
             <div>
-              <span class="badge-icon">⚙️</span>
+              <span class="badge-icon"><i class="fa-solid fa-compact-disc"></i></span>
               <h3>Software</h3>
               <p class="desc-text">Testes com conceitos de sistemas operacionais, aplicativos de escritório e programas essenciais.</p>
             </div>
-            <div class="meta-info">11 Questões · Sistemas e Apps</div>
+            <div>
+              <div class="meta-info">11 Questões · Sistemas e Apps</div>
+              <div class="card-actions">
+                <button class="btn-card-start" onclick="startQuiz('Software')">Começar</button>
+                <a href="sinalario.html?cat=Software" class="btn-card-consult">Consultar</a>
+              </div>
+            </div>
           </div>
 
-          <div class="category-card cat-logica" id="card-Lógica" onclick="startQuiz('Lógica')">
-            <span class="completed-badge">✓ Concluído</span>
+          <!-- LÓGICA -->
+          <div class="category-card cat-logica" id="card-Lógica">
+            <span class="completed-badge"><i class="fa-solid fa-check"></i> Concluído</span>
             <div>
-              <span class="badge-icon">🧠</span>
+              <span class="badge-icon"><i class="fa-solid fa-laptop-code"></i></span>
               <h3>Lógica</h3>
               <p class="desc-text">Pratique a sinalização de algoritmos, linguagens de programação, variáveis e estruturas de código.</p>
             </div>
-            <div class="meta-info">12 Questões · Código e Algoritmos</div>
+            <div>
+              <div class="meta-info">12 Questões · Código e Algoritmos</div>
+              <div class="card-actions">
+                <button class="btn-card-start" onclick="startQuiz('Lógica')">Começar</button>
+                <a href="sinalario.html?cat=Logica" class="btn-card-consult">Consultar</a>
+              </div>
+            </div>
           </div>
 
-          <div class="category-card cat-eletricidade" id="card-Eletricidade" onclick="startQuiz('Eletricidade')">
-            <span class="completed-badge">✓ Concluído</span>
+          <!-- ELETRICIDADE -->
+          <div class="category-card cat-eletricidade" id="card-Eletricidade">
+            <span class="completed-badge"><i class="fa-solid fa-check"></i> Concluído</span>
             <div>
-              <span class="badge-icon">⚡</span>
+              <span class="badge-icon"><i class="fa-solid fa-plug"></i></span>
               <h3>Eletricidade</h3>
               <p class="desc-text">Conceitos fundamentais de circuitos, tensão, ferramentas elétricas e grandezas físicas em Libras.</p>
             </div>
-            <div class="meta-info">11 Questões · Circuitos Elétricos</div>
+            <div>
+              <div class="meta-info">11 Questões · Circuitos Elétricos</div>
+              <div class="card-actions">
+                <button class="btn-card-start" onclick="startQuiz('Eletricidade')">Começar</button>
+                <a href="sinalario.html?cat=Eletricidade" class="btn-card-consult">Consultar</a>
+              </div>
+            </div>
           </div>
 
-          <div class="category-card cat-redes" id="card-Redes" onclick="startQuiz('Redes')">
-            <span class="completed-badge">✓ Concluído</span>
+          <!-- REDES -->
+          <div class="category-card cat-redes" id="card-Redes">
+            <span class="completed-badge"><i class="fa-solid fa-check"></i> Concluído</span>
             <div>
-              <span class="badge-icon">🌐</span>
+              <span class="badge-icon"><i class="fa-solid fa-tower-broadcast"></i></span>
               <h3>Redes</h3>
               <p class="desc-text">Termos relacionados à internet, navegadores, conexões, links e segurança digital.</p>
             </div>
-            <div class="meta-info">12 Questões · Internet e Conexões</div>
+            <div>
+              <div class="meta-info">12 Questões · Internet e Conexões</div>
+              <div class="card-actions">
+                <button class="btn-card-start" onclick="startQuiz('Redes')">Começar</button>
+                <a href="sinalario.html?cat=Redes" class="btn-card-consult">Consultar</a>
+              </div>
+            </div>
           </div>
 
-          <div class="category-card cat-todos" id="card-Todos" onclick="startQuiz('Todos')">
-            <span class="completed-badge">✓ Concluído</span>
+          <!-- SIMULADO GERAL -->
+          <div class="category-card cat-todos" id="card-Todos">
+            <span class="completed-badge"><i class="fa-solid fa-check"></i> Concluído</span>
             <div>
-              <span class="badge-icon">🚀</span>
+              <span class="badge-icon"><i class="fa-solid fa-trophy"></i></span>
               <h3 style="color: #4f46e5;">Simulado Geral</h3>
               <p class="desc-text">Desafio completo reunindo todas as 5 categorias misturadas aleatoriamente em um só teste.</p>
             </div>
-            <div class="meta-info" style="color: #4f46e5; background: #eef2ff;">63 Questões · Todas as Áreas</div>
+            <div>
+              <div class="meta-info" style="color: #4f46e5; background: #eef2ff;">63 Questões · Todas as Áreas</div>
+              <div class="card-actions">
+                <button class="btn-card-start" style="background: #4f46e5;" onclick="startQuiz('Todos')">Começar</button>
+                <a href="sinalario.html" class="btn-card-consult">Consultar</a>
+              </div>
+            </div>
           </div>
 
         </div>
       </div>
     </div>
 
-    <!-- TELA 2: EXECUÇÃO DO QUIZ (LAYOUT 2 COLUNAS) -->
+    <!-- TELA 2: EXECUÇÃO DO QUIZ -->
     <div id="quizScreen" class="quiz-card" style="display: none;">
       <div class="quiz-header">
         <div>
-          <button onclick="backToSelection()" style="border: none; background: transparent; color: #6366f1; font-weight: 700; cursor: pointer; padding: 0; font-size: 0.85rem;">← Voltar à Seleção</button>
+          <button onclick="backToSelection()" style="border: none; background: transparent; color: #6366f1; font-weight: 700; cursor: pointer; padding: 0; font-size: 0.85rem;"><i class="fa-solid fa-arrow-left"></i> Voltar à Seleção</button>
           <div style="margin-top: 4px;">
             <span class="category-tag" id="qCategory" style="color: #6366f1; font-weight: 800; font-size: 0.85rem;">HARDWARE</span>
             <h2 id="qTitle" style="margin: 2px 0 0 0; font-size: 1.2rem; color: #0f172a;">Pergunta 1 de 17</h2>
           </div>
         </div>
-        <!-- CRONÔMETRO DE 1 MINUTO -->
-        <div class="timer-badge">⏱ Tempo: <span id="timer">01:00</span></div>
+        <div class="timer-badge"><i class="fa-solid fa-clock"></i> Tempo: <span id="timer">01:00</span></div>
       </div>
 
       <div class="quiz-body-grid">
@@ -518,13 +689,13 @@
         <!-- COLUNA 1: VÍDEO DO SINAL -->
         <div class="quiz-media-col">
           <div class="video-placeholder-box">
-            <span style="font-size: 3rem; margin-bottom: 8px;">📹</span>
+            <span style="font-size: 3rem; margin-bottom: 8px;"><i class="fa-solid fa-video"></i></span>
             <span id="qVideoText" style="font-weight: 700; text-align: center; padding: 0 16px;">Sinal Demonstrativo em Libras</span>
           </div>
           <p style="margin: 0; font-size: 0.9rem; font-weight: 600; color: #64748b; text-align: center;">Assista ao vídeo e selecione o termo correspondente à direita:</p>
         </div>
 
-        <!-- COLUNA 2: ALTERNATIVAS COM IMAGENS DAS MESMAS ÁREAS -->
+        <!-- COLUNA 2: ALTERNATIVAS -->
         <div class="quiz-options-col">
           <h3 style="margin: 0 0 8px 0; font-size: 1.05rem; color: #1e293b;">Qual é a resposta correta?</h3>
           <div id="optionsContainer" style="display: flex; flex-direction: column; gap: 10px;"></div>
@@ -533,7 +704,7 @@
       </div>
 
       <div id="feedbackBanner" class="feedback-banner error">
-        ❌ Resposta Incorreta ou Tempo Esgotado! Reiniciando o quiz...
+        <i class="fa-solid fa-circle-xmark"></i> Resposta Incorreta ou Tempo Esgotado! Reiniciando o quiz...
       </div>
     </div>
 
@@ -542,11 +713,17 @@
   <!-- RODAPÉ -->
   <footer class="footer" style="margin-top: 40px; border-top: 1px solid #e2e8f0; padding: 24px 0; background: #ffffff;">
     <div style="width: 100%; text-align: center; color: #64748b; font-size: 0.85rem;">
-      <span>♿ Plataforma inclusiva para surdos · IFRN Santa Cruz · 2026</span>
+      <span><i class="fa-solid fa-universal-access"></i> Plataforma inclusiva para surdos · IFRN Santa Cruz · 2026</span>
     </div>
   </footer>
 
   <script>
+    // ROLAGEM DOS CARDS NO CARROSSEL (< >)
+    function scrollCarousel(distance) {
+      const grid = document.getElementById('selectionGrid');
+      grid.scrollBy({ left: distance, behavior: 'smooth' });
+    }
+
     // BASE DE DADOS COMPLETA
     const allQuestions = [
       { term: "Monitor", cat: "Hardware", img: "imagens/sinais/monitor.png" },
@@ -622,7 +799,7 @@
     let activeQuestions = [];
     let currentQ = 0;
     let timerInterval;
-    let timeLeft = 60; // 1 MINUTO EXACTO
+    let timeLeft = 60;
 
     document.addEventListener('DOMContentLoaded', () => {
       updateProgressDisplay();
@@ -679,7 +856,7 @@
 
     function startTimer() {
       clearInterval(timerInterval);
-      timeLeft = 60; // REINICIA EM 1 MINUTO
+      timeLeft = 60;
       updateTimerDisplay();
       timerInterval = setInterval(() => {
         timeLeft--;
@@ -697,9 +874,8 @@
       document.getElementById('timer').textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
 
-    // SVG DE FALLBACK PARA IMAGENS FALTANTES
     function getFallbackImage(term) {
-      return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23e2e8f0'/><text x='50%' y='55%' font-size='28' text-anchor='middle' dominant-baseline='middle'>🤟</text></svg>";
+      return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23e2e8f0'/><text x='50%' y='55%' font-size='28' text-anchor='middle' dominant-baseline='middle'>?</text></svg>";
     }
 
     function loadQuestion(index) {
@@ -710,7 +886,7 @@
           localStorage.setItem('completedQuizzes', JSON.stringify(completed));
         }
 
-        alert(`🎉 Parabéns! Você concluiu o Quiz de ${currentCategory} com ${activeQuestions.length} questões sem erros!`);
+        alert(`Parabéns! Você concluiu o Quiz de ${currentCategory} com ${activeQuestions.length} questões sem erros!`);
         backToSelection();
         return;
       }
@@ -721,7 +897,6 @@
       document.getElementById('qTitle').textContent = `Pergunta ${index + 1} de ${activeQuestions.length}`;
       document.getElementById('qVideoText').textContent = `Sinal demonstrativo de: "${q.term}"`;
 
-      // BUSCAR APENAS TERMOS DA MESMA ÁREA/CATEGORIA
       let areaPool = [];
       if (currentCategory === 'Todos') {
         areaPool = allQuestions.filter(x => x.term !== q.term);
@@ -765,17 +940,35 @@
 
       if (selectedTerm === correctTerm) {
         cardElement.classList.add('correct');
+        
+        const statusTag = document.createElement('span');
+        statusTag.className = 'answer-status-tag';
+        statusTag.innerHTML = '<i class="fa-solid fa-check"></i> Correto';
+        cardElement.appendChild(statusTag);
+
         setTimeout(() => {
           currentQ++;
           loadQuestion(currentQ);
-        }, 800);
+        }, 1200);
       } else {
         cardElement.classList.add('wrong');
+
+        const wrongTag = document.createElement('span');
+        wrongTag.className = 'answer-status-tag';
+        wrongTag.innerHTML = '<i class="fa-solid fa-xmark"></i> Incorreto';
+        cardElement.appendChild(wrongTag);
+
         allCards.forEach(c => {
-          if (c.querySelector('.option-term-text').textContent === correctTerm) {
+          const termText = c.querySelector('.option-term-text').textContent;
+          if (termText === correctTerm) {
             c.classList.add('correct');
+            const correctTag = document.createElement('span');
+            correctTag.className = 'answer-status-tag';
+            correctTag.innerHTML = '<i class="fa-solid fa-check"></i> Resposta Certa';
+            c.appendChild(correctTag);
           }
         });
+
         handleError();
       }
     }
@@ -800,6 +993,5 @@
   <script>
     new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
-
 </body>
 </html>
