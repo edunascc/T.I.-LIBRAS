@@ -118,14 +118,14 @@ body {
 .content-column {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  justify-content: space-between; 
+  gap: 15px;
+  justify-content: flex-start; 
 }
 
 .hero-box {
   background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
   color: #ffffff;
-  padding: 34px 28px;
+  padding: 40px 25px;
 }
 
 .hero-tag {
@@ -143,7 +143,7 @@ body {
 .hero-box p {
   font-size: 1.0rem;
   opacity: 0.95;
-  margin-bottom: 45px;
+  margin-bottom: 16px;
 }
 
 .hero-buttons {

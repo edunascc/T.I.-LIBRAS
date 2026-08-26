@@ -3,105 +3,554 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>T.I. Libras - Praticar</title>
+  <title>T.I Libras - Quiz Prático</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/praticar.css">
+  <link rel="stylesheet" href="css/sinalario.css">
+  <style>
+    /* CABEÇALHO GLOBAL IDÊNTICO À IMAGEM */
+ /* CABEÇALHO GLOBAL COM ESPAÇAMENTO CORRETO */
+.header {
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 16px 0;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Empurra logo para esquerda e ícones para direita */
+  position: relative; /* Necessário para centralizar a pílula do meio */
+  box-sizing: border-box;
+}
+
+/* 1. LOGO NA PONTA ESQUERDA */
+.header .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: #7c3aed;
+}
+
+.header .logo-icon {
+  background: #7c3aed;
+  color: #ffffff;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 2. MENU NO CENTRO ABSOLUTO DA TELA */
+.header .nav-links {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 30px;
+  gap: 4px;
+}
+
+.header .nav-links a {
+  padding: 8px 24px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #475569;
+  transition: all 0.2s;
+}
+
+/* Botão selecionado (roxo claro igual à imagem) */
+.header .nav-links a.active {
+  background: #e9d5ff;
+  color: #7c3aed;
+}
+
+/* 3. AÇÕES NA PONTA DIREITA */
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: #f1f5f9;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+}
+
+.btn-icon:hover {
+  background: #e2e8f0;
+}
+
+    /* ESTILOS DO QUIZ */
+    .quiz-container-box {
+      max-width: 850px;
+      margin: 20px auto;
+    }
+    .progress-section {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      border: 1px solid #e2e8f0;
+    }
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .progress-info h4 {
+      margin: 0;
+      color: #0f172a;
+      font-size: 0.9rem;
+    }
+    .progress-bar-bg {
+      background: #e2e8f0;
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      background: linear-gradient(90deg, #6366f1, #10b981);
+      height: 100%;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .selection-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .category-card {
+      background: #ffffff;
+      border: 2px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 18px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .category-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+    }
+    .category-card.cat-hardware { border-color: #8b5cf6; }
+    .category-card.cat-hardware:hover { background: #f3e8ff; }
+    .category-card.cat-software { border-color: #3b82f6; }
+    .category-card.cat-software:hover { background: #eff6ff; }
+    .category-card.cat-logica { border-color: #f59e0b; }
+    .category-card.cat-logica:hover { background: #fffbeb; }
+    .category-card.cat-eletricidade { border-color: #ef4444; }
+    .category-card.cat-eletricidade:hover { background: #fef2f2; }
+    .category-card.cat-redes { border-color: #10b981; }
+    .category-card.cat-redes:hover { background: #ecfdf5; }
+    .category-card.cat-todos { border-color: #6366f1; background: #faf5ff; }
+
+    .category-card h3 {
+      margin: 8px 0 4px 0;
+      color: #0f172a;
+      font-size: 1.05rem;
+    }
+    .category-card p {
+      font-size: 0.78rem;
+      color: #64748b;
+      margin: 0;
+    }
+    .badge-icon {
+      font-size: 1.8rem;
+    }
+
+    .quiz-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 20px 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border: 1px solid #e2e8f0;
+    }
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+    }
+    .timer-badge {
+      background: #fee2e2;
+      color: #dc2626;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .option-btn {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+    }
+    .option-btn:hover:not(:disabled) {
+      border-color: #6366f1;
+      background: #f5f3ff;
+    }
+    .option-btn.correct {
+      background: #dcfce7 !important;
+      border-color: #10b981 !important;
+      color: #15803d !important;
+    }
+    .option-btn.wrong {
+      background: #fee2e2 !important;
+      border-color: #ef4444 !important;
+      color: #b91c1c !important;
+    }
+    .feedback-banner {
+      margin-top: 14px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: none;
+    }
+    .feedback-banner.error {
+      background: #fef2f2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+  </style>
 </head>
 <body>
 
+  <!-- CABEÇALHO SUPERIOR -->
   <header class="header">
-    <a href="index.html" class="logo"><div class="logo-icon">🤟</div> T.I Libras</a>
-    <nav class="nav-links">
-      <a href="index.html">Início</a>
-      <a href="praticar.html" class="active">Praticar</a>
-      <a href="sinalario.html">Sinalário</a>
-    </nav>
-    <div class="header-actions">
-      <button class="icon-btn">♿</button>
-      <button class="icon-btn">👤</button>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">🤟</div>
+        <span>T.I Libras</span>
+      </a>
+      
+      <nav class="nav-links">
+        <a href="index.html">Início</a>
+        <a href="praticar.html" class="active">Praticar</a>
+        <a href="sinalario.html">Sinalário</a>
+      </nav>
+
+      <div class="user-actions">
+        <button class="btn-icon" aria-label="Acessibilidade">♿</button>
+        <button class="btn-icon" aria-label="Perfil">👤</button>
+      </div>
     </div>
   </header>
 
-  <div class="container main-praticar">
-    <div class="card progress-banner">
-      <div class="banner-info">
-        <span class="banner-subtitle">SEU PROGRESSO GERAL</span>
-        <h2>Continue Praticando! 🎯</h2>
-      </div>
-      
-      <div class="progress-stats">
-        <div class="stat-item">
-          <strong id="lblTotalQuestoes">0/40</strong>
-          <span>Questões concluídas</span>
-        </div>
-        <div class="stat-item">
-          <strong id="lblTotalQuizzes">0/10</strong>
-          <span>Quizzes finalizados</span>
-        </div>
-      </div>
-      
-      <div class="bar-container">
-        <div class="bar-fill" id="barProgressoGeral" style="width: 0%;"></div>
-      </div>
-    </div>
-    <h3 class="section-title">Categorias de Estudo</h3>
+  <div class="container quiz-container-box">
     
-    <div class="categories-grid">
-      <div class="card cat-card">
-        <div class="cat-header">
-          <div class="cat-icon icon-hardware">💻</div>
-          <div>
-            <h4>Hardware</h4>
-            <span class="q-count" id="count-hardware">0/10 questões feitas</span>
-          </div>
+    <!-- TELA 1: SELEÇÃO DE ÁREA -->
+    <div id="selectionScreen">
+      <!-- PAINEL DE PROGRESSO -->
+      <div class="progress-section">
+        <div class="progress-info">
+          <h4>📊 Progresso nos Quizes</h4>
+          <span style="font-size: 0.8rem; font-weight: 700; color: #4f46e5;" id="progressText">0 / 6 Concluídos (0%)</span>
         </div>
-        <p>Aprenda componentes físicos, periféricos e peças de computadores em Libras.</p>
-        <div class="cat-actions">
-          <a href="sinalario.html?categoria=hardware" class="btn-secundary">Consultar</a>
-          <a href="quiz.html?categoria=hardware" class="btn-primary">Fazer Quiz</a>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progressBar"></div>
         </div>
       </div>
-      <div class="card cat-card">
-        <div class="cat-header">
-          <div class="cat-icon icon-software">🖥️</div>
-          <div>
-            <h4>Software</h4>
-            <span class="q-count" id="count-software">0/10 questões feitas</span>
+
+      <div class="card" style="padding: 20px;">
+        <h2 style="margin: 0; color: #0f172a; font-size: 1.25rem;">🎯 Praticar Quiz de TI em Libras</h2>
+        <p style="color: #64748b; font-size: 0.85rem; margin-top: 4px;">Escolha uma categoria técnica para testar seus conhecimentos. Ao errar, o quiz é reiniciado!</p>
+
+        <div class="selection-grid">
+          <div class="category-card cat-hardware" onclick="startQuiz('Hardware')">
+            <span class="badge-icon">💻</span>
+            <h3>Hardware</h3>
+            <p><strong>17 Questões</strong> · Peças e Componentes</p>
           </div>
-        </div>
-        <p>Sistemas operacionais, aplicativos, códigos e programas de computador.</p>
-        <div class="cat-actions">
-          <a href="sinalario.html?categoria=software" class="btn-secundary">Consultar</a>
-          <a href="quiz.html?categoria=software" class="btn-primary">Fazer Quiz</a>
-        </div>
-      </div>
-      <div class="card cat-card">
-        <div class="cat-header">
-          <div class="cat-icon icon-redes">🌐</div>
-          <div>
-            <h4>Redes de Computadores</h4>
-            <span class="q-count" id="count-redes">0/10 questões feitas</span>
+
+          <div class="category-card cat-software" onclick="startQuiz('Software')">
+            <span class="badge-icon">⚙️</span>
+            <h3>Software</h3>
+            <p><strong>11 Questões</strong> · Sistemas e Apps</p>
           </div>
-        </div>
-        <p>Conexões, roteadores, protocolos de internet e infraestrutura de rede.</p>
-        <div class="cat-actions">
-          <a href="sinalario.html?categoria=redes" class="btn-secundary">Consultar</a>
-          <a href="quiz.html?categoria=redes" class="btn-primary">Fazer Quiz</a>
+
+          <div class="category-card cat-logica" onclick="startQuiz('Lógica')">
+            <span class="badge-icon">🧠</span>
+            <h3>Lógica</h3>
+            <p><strong>12 Questões</strong> · Código e Algoritmos</p>
+          </div>
+
+          <div class="category-card cat-eletricidade" onclick="startQuiz('Eletricidade')">
+            <span class="badge-icon">⚡</span>
+            <h3>Eletricidade</h3>
+            <p><strong>11 Questões</strong> · Circuitos Elétricos</p>
+          </div>
+
+          <div class="category-card cat-redes" onclick="startQuiz('Redes')">
+            <span class="badge-icon">🌐</span>
+            <h3>Redes</h3>
+            <p><strong>12 Questões</strong> · Internet e Conexões</p>
+          </div>
+
+          <div class="category-card cat-todos" onclick="startQuiz('Todos')">
+            <span class="badge-icon">🚀</span>
+            <h3 style="color: #4f46e5;">Simulado Geral</h3>
+            <p><strong>63 Questões</strong> · Todas as Áreas</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-<footer class="footer">
-  <div class="container footer-wrapper">
-    <div class="footer-brand">🤟 T.I Libras</div>
-    <div class="footer-nav">
-      <a href="#" class="pill-link">Sobre nós</a>
-      <a href="#" class="pill-link">Ajuda</a>
-      <a href="#" class="pill-link">Contato</a>
+
+    <!-- TELA 2: EXECUÇÃO DO QUIZ -->
+    <div id="quizScreen" class="quiz-card" style="display: none;">
+      <div class="quiz-header">
+        <div>
+          <button onclick="backToSelection()" style="border: none; background: transparent; color: #6366f1; font-weight: 700; cursor: pointer; padding: 0; font-size: 0.8rem;">← Voltar à Seleção</button>
+          <div style="margin-top: 4px;">
+            <span class="category-tag" id="qCategory" style="color: #6366f1; font-weight: 800;">HARDWARE</span>
+            <h2 id="qTitle" style="margin: 2px 0 0 0; font-size: 1.1rem; color: #0f172a;">Pergunta 1 de 17</h2>
+          </div>
+        </div>
+        <div class="timer-badge">⏱ Tempo: <span id="timer">01:30</span></div>
+      </div>
+
+      <div class="video-preview-169" style="margin-bottom: 16px;">
+        <button class="play-button">▶</button>
+        <span id="qVideoText">Sinal Demonstrativo da Questão</span>
+      </div>
+
+      <h3 id="questionText" style="color: #1e293b; font-size: 1rem; margin-bottom: 12px;">Qual termo é esse?</h3>
+
+      <div class="options-grid" id="optionsContainer"></div>
+
+      <div id="feedbackBanner" class="feedback-banner error">
+        ❌ Resposta Incorreta! Reiniciando o quiz...
+      </div>
     </div>
-    <div class="footer-copy">♿ Plataforma inclusiva para surdos · 2026</div>
+
   </div>
-</footer>
-  <script src="js/praticar.js"></script>
+
+  <!-- RODAPÉ -->
+  <footer class="footer">
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo">
+        <span class="emoji">🤟</span>
+        <span class="brand">T.I Libras</span>
+      </a>
+      
+      <div class="footer-links">
+        <a href="#" class="footer-btn">Sobre nós</a>
+        <a href="#" class="footer-btn">Ajuda</a>
+        <a href="#" class="footer-btn">Contato</a>
+      </div>
+
+      <div class="footer-tag">
+        <span>♿ Plataforma inclusiva para surdos · IFRN Santa Cruz · 2026</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const allQuestions = [
+      { term: "Monitor", cat: "Hardware" }, { term: "Mouse", cat: "Hardware" }, { term: "Teclado", cat: "Hardware" },
+      { term: "Fone (de ouvido)", cat: "Hardware" }, { term: "Microfone", cat: "Hardware" }, { term: "Webcam", cat: "Hardware" },
+      { term: "Impressora", cat: "Hardware" }, { term: "Placa Mãe", cat: "Hardware" }, { term: "Memória RAM", cat: "Hardware" },
+      { term: "Fonte de alimentação", cat: "Hardware" }, { term: "HD", cat: "Hardware" }, { term: "SSD", cat: "Hardware" },
+      { term: "Processador", cat: "Hardware" }, { term: "Gabinete", cat: "Hardware" }, { term: "Laptop", cat: "Hardware" },
+      { term: "Cooler", cat: "Hardware" }, { term: "Pendrive", cat: "Hardware" },
+      
+      { term: "Sistema Operacional", cat: "Software" }, { term: "Linux", cat: "Software" }, { term: "Windows", cat: "Software" },
+      { term: "Office", cat: "Software" }, { term: "Aplicativo", cat: "Software" }, { term: "Kernel", cat: "Software" },
+      { term: "E-Mail", cat: "Software" }, { term: "Mac", cat: "Software" }, { term: "Word", cat: "Software" },
+      { term: "Excel", cat: "Software" }, { term: "PowerPoint", cat: "Software" },
+
+      { term: "Algoritmo", cat: "Lógica" }, { term: "Variável", cat: "Lógica" }, { term: "Laço de Repetição", cat: "Lógica" },
+      { term: "Operador", cat: "Lógica" }, { term: "Java", cat: "Lógica" }, { term: "HTML", cat: "Lógica" },
+      { term: "CSS", cat: "Lógica" }, { term: "JavaScript", cat: "Lógica" }, { term: "Python", cat: "Lógica" },
+      { term: "NetBeans", cat: "Lógica" }, { term: "GitHub", cat: "Lógica" }, { term: "Repositório", cat: "Lógica" },
+
+      { term: "Potência", cat: "Eletricidade" }, { term: "Resistor", cat: "Eletricidade" }, { term: "Tensão", cat: "Eletricidade" },
+      { term: "Corrente Elétrica", cat: "Eletricidade" }, { term: "Cabo", cat: "Eletricidade" }, { term: "Alicate", cat: "Eletricidade" },
+      { term: "Condutor", cat: "Eletricidade" }, { term: "LED", cat: "Eletricidade" }, { term: "Corrente Alternada", cat: "Eletricidade" },
+      { term: "Disjuntor", cat: "Eletricidade" }, { term: "Multímetro", cat: "Eletricidade" },
+
+      { term: "Site", cat: "Redes" }, { term: "Navegador de Internet", cat: "Redes" }, { term: "Google Chrome", cat: "Redes" },
+      { term: "Edge", cat: "Redes" }, { term: "Firefox", cat: "Redes" }, { term: "Abas", cat: "Redes" },
+      { term: "Maximizar e Minimizar", cat: "Redes" }, { term: "Google", cat: "Redes" }, { term: "Vírus", cat: "Redes" },
+      { term: "Antivírus", cat: "Redes" }, { term: "Backup", cat: "Redes" }, { term: "Link", cat: "Redes" }
+    ];
+
+    let currentCategory = 'Hardware';
+    let activeQuestions = [];
+    let currentQ = 0;
+    let timerInterval;
+    let timeLeft = 90;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateProgressDisplay();
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const categoryParam = urlParams.get('cat');
+      if (categoryParam) {
+        startQuiz(categoryParam);
+      }
+    });
+
+    function updateProgressDisplay() {
+      const completed = JSON.parse(localStorage.getItem('completedQuizzes') || '[]');
+      const totalCategories = 6;
+      const pct = Math.round((completed.length / totalCategories) * 100);
+      
+      document.getElementById('progressText').textContent = `${completed.length} / ${totalCategories} Concluídos (${pct}%)`;
+      document.getElementById('progressBar').style.width = `${pct}%`;
+    }
+
+    function startQuiz(category) {
+      currentCategory = category;
+      if (category === 'Todos') {
+        activeQuestions = [...allQuestions].sort(() => 0.5 - Math.random());
+      } else {
+        activeQuestions = allQuestions.filter(q => q.cat === category);
+      }
+
+      currentQ = 0;
+      document.getElementById('selectionScreen').style.display = 'none';
+      document.getElementById('quizScreen').style.display = 'block';
+      loadQuestion(currentQ);
+    }
+
+    function backToSelection() {
+      clearInterval(timerInterval);
+      document.getElementById('quizScreen').style.display = 'none';
+      document.getElementById('selectionScreen').style.display = 'block';
+      updateProgressDisplay();
+    }
+
+    function startTimer() {
+      clearInterval(timerInterval);
+      timeLeft = 90;
+      updateTimerDisplay();
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        updateTimerDisplay();
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          handleError();
+        }
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      const mins = Math.floor(timeLeft / 60);
+      const secs = timeLeft % 60;
+      document.getElementById('timer').textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    function loadQuestion(index) {
+      if (index >= activeQuestions.length) {
+        const completed = JSON.parse(localStorage.getItem('completedQuizzes') || '[]');
+        if (!completed.includes(currentCategory)) {
+          completed.push(currentCategory);
+          localStorage.setItem('completedQuizzes', JSON.stringify(completed));
+        }
+
+        alert(`🎉 Parabéns! Você concluiu o Quiz de ${currentCategory} sem erros!`);
+        backToSelection();
+        return;
+      }
+
+      document.getElementById('feedbackBanner').style.display = 'none';
+      const q = activeQuestions[index];
+      document.getElementById('qCategory').textContent = q.cat.toUpperCase();
+      document.getElementById('qTitle').textContent = `Pergunta ${index + 1} de ${activeQuestions.length}`;
+      document.getElementById('questionText').textContent = `Qual termo de ${q.cat} é esse?`;
+      document.getElementById('qVideoText').textContent = `Sinal de: ${q.term}`;
+
+      const pool = allQuestions.filter(x => x.term !== q.term).map(x => x.term);
+      const fakes = pool.sort(() => 0.5 - Math.random()).slice(0, 3);
+      const options = [q.term, ...fakes].sort(() => 0.5 - Math.random());
+
+      const container = document.getElementById('optionsContainer');
+      container.innerHTML = '';
+
+      options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.textContent = opt;
+        btn.onclick = () => checkAnswer(opt, q.term, btn);
+        container.appendChild(btn);
+      });
+
+      startTimer();
+    }
+
+    function checkAnswer(selected, correct, element) {
+      const allBtns = document.querySelectorAll('.option-btn');
+      allBtns.forEach(b => b.disabled = true);
+      clearInterval(timerInterval);
+
+      if (selected === correct) {
+        element.classList.add('correct');
+        setTimeout(() => {
+          currentQ++;
+          loadQuestion(currentQ);
+        }, 1000);
+      } else {
+        element.classList.add('wrong');
+        allBtns.forEach(b => {
+          if (b.textContent === correct) b.classList.add('correct');
+        });
+        handleError();
+      }
+    }
+
+    function handleError() {
+      const banner = document.getElementById('feedbackBanner');
+      banner.style.display = 'block';
+      setTimeout(() => {
+        startQuiz(currentCategory);
+      }, 2200);
+    }
+  </script>
 </body>
 </html>

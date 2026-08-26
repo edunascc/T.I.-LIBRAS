@@ -57,7 +57,7 @@ const bancoDadosTI = [
     exemploPt: 'Instalei um novo software de edição.',
     exemploGlosa: 'SOFTWARE NOVO EDITAR INSTALAR',
     fonte: 'LIBRAS Digital v3.0.',
-    videoUrl: 'assets/img/videos/software.png'
+    videoUrl: 'https://www.youtube.com/watch?v=PkmmkGSWfHY'
   },
   {
     id: 'loop',
