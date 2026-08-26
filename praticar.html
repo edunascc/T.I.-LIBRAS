@@ -7,114 +7,112 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/sinalario.css">
   <style>
-    /* CABEÇALHO GLOBAL IDÊNTICO À IMAGEM */
- /* CABEÇALHO GLOBAL COM ESPAÇAMENTO CORRETO */
-.header {
-  width: 100%;
-  background: #ffffff;
-  border-bottom: 1px solid #e2e8f0;
-  padding: 16px 0;
-}
-
-.header-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* Empurra logo para esquerda e ícones para direita */
-  position: relative; /* Necessário para centralizar a pílula do meio */
-  box-sizing: border-box;
-}
-
-/* 1. LOGO NA PONTA ESQUERDA */
-.header .logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  font-weight: 800;
-  font-size: 1.25rem;
-  color: #7c3aed;
-}
-
-.header .logo-icon {
-  background: #7c3aed;
-  color: #ffffff;
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* 2. MENU NO CENTRO ABSOLUTO DA TELA */
-.header .nav-links {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  background: #f1f5f9;
-  padding: 4px;
-  border-radius: 30px;
-  gap: 4px;
-}
-
-.header .nav-links a {
-  padding: 8px 24px;
-  border-radius: 20px;
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #475569;
-  transition: all 0.2s;
-}
-
-/* Botão selecionado (roxo claro igual à imagem) */
-.header .nav-links a.active {
-  background: #e9d5ff;
-  color: #7c3aed;
-}
-
-/* 3. AÇÕES NA PONTA DIREITA */
-.user-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.btn-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: none;
-  background: #f1f5f9;
-  color: #475569;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 0.95rem;
-  transition: background 0.2s;
-}
-
-.btn-icon:hover {
-  background: #e2e8f0;
-}
-
-    /* ESTILOS DO QUIZ */
-    .quiz-container-box {
-      max-width: 850px;
-      margin: 20px auto;
+    /* CABEÇALHO LARGURA TOTAL */
+    .header-fix {
+      width: 100% !important;
+      background: #ffffff !important;
+      border-bottom: 1px solid #e2e8f0 !important;
+      padding: 16px 0 !important;
+      box-sizing: border-box !important;
     }
+
+    .header-grid {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      padding: 0 80px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      box-sizing: border-box !important;
+    }
+
+    /* LOGO */
+    .brand-logo {
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+      text-decoration: none !important;
+      flex-shrink: 0 !important;
+    }
+    .brand-icon {
+      background: #7c3aed !important;
+      color: #ffffff !important;
+      width: 38px !important;
+      height: 38px !important;
+      border-radius: 12px !important;
+      font-size: 1.3rem !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    .brand-text {
+      font-weight: 800 !important;
+      font-size: 1.4rem !important;
+      color: #7c3aed !important;
+      white-space: nowrap !important;
+    }
+
+    /* MENU CENTRAL */
+    .nav-pill {
+      display: flex !important;
+      align-items: center !important;
+      background: #f1f5f9 !important;
+      padding: 7px !important;
+      border-radius: 30px !important;
+      gap: 4px !important;
+      flex-shrink: 0 !important;
+    }
+    .nav-pill a {
+      padding: 9px 24px !important;
+      border-radius: 30px !important;
+      text-decoration: none !important;
+      font-size: 0.95rem !important;
+      font-weight: 600 !important;
+      color: #475569 !important;
+      transition: all 0.2s !important;
+      white-space: nowrap !important;
+    }
+    .nav-pill a.active {
+      background: #e9d5ff !important;
+      color: #7c3aed !important;
+    }
+
+    /* BOTOES DIREITA */
+    .actions-right {
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+      flex-shrink: 0 !important;
+    }
+    .action-btn {
+      width: 44px !important;
+      height: 44px !important;
+      border-radius: 50% !important;
+      border: none !important;
+      background: #f1f5f9 !important;
+      color: #475569 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      font-size: 1.1rem !important;
+    }
+
+    /* CONTAINER DO CONTEÚDO EXPANDIDO */
+    .quiz-container-box {
+      width: 100% !important;
+      max-width: 100% !important;
+      padding: 0 80px !important;
+      margin: 24px 0 !important;
+      box-sizing: border-box !important;
+    }
+
     .progress-section {
       background: #ffffff;
       border-radius: 12px;
-      padding: 16px 20px;
-      margin-bottom: 20px;
+      padding: 18px 24px;
+      margin-bottom: 24px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.03);
       border: 1px solid #e2e8f0;
     }
@@ -127,7 +125,7 @@
     .progress-info h4 {
       margin: 0;
       color: #0f172a;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
     }
     .progress-bar-bg {
       background: #e2e8f0;
@@ -142,114 +140,240 @@
       transition: width 0.4s ease;
     }
 
+    /* LISTA HORIZONTAL */
     .selection-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-      margin-top: 16px;
+      display: flex !important;
+      overflow-x: auto !important;
+      gap: 24px !important;
+      padding: 12px 4px 24px 4px !important;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+      scrollbar-color: #cbd5e1 #f1f5f9;
     }
+
     .category-card {
+      min-width: 320px !important;
+      max-width: 340px !important;
+      min-height: 340px !important;
+      flex: 0 0 auto !important;
+      scroll-snap-align: start;
       background: #ffffff;
       border: 2px solid #e2e8f0;
-      border-radius: 14px;
-      padding: 18px;
-      text-align: center;
+      border-radius: 20px;
+      padding: 28px 24px !important;
+      text-align: left !important;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.25s ease;
       position: relative;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      box-sizing: border-box !important;
     }
+
     .category-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.08);
     }
+
+    .completed-badge {
+      display: none;
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: #10b981;
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 20px;
+      box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+    }
+
+    .category-card.completed .completed-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
     .category-card.cat-hardware { border-color: #8b5cf6; }
-    .category-card.cat-hardware:hover { background: #f3e8ff; }
     .category-card.cat-software { border-color: #3b82f6; }
-    .category-card.cat-software:hover { background: #eff6ff; }
     .category-card.cat-logica { border-color: #f59e0b; }
-    .category-card.cat-logica:hover { background: #fffbeb; }
     .category-card.cat-eletricidade { border-color: #ef4444; }
-    .category-card.cat-eletricidade:hover { background: #fef2f2; }
     .category-card.cat-redes { border-color: #10b981; }
-    .category-card.cat-redes:hover { background: #ecfdf5; }
     .category-card.cat-todos { border-color: #6366f1; background: #faf5ff; }
 
-    .category-card h3 {
-      margin: 8px 0 4px 0;
-      color: #0f172a;
-      font-size: 1.05rem;
-    }
-    .category-card p {
-      font-size: 0.78rem;
-      color: #64748b;
-      margin: 0;
-    }
-    .badge-icon {
-      font-size: 1.8rem;
+    .category-card .badge-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+      display: block;
     }
 
+    .category-card h3 {
+      margin: 0 0 8px 0;
+      color: #0f172a;
+      font-size: 1.3rem;
+      font-weight: 800;
+    }
+
+    .category-card .desc-text {
+      font-size: 0.9rem;
+      color: #475569;
+      line-height: 1.5;
+      margin: 10px 0 18px 0;
+    }
+
+    .category-card .meta-info {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #6366f1;
+      background: #f5f3ff;
+      padding: 8px 14px;
+      border-radius: 10px;
+      display: inline-block;
+      width: fit-content;
+    }
+
+    /* ESTRUTURA DO QUIZ (EM 2 COLUNAS) */
     .quiz-card {
       background: #ffffff;
-      border-radius: 16px;
-      padding: 20px 24px;
+      border-radius: 20px;
+      padding: 28px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       border: 1px solid #e2e8f0;
     }
+    
     .quiz-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 2px solid #f1f5f9;
-      padding-bottom: 10px;
-      margin-bottom: 16px;
+      padding-bottom: 12px;
+      margin-bottom: 20px;
     }
+    
     .timer-badge {
       background: #fee2e2;
       color: #dc2626;
       font-weight: 700;
-      padding: 4px 12px;
+      padding: 6px 14px;
       border-radius: 20px;
       font-size: 0.85rem;
     }
-    .options-grid {
+
+    /* LAYOUT DE 2 COLUNAS PARA AS PERGUNTAS */
+    .quiz-body-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 16px;
+      gap: 24px;
+      align-items: start;
     }
-    .option-btn {
+
+    /* COLUNA DA ESQUERDA (VÍDEO/SINAL) */
+    .quiz-media-col {
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* CARD DO VÍDEO EM PROPORÇÃO 16:9 E EXPANDIDO */
+    .video-placeholder-box {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      height: auto;
+      background: #e2e8f0;
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #475569;
+      margin-bottom: 16px;
+      border: 2px dashed #cbd5e1;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    /* Suporte para tags real de video ou iframe inseridos no futuro */
+    .video-placeholder-box video,
+    .video-placeholder-box iframe {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border: none;
+    }
+
+    /* COLUNA DA DIREITA (OPÇÕES COM IMAGENS) */
+    .quiz-options-col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option-btn-card {
       background: #f8fafc;
       border: 2px solid #e2e8f0;
-      padding: 12px 14px;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #334155;
+      padding: 12px 16px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
       cursor: pointer;
       text-align: left;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
+      width: 100%;
+      box-sizing: border-box;
     }
-    .option-btn:hover:not(:disabled) {
+
+    .option-btn-card:hover:not(:disabled) {
       border-color: #6366f1;
       background: #f5f3ff;
+      transform: translateX(4px);
     }
-    .option-btn.correct {
+
+    .option-img-thumb {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      object-fit: cover;
+      background: #e2e8f0;
+      flex-shrink: 0;
+      border: 1px solid #cbd5e1;
+    }
+
+    .option-term-text {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    /* ESTADOS DE CERTO / ERRO */
+    .option-btn-card.correct {
       background: #dcfce7 !important;
       border-color: #10b981 !important;
-      color: #15803d !important;
     }
-    .option-btn.wrong {
+    .option-btn-card.correct .option-term-text { color: #15803d !important; }
+
+    .option-btn-card.wrong {
       background: #fee2e2 !important;
       border-color: #ef4444 !important;
-      color: #b91c1c !important;
     }
+    .option-btn-card.wrong .option-term-text { color: #b91c1c !important; }
+
     .feedback-banner {
-      margin-top: 14px;
-      padding: 10px 14px;
-      border-radius: 8px;
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 10px;
       text-align: center;
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       display: none;
     }
     .feedback-banner.error {
@@ -257,174 +381,248 @@
       color: #991b1b;
       border: 1px solid #fecaca;
     }
+
+    @media (max-width: 900px) {
+      .quiz-body-grid {
+        grid-template-columns: 1fr;
+      }
+      .header-grid, .quiz-container-box {
+        padding: 0 20px !important;
+      }
+    }
   </style>
 </head>
 <body>
 
   <!-- CABEÇALHO SUPERIOR -->
-  <header class="header">
-    <div class="header-container">
-      <a href="index.html" class="logo">
-        <div class="logo-icon">🤟</div>
-        <span>T.I Libras</span>
+  <header class="header-fix">
+    <div class="header-grid">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">🤟</div>
+        <span class="brand-text">T.I Libras</span>
       </a>
       
-      <nav class="nav-links">
+      <nav class="nav-pill">
         <a href="index.html">Início</a>
         <a href="praticar.html" class="active">Praticar</a>
         <a href="sinalario.html">Sinalário</a>
       </nav>
 
-      <div class="user-actions">
-        <button class="btn-icon" aria-label="Acessibilidade">♿</button>
-        <button class="btn-icon" aria-label="Perfil">👤</button>
+      <div class="actions-right">
+        <button type="button" class="action-btn" aria-label="Acessibilidade">♿</button>
+        <button type="button" class="action-btn" aria-label="Perfil">👤</button>
       </div>
     </div>
   </header>
 
-  <div class="container quiz-container-box">
+  <div class="quiz-container-box">
     
     <!-- TELA 1: SELEÇÃO DE ÁREA -->
     <div id="selectionScreen">
-      <!-- PAINEL DE PROGRESSO -->
       <div class="progress-section">
         <div class="progress-info">
           <h4>📊 Progresso nos Quizes</h4>
-          <span style="font-size: 0.8rem; font-weight: 700; color: #4f46e5;" id="progressText">0 / 6 Concluídos (0%)</span>
+          <span style="font-size: 0.85rem; font-weight: 700; color: #4f46e5;" id="progressText">0 / 6 Concluídos (0%)</span>
         </div>
         <div class="progress-bar-bg">
           <div class="progress-bar-fill" id="progressBar"></div>
         </div>
       </div>
 
-      <div class="card" style="padding: 20px;">
-        <h2 style="margin: 0; color: #0f172a; font-size: 1.25rem;">🎯 Praticar Quiz de TI em Libras</h2>
-        <p style="color: #64748b; font-size: 0.85rem; margin-top: 4px;">Escolha uma categoria técnica para testar seus conhecimentos. Ao errar, o quiz é reiniciado!</p>
+      <div class="card" style="padding: 24px; background: #ffffff; border-radius: 20px; border: 1px solid #e2e8f0;">
+        <h2 style="margin: 0; color: #0f172a; font-size: 1.3rem;">🎯 Praticar Quiz de TI em Libras</h2>
+        <p style="color: #64748b; font-size: 0.9rem; margin-top: 4px; margin-bottom: 20px;">Escolha uma categoria técnica para testar seus conhecimentos. Ao errar uma questão, o quiz é reiniciado!</p>
 
         <div class="selection-grid">
-          <div class="category-card cat-hardware" onclick="startQuiz('Hardware')">
-            <span class="badge-icon">💻</span>
-            <h3>Hardware</h3>
-            <p><strong>17 Questões</strong> · Peças e Componentes</p>
+          
+          <div class="category-card cat-hardware" id="card-Hardware" onclick="startQuiz('Hardware')">
+            <span class="completed-badge">✓ Concluído</span>
+            <div>
+              <span class="badge-icon">💻</span>
+              <h3>Hardware</h3>
+              <p class="desc-text">Aprenda e fixe os sinais dos componentes físicos de computadores, periféricos e peças internas.</p>
+            </div>
+            <div class="meta-info">17 Questões · Peças e Componentes</div>
           </div>
 
-          <div class="category-card cat-software" onclick="startQuiz('Software')">
-            <span class="badge-icon">⚙️</span>
-            <h3>Software</h3>
-            <p><strong>11 Questões</strong> · Sistemas e Apps</p>
+          <div class="category-card cat-software" id="card-Software" onclick="startQuiz('Software')">
+            <span class="completed-badge">✓ Concluído</span>
+            <div>
+              <span class="badge-icon">⚙️</span>
+              <h3>Software</h3>
+              <p class="desc-text">Testes com conceitos de sistemas operacionais, aplicativos de escritório e programas essenciais.</p>
+            </div>
+            <div class="meta-info">11 Questões · Sistemas e Apps</div>
           </div>
 
-          <div class="category-card cat-logica" onclick="startQuiz('Lógica')">
-            <span class="badge-icon">🧠</span>
-            <h3>Lógica</h3>
-            <p><strong>12 Questões</strong> · Código e Algoritmos</p>
+          <div class="category-card cat-logica" id="card-Lógica" onclick="startQuiz('Lógica')">
+            <span class="completed-badge">✓ Concluído</span>
+            <div>
+              <span class="badge-icon">🧠</span>
+              <h3>Lógica</h3>
+              <p class="desc-text">Pratique a sinalização de algoritmos, linguagens de programação, variáveis e estruturas de código.</p>
+            </div>
+            <div class="meta-info">12 Questões · Código e Algoritmos</div>
           </div>
 
-          <div class="category-card cat-eletricidade" onclick="startQuiz('Eletricidade')">
-            <span class="badge-icon">⚡</span>
-            <h3>Eletricidade</h3>
-            <p><strong>11 Questões</strong> · Circuitos Elétricos</p>
+          <div class="category-card cat-eletricidade" id="card-Eletricidade" onclick="startQuiz('Eletricidade')">
+            <span class="completed-badge">✓ Concluído</span>
+            <div>
+              <span class="badge-icon">⚡</span>
+              <h3>Eletricidade</h3>
+              <p class="desc-text">Conceitos fundamentais de circuitos, tensão, ferramentas elétricas e grandezas físicas em Libras.</p>
+            </div>
+            <div class="meta-info">11 Questões · Circuitos Elétricos</div>
           </div>
 
-          <div class="category-card cat-redes" onclick="startQuiz('Redes')">
-            <span class="badge-icon">🌐</span>
-            <h3>Redes</h3>
-            <p><strong>12 Questões</strong> · Internet e Conexões</p>
+          <div class="category-card cat-redes" id="card-Redes" onclick="startQuiz('Redes')">
+            <span class="completed-badge">✓ Concluído</span>
+            <div>
+              <span class="badge-icon">🌐</span>
+              <h3>Redes</h3>
+              <p class="desc-text">Termos relacionados à internet, navegadores, conexões, links e segurança digital.</p>
+            </div>
+            <div class="meta-info">12 Questões · Internet e Conexões</div>
           </div>
 
-          <div class="category-card cat-todos" onclick="startQuiz('Todos')">
-            <span class="badge-icon">🚀</span>
-            <h3 style="color: #4f46e5;">Simulado Geral</h3>
-            <p><strong>63 Questões</strong> · Todas as Áreas</p>
+          <div class="category-card cat-todos" id="card-Todos" onclick="startQuiz('Todos')">
+            <span class="completed-badge">✓ Concluído</span>
+            <div>
+              <span class="badge-icon">🚀</span>
+              <h3 style="color: #4f46e5;">Simulado Geral</h3>
+              <p class="desc-text">Desafio completo reunindo todas as 5 categorias misturadas aleatoriamente em um só teste.</p>
+            </div>
+            <div class="meta-info" style="color: #4f46e5; background: #eef2ff;">63 Questões · Todas as Áreas</div>
           </div>
+
         </div>
       </div>
     </div>
 
-    <!-- TELA 2: EXECUÇÃO DO QUIZ -->
+    <!-- TELA 2: EXECUÇÃO DO QUIZ (LAYOUT 2 COLUNAS) -->
     <div id="quizScreen" class="quiz-card" style="display: none;">
       <div class="quiz-header">
         <div>
-          <button onclick="backToSelection()" style="border: none; background: transparent; color: #6366f1; font-weight: 700; cursor: pointer; padding: 0; font-size: 0.8rem;">← Voltar à Seleção</button>
+          <button onclick="backToSelection()" style="border: none; background: transparent; color: #6366f1; font-weight: 700; cursor: pointer; padding: 0; font-size: 0.85rem;">← Voltar à Seleção</button>
           <div style="margin-top: 4px;">
-            <span class="category-tag" id="qCategory" style="color: #6366f1; font-weight: 800;">HARDWARE</span>
-            <h2 id="qTitle" style="margin: 2px 0 0 0; font-size: 1.1rem; color: #0f172a;">Pergunta 1 de 17</h2>
+            <span class="category-tag" id="qCategory" style="color: #6366f1; font-weight: 800; font-size: 0.85rem;">HARDWARE</span>
+            <h2 id="qTitle" style="margin: 2px 0 0 0; font-size: 1.2rem; color: #0f172a;">Pergunta 1 de 17</h2>
           </div>
         </div>
-        <div class="timer-badge">⏱ Tempo: <span id="timer">01:30</span></div>
+        <!-- CRONÔMETRO DE 1 MINUTO -->
+        <div class="timer-badge">⏱ Tempo: <span id="timer">01:00</span></div>
       </div>
 
-      <div class="video-preview-169" style="margin-bottom: 16px;">
-        <button class="play-button">▶</button>
-        <span id="qVideoText">Sinal Demonstrativo da Questão</span>
+      <div class="quiz-body-grid">
+        
+        <!-- COLUNA 1: VÍDEO DO SINAL -->
+        <div class="quiz-media-col">
+          <div class="video-placeholder-box">
+            <span style="font-size: 3rem; margin-bottom: 8px;">📹</span>
+            <span id="qVideoText" style="font-weight: 700; text-align: center; padding: 0 16px;">Sinal Demonstrativo em Libras</span>
+          </div>
+          <p style="margin: 0; font-size: 0.9rem; font-weight: 600; color: #64748b; text-align: center;">Assista ao vídeo e selecione o termo correspondente à direita:</p>
+        </div>
+
+        <!-- COLUNA 2: ALTERNATIVAS COM IMAGENS DAS MESMAS ÁREAS -->
+        <div class="quiz-options-col">
+          <h3 style="margin: 0 0 8px 0; font-size: 1.05rem; color: #1e293b;">Qual é a resposta correta?</h3>
+          <div id="optionsContainer" style="display: flex; flex-direction: column; gap: 10px;"></div>
+        </div>
+
       </div>
-
-      <h3 id="questionText" style="color: #1e293b; font-size: 1rem; margin-bottom: 12px;">Qual termo é esse?</h3>
-
-      <div class="options-grid" id="optionsContainer"></div>
 
       <div id="feedbackBanner" class="feedback-banner error">
-        ❌ Resposta Incorreta! Reiniciando o quiz...
+        ❌ Resposta Incorreta ou Tempo Esgotado! Reiniciando o quiz...
       </div>
     </div>
 
   </div>
 
   <!-- RODAPÉ -->
-  <footer class="footer">
-    <div class="footer-container">
-      <a href="index.html" class="footer-logo">
-        <span class="emoji">🤟</span>
-        <span class="brand">T.I Libras</span>
-      </a>
-      
-      <div class="footer-links">
-        <a href="#" class="footer-btn">Sobre nós</a>
-        <a href="#" class="footer-btn">Ajuda</a>
-        <a href="#" class="footer-btn">Contato</a>
-      </div>
-
-      <div class="footer-tag">
-        <span>♿ Plataforma inclusiva para surdos · IFRN Santa Cruz · 2026</span>
-      </div>
+  <footer class="footer" style="margin-top: 40px; border-top: 1px solid #e2e8f0; padding: 24px 0; background: #ffffff;">
+    <div style="width: 100%; text-align: center; color: #64748b; font-size: 0.85rem;">
+      <span>♿ Plataforma inclusiva para surdos · IFRN Santa Cruz · 2026</span>
     </div>
   </footer>
 
   <script>
+    // BASE DE DADOS COMPLETA
     const allQuestions = [
-      { term: "Monitor", cat: "Hardware" }, { term: "Mouse", cat: "Hardware" }, { term: "Teclado", cat: "Hardware" },
-      { term: "Fone (de ouvido)", cat: "Hardware" }, { term: "Microfone", cat: "Hardware" }, { term: "Webcam", cat: "Hardware" },
-      { term: "Impressora", cat: "Hardware" }, { term: "Placa Mãe", cat: "Hardware" }, { term: "Memória RAM", cat: "Hardware" },
-      { term: "Fonte de alimentação", cat: "Hardware" }, { term: "HD", cat: "Hardware" }, { term: "SSD", cat: "Hardware" },
-      { term: "Processador", cat: "Hardware" }, { term: "Gabinete", cat: "Hardware" }, { term: "Laptop", cat: "Hardware" },
-      { term: "Cooler", cat: "Hardware" }, { term: "Pendrive", cat: "Hardware" },
+      { term: "Monitor", cat: "Hardware", img: "imagens/sinais/monitor.png" },
+      { term: "Mouse", cat: "Hardware", img: "imagens/sinais/mouse.png" },
+      { term: "Teclado", cat: "Hardware", img: "imagens/sinais/teclado.png" },
+      { term: "Fone (de ouvido)", cat: "Hardware", img: "imagens/sinais/fone.png" },
+      { term: "Microfone", cat: "Hardware", img: "imagens/sinais/microfone.png" },
+      { term: "Webcam", cat: "Hardware", img: "imagens/sinais/webcam.png" },
+      { term: "Impressora", cat: "Hardware", img: "imagens/sinais/impressora.png" },
+      { term: "Placa Mãe", cat: "Hardware", img: "imagens/sinais/placa-mae.png" },
+      { term: "Memória RAM", cat: "Hardware", img: "imagens/sinais/memoria-ram.png" },
+      { term: "Fonte de alimentação", cat: "Hardware", img: "imagens/sinais/fonte.png" },
+      { term: "HD", cat: "Hardware", img: "imagens/sinais/hd.png" },
+      { term: "SSD", cat: "Hardware", img: "imagens/sinais/ssd.png" },
+      { term: "Processador", cat: "Hardware", img: "imagens/sinais/processador.png" },
+      { term: "Gabinete", cat: "Hardware", img: "imagens/sinais/gabinete.png" },
+      { term: "Laptop", cat: "Hardware", img: "imagens/sinais/laptop.png" },
+      { term: "Cooler", cat: "Hardware", img: "imagens/sinais/cooler.png" },
+      { term: "Pendrive", cat: "Hardware", img: "imagens/sinais/pendrive.png" },
       
-      { term: "Sistema Operacional", cat: "Software" }, { term: "Linux", cat: "Software" }, { term: "Windows", cat: "Software" },
-      { term: "Office", cat: "Software" }, { term: "Aplicativo", cat: "Software" }, { term: "Kernel", cat: "Software" },
-      { term: "E-Mail", cat: "Software" }, { term: "Mac", cat: "Software" }, { term: "Word", cat: "Software" },
-      { term: "Excel", cat: "Software" }, { term: "PowerPoint", cat: "Software" },
+      { term: "Sistema Operacional", cat: "Software", img: "imagens/sinais/so.png" },
+      { term: "Linux", cat: "Software", img: "imagens/sinais/linux.png" },
+      { term: "Windows", cat: "Software", img: "imagens/sinais/windows.png" },
+      { term: "Office", cat: "Software", img: "imagens/sinais/office.png" },
+      { term: "Aplicativo", cat: "Software", img: "imagens/sinais/app.png" },
+      { term: "Kernel", cat: "Software", img: "imagens/sinais/kernel.png" },
+      { term: "E-Mail", cat: "Software", img: "imagens/sinais/email.png" },
+      { term: "Mac", cat: "Software", img: "imagens/sinais/mac.png" },
+      { term: "Word", cat: "Software", img: "imagens/sinais/word.png" },
+      { term: "Excel", cat: "Software", img: "imagens/sinais/excel.png" },
+      { term: "PowerPoint", cat: "Software", img: "imagens/sinais/powerpoint.png" },
 
-      { term: "Algoritmo", cat: "Lógica" }, { term: "Variável", cat: "Lógica" }, { term: "Laço de Repetição", cat: "Lógica" },
-      { term: "Operador", cat: "Lógica" }, { term: "Java", cat: "Lógica" }, { term: "HTML", cat: "Lógica" },
-      { term: "CSS", cat: "Lógica" }, { term: "JavaScript", cat: "Lógica" }, { term: "Python", cat: "Lógica" },
-      { term: "NetBeans", cat: "Lógica" }, { term: "GitHub", cat: "Lógica" }, { term: "Repositório", cat: "Lógica" },
+      { term: "Algoritmo", cat: "Lógica", img: "imagens/sinais/algoritmo.png" },
+      { term: "Variável", cat: "Lógica", img: "imagens/sinais/variavel.png" },
+      { term: "Laço de Repetição", cat: "Lógica", img: "imagens/sinais/laco.png" },
+      { term: "Operador", cat: "Lógica", img: "imagens/sinais/operador.png" },
+      { term: "Java", cat: "Lógica", img: "imagens/sinais/java.png" },
+      { term: "HTML", cat: "Lógica", img: "imagens/sinais/html.png" },
+      { term: "CSS", cat: "Lógica", img: "imagens/sinais/css.png" },
+      { term: "JavaScript", cat: "Lógica", img: "imagens/sinais/javascript.png" },
+      { term: "Python", cat: "Lógica", img: "imagens/sinais/python.png" },
+      { term: "NetBeans", cat: "Lógica", img: "imagens/sinais/netbeans.png" },
+      { term: "GitHub", cat: "Lógica", img: "imagens/sinais/github.png" },
+      { term: "Repositório", cat: "Lógica", img: "imagens/sinais/repositorio.png" },
 
-      { term: "Potência", cat: "Eletricidade" }, { term: "Resistor", cat: "Eletricidade" }, { term: "Tensão", cat: "Eletricidade" },
-      { term: "Corrente Elétrica", cat: "Eletricidade" }, { term: "Cabo", cat: "Eletricidade" }, { term: "Alicate", cat: "Eletricidade" },
-      { term: "Condutor", cat: "Eletricidade" }, { term: "LED", cat: "Eletricidade" }, { term: "Corrente Alternada", cat: "Eletricidade" },
-      { term: "Disjuntor", cat: "Eletricidade" }, { term: "Multímetro", cat: "Eletricidade" },
+      { term: "Potência", cat: "Eletricidade", img: "imagens/sinais/potencia.png" },
+      { term: "Resistor", cat: "Eletricidade", img: "imagens/sinais/resistor.png" },
+      { term: "Tensão", cat: "Eletricidade", img: "imagens/sinais/tensao.png" },
+      { term: "Corrente Elétrica", cat: "Eletricidade", img: "imagens/sinais/corrente.png" },
+      { term: "Cabo", cat: "Eletricidade", img: "imagens/sinais/cabo.png" },
+      { term: "Alicate", cat: "Eletricidade", img: "imagens/sinais/alicate.png" },
+      { term: "Condutor", cat: "Eletricidade", img: "imagens/sinais/condutor.png" },
+      { term: "LED", cat: "Eletricidade", img: "imagens/sinais/led.png" },
+      { term: "Corrente Alternada", cat: "Eletricidade", img: "imagens/sinais/ca.png" },
+      { term: "Disjuntor", cat: "Eletricidade", img: "imagens/sinais/disjuntor.png" },
+      { term: "Multímetro", cat: "Eletricidade", img: "imagens/sinais/multimetro.png" },
 
-      { term: "Site", cat: "Redes" }, { term: "Navegador de Internet", cat: "Redes" }, { term: "Google Chrome", cat: "Redes" },
-      { term: "Edge", cat: "Redes" }, { term: "Firefox", cat: "Redes" }, { term: "Abas", cat: "Redes" },
-      { term: "Maximizar e Minimizar", cat: "Redes" }, { term: "Google", cat: "Redes" }, { term: "Vírus", cat: "Redes" },
-      { term: "Antivírus", cat: "Redes" }, { term: "Backup", cat: "Redes" }, { term: "Link", cat: "Redes" }
+      { term: "Site", cat: "Redes", img: "imagens/sinais/site.png" },
+      { term: "Navegador de Internet", cat: "Redes", img: "imagens/sinais/navegador.png" },
+      { term: "Google Chrome", cat: "Redes", img: "imagens/sinais/chrome.png" },
+      { term: "Edge", cat: "Redes", img: "imagens/sinais/edge.png" },
+      { term: "Firefox", cat: "Redes", img: "imagens/sinais/firefox.png" },
+      { term: "Abas", cat: "Redes", img: "imagens/sinais/abas.png" },
+      { term: "Maximizar e Minimizar", cat: "Redes", img: "imagens/sinais/window-actions.png" },
+      { term: "Google", cat: "Redes", img: "imagens/sinais/google.png" },
+      { term: "Vírus", cat: "Redes", img: "imagens/sinais/virus.png" },
+      { term: "Antivírus", cat: "Redes", img: "imagens/sinais/antivirus.png" },
+      { term: "Backup", cat: "Redes", img: "imagens/sinais/backup.png" },
+      { term: "Link", cat: "Redes", img: "imagens/sinais/link.png" }
     ];
 
     let currentCategory = 'Hardware';
     let activeQuestions = [];
     let currentQ = 0;
     let timerInterval;
-    let timeLeft = 90;
+    let timeLeft = 60; // 1 MINUTO EXACTO
 
     document.addEventListener('DOMContentLoaded', () => {
       updateProgressDisplay();
@@ -438,7 +636,20 @@
 
     function updateProgressDisplay() {
       const completed = JSON.parse(localStorage.getItem('completedQuizzes') || '[]');
-      const totalCategories = 6;
+      const categories = ['Hardware', 'Software', 'Lógica', 'Eletricidade', 'Redes', 'Todos'];
+      
+      categories.forEach(cat => {
+        const cardElem = document.getElementById(`card-${cat}`);
+        if (cardElem) {
+          if (completed.includes(cat)) {
+            cardElem.classList.add('completed');
+          } else {
+            cardElem.classList.remove('completed');
+          }
+        }
+      });
+
+      const totalCategories = categories.length;
       const pct = Math.round((completed.length / totalCategories) * 100);
       
       document.getElementById('progressText').textContent = `${completed.length} / ${totalCategories} Concluídos (${pct}%)`;
@@ -468,7 +679,7 @@
 
     function startTimer() {
       clearInterval(timerInterval);
-      timeLeft = 90;
+      timeLeft = 60; // REINICIA EM 1 MINUTO
       updateTimerDisplay();
       timerInterval = setInterval(() => {
         timeLeft--;
@@ -486,6 +697,11 @@
       document.getElementById('timer').textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
 
+    // SVG DE FALLBACK PARA IMAGENS FALTANTES
+    function getFallbackImage(term) {
+      return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23e2e8f0'/><text x='50%' y='55%' font-size='28' text-anchor='middle' dominant-baseline='middle'>🤟</text></svg>";
+    }
+
     function loadQuestion(index) {
       if (index >= activeQuestions.length) {
         const completed = JSON.parse(localStorage.getItem('completedQuizzes') || '[]');
@@ -494,7 +710,7 @@
           localStorage.setItem('completedQuizzes', JSON.stringify(completed));
         }
 
-        alert(`🎉 Parabéns! Você concluiu o Quiz de ${currentCategory} sem erros!`);
+        alert(`🎉 Parabéns! Você concluiu o Quiz de ${currentCategory} com ${activeQuestions.length} questões sem erros!`);
         backToSelection();
         return;
       }
@@ -503,42 +719,62 @@
       const q = activeQuestions[index];
       document.getElementById('qCategory').textContent = q.cat.toUpperCase();
       document.getElementById('qTitle').textContent = `Pergunta ${index + 1} de ${activeQuestions.length}`;
-      document.getElementById('questionText').textContent = `Qual termo de ${q.cat} é esse?`;
-      document.getElementById('qVideoText').textContent = `Sinal de: ${q.term}`;
+      document.getElementById('qVideoText').textContent = `Sinal demonstrativo de: "${q.term}"`;
 
-      const pool = allQuestions.filter(x => x.term !== q.term).map(x => x.term);
-      const fakes = pool.sort(() => 0.5 - Math.random()).slice(0, 3);
-      const options = [q.term, ...fakes].sort(() => 0.5 - Math.random());
+      // BUSCAR APENAS TERMOS DA MESMA ÁREA/CATEGORIA
+      let areaPool = [];
+      if (currentCategory === 'Todos') {
+        areaPool = allQuestions.filter(x => x.term !== q.term);
+      } else {
+        areaPool = allQuestions.filter(x => x.cat === q.cat && x.term !== q.term);
+      }
+
+      const fakes = areaPool.sort(() => 0.5 - Math.random()).slice(0, 3);
+      const optionsObjects = [q, ...fakes].sort(() => 0.5 - Math.random());
 
       const container = document.getElementById('optionsContainer');
       container.innerHTML = '';
 
-      options.forEach(opt => {
-        const btn = document.createElement('button');
-        btn.className = 'option-btn';
-        btn.textContent = opt;
-        btn.onclick = () => checkAnswer(opt, q.term, btn);
-        container.appendChild(btn);
+      optionsObjects.forEach(opt => {
+        const card = document.createElement('button');
+        card.className = 'option-btn-card';
+        card.onclick = () => checkAnswer(opt.term, q.term, card);
+
+        const img = document.createElement('img');
+        img.className = 'option-img-thumb';
+        img.src = opt.img;
+        img.alt = opt.term;
+        img.onerror = function() { this.src = getFallbackImage(opt.term); };
+
+        const text = document.createElement('span');
+        text.className = 'option-term-text';
+        text.textContent = opt.term;
+
+        card.appendChild(img);
+        card.appendChild(text);
+        container.appendChild(card);
       });
 
       startTimer();
     }
 
-    function checkAnswer(selected, correct, element) {
-      const allBtns = document.querySelectorAll('.option-btn');
-      allBtns.forEach(b => b.disabled = true);
+    function checkAnswer(selectedTerm, correctTerm, cardElement) {
+      const allCards = document.querySelectorAll('.option-btn-card');
+      allCards.forEach(c => c.disabled = true);
       clearInterval(timerInterval);
 
-      if (selected === correct) {
-        element.classList.add('correct');
+      if (selectedTerm === correctTerm) {
+        cardElement.classList.add('correct');
         setTimeout(() => {
           currentQ++;
           loadQuestion(currentQ);
-        }, 1000);
+        }, 800);
       } else {
-        element.classList.add('wrong');
-        allBtns.forEach(b => {
-          if (b.textContent === correct) b.classList.add('correct');
+        cardElement.classList.add('wrong');
+        allCards.forEach(c => {
+          if (c.querySelector('.option-term-text').textContent === correctTerm) {
+            c.classList.add('correct');
+          }
         });
         handleError();
       }
@@ -549,20 +785,21 @@
       banner.style.display = 'block';
       setTimeout(() => {
         startQuiz(currentCategory);
-      }, 2200);
+      }, 2000);
     }
-    
   </script>
+
+  <!-- WIDGET VLIBRAS -->
   <div vw class="enabled">
-  <div vw-access-button class="active"></div>
-  <div vw-plugin-wrapper>
-    <div class="vw-plugin-top-wrapper"></div>
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
   </div>
-</div>
-<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-<script>
-  new window.VLibras.Widget('https://vlibras.gov.br/app');
-</script>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
 
 </body>
 </html>
