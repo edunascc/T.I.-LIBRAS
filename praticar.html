@@ -515,26 +515,12 @@
 </head>
 <body>
 
-  <!-- CABEÇALHO SUPERIOR -->
-  <header class="header-fix">
-    <div class="header-grid">
-      <a href="index.html" class="brand-logo">
-        <div class="brand-icon"><i class="fa-solid fa-hand"></i></div>
-        <span class="brand-text">T.I Libras</span>
-      </a>
-      
-      <nav class="nav-pill">
-        <a href="index.html">Início</a>
-        <a href="praticar.html" class="active">Praticar</a>
-        <a href="sinalario.html">Sinalário</a>
-      </nav>
+  <script src="js/components.js"></script>
+</head>
+<body>
 
-      <div class="actions-right">
-        <button type="button" class="action-btn" aria-label="Acessibilidade"><i class="fa-solid fa-universal-access"></i></button>
-        <button type="button" class="action-btn" aria-label="Perfil"><i class="fa-solid fa-user"></i></button>
-      </div>
-    </div>
-  </header>
+  <!-- CABEÇALHO DINÂMICO PADRONIZADO -->
+  <app-header></app-header>
 
   <div class="quiz-container-box">
     
@@ -563,7 +549,8 @@
             <button class="btn-scroll" onclick="scrollCarousel(360)" title="Próximo"><i class="fa-solid fa-chevron-right"></i></button>
           </div>
         </div>
-<div class="selection-grid" id="selectionGrid">
+
+        <div class="selection-grid" id="selectionGrid">
           
           <!-- HARDWARE -->
           <div class="category-card cat-hardware" id="card-Hardware">
@@ -710,12 +697,7 @@
 
   </div>
 
-  <!-- RODAPÉ -->
-  <footer class="footer" style="margin-top: 40px; border-top: 1px solid #e2e8f0; padding: 24px 0; background: #ffffff;">
-    <div style="width: 100%; text-align: center; color: #64748b; font-size: 0.85rem;">
-      <span><i class="fa-solid fa-universal-access"></i> Plataforma inclusiva para surdos · IFRN Santa Cruz · 2026</span>
-    </div>
-  </footer>
+<app-footer></app-footer>
 
   <script>
     // ROLAGEM DOS CARDS NO CARROSSEL (< >)
@@ -724,7 +706,7 @@
       grid.scrollBy({ left: distance, behavior: 'smooth' });
     }
 
-    // BASE DE DADOS COMPLETA
+    // BASE DE DADOS COMPLETA (63 QUESTÕES)
     const allQuestions = [
       { term: "Monitor", cat: "Hardware", img: "imagens/sinais/monitor.png" },
       { term: "Mouse", cat: "Hardware", img: "imagens/sinais/mouse.png" },
