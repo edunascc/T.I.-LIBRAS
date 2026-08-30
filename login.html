@@ -9,34 +9,72 @@
 </head>
 <body>
   <app-header></app-header>
-  <main class="auth-page container">
-    <section class="auth-card">
-      <h1>Entrar</h1>
-      <div class="social-row">
-        <button id="btnGoogle" class="btn btn-outline">Continuar com Google</button>
-      </div>
-      <div class="divider"><span>ou</span></div>
-      <form id="loginForm" class="form">
-        <label>E‑mail
-          <input id="loginEmail" type="email" required placeholder="seu@exemplo.com">
-        </label>
-        <label>Senha
-          <input id="loginPass" type="password" minlength="6" required placeholder="••••••••">
-        </label>
-        <div class="form-actions">
-          <button type="submit" class="btn btn-primary">Entrar</button>
-          <a class="link" href="register.html">Criar conta</a>
+
+  <main class="auth-wrapper container">
+    <section class="visual-side">
+      <div class="visual-inner">
+        <div class="brand">
+          <!-- inline SVG logo -->
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+            <rect x="2" y="2" width="20" height="20" rx="6" fill="#8B5CF6"></rect>
+            <path d="M7 12c1.5-3 6-3 7.5 0" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h1>T.I. Libras</h1>
         </div>
-        <div id="loginFeedback" class="feedback"></div>
-      </form>
+
+        <h2 class="hero-title">Aprenda Libras em TI com confiança</h2>
+        <p class="hero-text">Cadastre-se e salve seu progresso, favoritos e sinais vistos. Volte de onde parou em qualquer dispositivo.</p>
+        <div class="cta-row">
+          <a href="register.html" class="cta-btn">Criar conta</a>
+          <a href="sinalario.html" class="cta-link">Explorar sem conta</a>
+        </div>
+      </div>
     </section>
-    <aside class="auth-visual">
-      <div class="hero-box">
-        <p>Salve seu progresso e continue de onde parou.</p>
+
+    <aside class="form-side">
+      <div class="form-card">
+        <div class="logo-row">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+            <rect x="2" y="2" width="20" height="20" rx="6" fill="#8B5CF6"></rect>
+            <path d="M7 12c1.5-3 6-3 7.5 0" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="site-name">T.I. Libras</div>
+        </div>
+
+        <div class="toggle-row" role="tablist" aria-label="Autenticação">
+          <a href="login.html" class="toggle active">Entrar</a>
+          <a href="register.html" class="toggle">Cadastrar</a>
+        </div>
+
+        <h3 class="card-title">Bem vindo de volta</h3>
+        <p class="card-sub">Faça login para acessar seu conteúdo e progresso.</p>
+
+        <div class="social-row">
+          <button id="btnGoogle" class="btn btn-social">Continuar com Google</button>
+        </div>
+
+        <div class="divider"><span>ou</span></div>
+
+        <form id="loginForm" class="form">
+          <label class="field">E‑mail
+            <input id="loginEmail" type="email" required placeholder="seu@exemplo.com">
+          </label>
+          <label class="field">Senha
+            <input id="loginPass" type="password" minlength="6" required placeholder="••••••••">
+          </label>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Entrar</button>
+            <a class="link" href="register.html">Criar conta</a>
+          </div>
+          <div id="loginFeedback" class="feedback"></div>
+        </form>
       </div>
     </aside>
   </main>
+
   <app-footer></app-footer>
+
   <script type="module" src="js/firebase-config.js"></script>
   <script type="module" src="js/auth.js"></script>
 </body>
