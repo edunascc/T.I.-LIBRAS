@@ -8,6 +8,17 @@
   <link rel="stylesheet" href="css/sinalario.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
+    /* TRAVA DEFINITIVA CONTRA SCROLL HORIZONTAL DA PÁGINA (ALTERADO/NOVO):
+       o carrossel de categorias é intencionalmente mais largo que a tela e rola
+       por dentro dele mesmo (.selection-grid tem overflow-x: auto). Sem esta trava,
+       o navegador também cria um scroll horizontal da PÁGINA INTEIRA por baixo do
+       carrossel, o que empurra/desalinha o rodapé. Isso impede esse cenário de
+       acontecer de novo, seja qual for o conteúdo interno. */
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
     /* CABEÇALHO LARGURA TOTAL */
     .header-fix {
       width: 100% !important;
@@ -21,7 +32,7 @@
       width: 100% !important;
       max-width: 100% !important;
       margin: 0 !important;
-      padding: 0 80px !important;
+      padding: 0 clamp(10px, 2vw, 28px) !important; /* ALTERADO: era clamp(16px, 3.5vw, 44px) — ainda mais próximo das bordas */
       display: flex !important;
       align-items: center !important;
       justify-content: space-between !important;
@@ -104,18 +115,18 @@
     .quiz-container-box {
       width: 100% !important;
       max-width: 100% !important;
-      padding: 0 80px !important;
+      padding: 0 clamp(10px, 2vw, 28px) !important; /* ALTERADO: era clamp(16px, 3.5vw, 44px) — ainda mais próximo das bordas */
       margin: 24px 0 !important;
       box-sizing: border-box !important;
     }
 
     .progress-section {
-      background: #ffffff;
+      background: linear-gradient(135deg, #6366f1 0%, #7c3aed 100%); /* ALTERADO: era #ffffff sólido — gradiente azul/roxo igual ao resto do site, pra dar destaque */
       border-radius: 12px;
       padding: 18px 24px;
       margin-bottom: 24px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.25);
+      border: none;
     }
     .progress-info {
       display: flex;
@@ -125,20 +136,26 @@
     }
     .progress-info h4 {
       margin: 0;
-      color: #0f172a;
+      color: #ffffff; /* ALTERADO: era #0f172a — texto branco sobre o novo fundo gradiente */
       font-size: 0.95rem;
     }
     .progress-bar-bg {
-      background: #e2e8f0;
+      background: rgba(255, 255, 255, 0.25); /* ALTERADO: era #e2e8f0 — trilho translúcido combinando com o gradiente */
       height: 10px;
       border-radius: 5px;
       overflow: hidden;
     }
     .progress-bar-fill {
-      background: linear-gradient(90deg, #6366f1, #10b981);
+      background: #ffffff; /* ALTERADO: era gradiente indigo/verde — agora branco sólido, com contraste sobre o fundo colorido */
       height: 100%;
       width: 0%;
       transition: width 0.4s ease;
+    }
+    .progress-message {
+      margin: 10px 0 0 0;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.92);
     }
 
     /* CABEÇALHO DO CARROSSEL DE CARDS */
@@ -150,7 +167,7 @@
     }
 
     .carousel-nav-btns {
-      display: flex;
+      display: flex; /* ALTERADO: era "none" — voltam a aparecer, pois o carrossel horizontal precisa delas de novo */
       gap: 8px;
     }
 
@@ -178,29 +195,31 @@
       transform: scale(1.05);
     }
 
-    /* LISTA HORIZONTAL COM SCROLL SUAVE */
+    /* CARROSSEL HORIZONTAL COMPACTO (ALTERADO: volta a ser carrossel com scroll,
+       só que com cards bem menores que o original — mais compacto que várias linhas de grid) */
     .selection-grid {
       display: flex !important;
       overflow-x: auto !important;
-      gap: 24px !important;
-      padding: 12px 4px 24px 4px !important;
+      overflow-y: visible !important; /* NOVO: garante que o hover (translateY) nunca seja cortado verticalmente */
+      gap: 14px !important;
+      padding: 16px 4px 10px 4px !important; /* ALTERADO: padding-top de 4px para 16px — dá respiro para o card "subir" no hover sem colidir com a borda do card branco de fora */
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
       scrollbar-width: thin;
       scrollbar-color: #cbd5e1 #f1f5f9;
     }
 
-    /* ALTURA AUMENTADA DO CARD */
+    /* CARD MAIS COMPACTO (ALTERADO: altura e respiros internos reduzidos) */
     .category-card {
-      min-width: 320px !important;
-      max-width: 340px !important;
-      min-height: 420px !important;
-      flex: 0 0 auto !important;
-      scroll-snap-align: start;
+      min-width: 250px !important; /* NOVO: largura fixa necessária de volta ao modelo de carrossel (flex) */
+      max-width: 260px !important; /* NOVO: idem */
+      flex: 0 0 auto !important; /* NOVO: impede que os cards espremam/estiquem dentro do flex do carrossel */
+      scroll-snap-align: start; /* NOVO: encaixe suave ao rolar */
+      min-height: 300px !important; /* ALTERADO: era 420px */
       background: #ffffff;
       border: 2px solid #e2e8f0;
-      border-radius: 20px;
-      padding: 28px 24px !important;
+      border-radius: 16px; /* ALTERADO: era 20px, levemente menor para acompanhar o card mais compacto */
+      padding: 18px 18px !important; /* ALTERADO: era 28px 24px */
       text-align: left !important;
       transition: all 0.25s ease;
       position: relative;
@@ -213,18 +232,19 @@
     .category-card:hover {
       transform: translateY(-6px);
       box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+      z-index: 2; /* NOVO: garante que o card em hover sempre fique por cima dos vizinhos, nunca "atrás" deles */
     }
 
     .completed-badge {
       display: none;
       position: absolute;
-      top: 16px;
-      right: 16px;
+      top: 14px;
+      right: 14px;
       background: #10b981;
       color: #ffffff;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      padding: 5px 12px;
+      padding: 4px 10px;
       border-radius: 20px;
       box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
     }
@@ -237,47 +257,47 @@
 
     .category-card.cat-hardware { border-color: #8b5cf6; }
     .category-card.cat-software { border-color: #3b82f6; }
-    .category-card.cat-logica { border-color: #f59e0b; }
+    .category-card.cat-programacao { border-color: #f59e0b; }
     .category-card.cat-eletricidade { border-color: #ef4444; }
     .category-card.cat-redes { border-color: #10b981; }
     .category-card.cat-todos { border-color: #6366f1; background: #faf5ff; }
 
     .category-card .badge-icon {
-      font-size: 2.5rem;
-      margin-bottom: 12px;
+      font-size: 2rem; /* ALTERADO: era 2.5rem */
+      margin-bottom: 8px; /* ALTERADO: era 12px */
       display: block;
     }
 
     .category-card h3 {
-      margin: 0 0 8px 0;
+      margin: 0 0 6px 0; /* ALTERADO: era 0 0 8px 0 */
       color: #0f172a;
-      font-size: 1.3rem;
+      font-size: 1.2rem; /* ALTERADO: era 1.3rem */
       font-weight: 800;
     }
 
     .category-card .desc-text {
-      font-size: 0.9rem;
+      font-size: 0.85rem; /* ALTERADO: era 0.9rem */
       color: #475569;
-      line-height: 1.5;
-      margin: 10px 0 18px 0;
+      line-height: 1.45;
+      margin: 8px 0 14px 0; /* ALTERADO: era 10px 0 18px 0 */
     }
 
     .category-card .meta-info {
-      font-size: 0.82rem;
+      font-size: 0.78rem; /* ALTERADO: era 0.82rem */
       font-weight: 700;
       color: #6366f1;
       background: #f5f3ff;
-      padding: 8px 14px;
+      padding: 6px 12px; /* ALTERADO: era 8px 14px */
       border-radius: 10px;
       display: inline-block;
       width: fit-content;
-      margin-bottom: 16px;
+      margin-bottom: 12px; /* ALTERADO: era 16px */
     }
 
     /* BOTÕES DO CARD DE SELEÇÃO */
     .card-actions {
       display: flex;
-      gap: 10px;
+      gap: 8px; /* ALTERADO: era 10px */
       width: 100%;
       margin-top: auto;
     }
@@ -287,10 +307,10 @@
       background: #6366f1;
       color: #ffffff;
       border: none;
-      padding: 10px 14px;
+      padding: 9px 12px; /* ALTERADO: era 10px 14px */
       border-radius: 10px;
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.82rem; /* ALTERADO: era 0.85rem */
       cursor: pointer;
       text-align: center;
       transition: background 0.2s;
@@ -305,10 +325,10 @@
       background: #f1f5f9;
       color: #475569;
       border: 1px solid #cbd5e1;
-      padding: 10px 14px;
+      padding: 9px 12px; /* ALTERADO: era 10px 14px */
       border-radius: 10px;
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.82rem; /* ALTERADO: era 0.85rem */
       cursor: pointer;
       text-align: center;
       text-decoration: none;
@@ -529,21 +549,22 @@
       <div class="progress-section">
         <div class="progress-info">
           <h4><i class="fa-solid fa-chart-simple"></i> Progresso nos Quizes</h4>
-          <span style="font-size: 0.85rem; font-weight: 700; color: #4f46e5;" id="progressText">0 / 6 Concluídos (0%)</span>
+          <span style="font-size: 0.85rem; font-weight: 700; color: #ffffff;" id="progressText">0 / 6 Concluídos (0%)</span>
         </div>
         <div class="progress-bar-bg">
           <div class="progress-bar-fill" id="progressBar"></div>
         </div>
+        <p class="progress-message" id="progressMessage">Vamos começar? Escolha uma categoria abaixo!</p>
       </div>
 
-      <div class="card" style="padding: 24px; background: #ffffff; border-radius: 20px; border: 1px solid #e2e8f0;">
+      <div class="card" style="padding: 24px; background: #ffffff; border-radius: 20px; border: 1px solid #e2e8f0; overflow: visible;">
         
         <div class="carousel-header">
           <div>
             <h2 style="margin: 0; color: #0f172a; font-size: 1.3rem;"><i class="fa-solid fa-bullseye"></i> Praticar Quiz de TI em Libras</h2>
             <p style="color: #64748b; font-size: 0.9rem; margin-top: 4px; margin-bottom: 0;">Escolha uma categoria técnica para testar seus conhecimentos. Ao errar uma questão, o quiz é reiniciado!</p>
           </div>
-          <!-- BOTÕES DE NAVEGAÇÃO LATERAL (< >) -->
+          <!-- BOTÕES DE NAVEGAÇÃO LATERAL (< >) — ocultos via CSS, pois o grid abaixo não precisa mais de scroll horizontal -->
           <div class="carousel-nav-btns">
             <button class="btn-scroll" onclick="scrollCarousel(-360)" title="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
             <button class="btn-scroll" onclick="scrollCarousel(360)" title="Próximo"><i class="fa-solid fa-chevron-right"></i></button>
@@ -586,19 +607,19 @@
             </div>
           </div>
 
-          <!-- LÓGICA -->
-          <div class="category-card cat-logica" id="card-Lógica">
+          <!-- PROGRAMAÇÃO -->
+          <div class="category-card cat-programacao" id="card-Programação">
             <span class="completed-badge"><i class="fa-solid fa-check"></i> Concluído</span>
             <div>
               <span class="badge-icon"><i class="fa-solid fa-laptop-code"></i></span>
-              <h3>Lógica</h3>
+              <h3>Programação</h3>
               <p class="desc-text">Pratique a sinalização de algoritmos, linguagens de programação, variáveis e estruturas de código.</p>
             </div>
             <div>
               <div class="meta-info">12 Questões · Código e Algoritmos</div>
               <div class="card-actions">
-                <button class="btn-card-start" onclick="startQuiz('Lógica')">Começar</button>
-                <a href="sinalario.html?cat=Logica" class="btn-card-consult">Consultar</a>
+                <button class="btn-card-start" onclick="startQuiz('Programação')">Começar</button>
+                <a href="sinalario.html?cat=Programacao" class="btn-card-consult">Consultar</a>
               </div>
             </div>
           </div>
@@ -738,18 +759,18 @@
       { term: "Excel", cat: "Software", img: "imagens/sinais/excel.png" },
       { term: "PowerPoint", cat: "Software", img: "imagens/sinais/powerpoint.png" },
 
-      { term: "Algoritmo", cat: "Lógica", img: "imagens/sinais/algoritmo.png" },
-      { term: "Variável", cat: "Lógica", img: "imagens/sinais/variavel.png" },
-      { term: "Laço de Repetição", cat: "Lógica", img: "imagens/sinais/laco.png" },
-      { term: "Operador", cat: "Lógica", img: "imagens/sinais/operador.png" },
-      { term: "Java", cat: "Lógica", img: "imagens/sinais/java.png" },
-      { term: "HTML", cat: "Lógica", img: "imagens/sinais/html.png" },
-      { term: "CSS", cat: "Lógica", img: "imagens/sinais/css.png" },
-      { term: "JavaScript", cat: "Lógica", img: "imagens/sinais/javascript.png" },
-      { term: "Python", cat: "Lógica", img: "imagens/sinais/python.png" },
-      { term: "NetBeans", cat: "Lógica", img: "imagens/sinais/netbeans.png" },
-      { term: "GitHub", cat: "Lógica", img: "imagens/sinais/github.png" },
-      { term: "Repositório", cat: "Lógica", img: "imagens/sinais/repositorio.png" },
+      { term: "Algoritmo", cat: "Programação", img: "imagens/sinais/algoritmo.png" },
+      { term: "Variável", cat: "Programação", img: "imagens/sinais/variavel.png" },
+      { term: "Laço de Repetição", cat: "Programação", img: "imagens/sinais/laco.png" },
+      { term: "Operador", cat: "Programação", img: "imagens/sinais/operador.png" },
+      { term: "Java", cat: "Programação", img: "imagens/sinais/java.png" },
+      { term: "HTML", cat: "Programação", img: "imagens/sinais/html.png" },
+      { term: "CSS", cat: "Programação", img: "imagens/sinais/css.png" },
+      { term: "JavaScript", cat: "Programação", img: "imagens/sinais/javascript.png" },
+      { term: "Python", cat: "Programação", img: "imagens/sinais/python.png" },
+      { term: "NetBeans", cat: "Programação", img: "imagens/sinais/netbeans.png" },
+      { term: "GitHub", cat: "Programação", img: "imagens/sinais/github.png" },
+      { term: "Repositório", cat: "Programação", img: "imagens/sinais/repositorio.png" },
 
       { term: "Potência", cat: "Eletricidade", img: "imagens/sinais/potencia.png" },
       { term: "Resistor", cat: "Eletricidade", img: "imagens/sinais/resistor.png" },
@@ -795,7 +816,7 @@
 
     function updateProgressDisplay() {
       const completed = JSON.parse(localStorage.getItem('completedQuizzes') || '[]');
-      const categories = ['Hardware', 'Software', 'Lógica', 'Eletricidade', 'Redes', 'Todos'];
+      const categories = ['Hardware', 'Software', 'Programação', 'Eletricidade', 'Redes', 'Todos'];
       
       categories.forEach(cat => {
         const cardElem = document.getElementById(`card-${cat}`);
@@ -813,6 +834,25 @@
       
       document.getElementById('progressText').textContent = `${completed.length} / ${totalCategories} Concluídos (${pct}%)`;
       document.getElementById('progressBar').style.width = `${pct}%`;
+
+      // NOVO: mensagem dinâmica de acordo com a quantidade de quizzes concluídos
+      const messageEl = document.getElementById('progressMessage');
+      if (messageEl) {
+        let msg;
+        const n = completed.length;
+        if (n === 0) {
+          msg = 'Vamos começar? Escolha uma categoria abaixo!';
+        } else if (n < totalCategories / 2) {
+          msg = `Bom começo! Você já concluiu ${n} quiz${n > 1 ? 'zes' : ''}, continue praticando.`;
+        } else if (n < totalCategories - 1) {
+          msg = 'Você está indo muito bem, continue assim!';
+        } else if (n < totalCategories) {
+          msg = `Quase lá! Falta só mais ${totalCategories - n} para concluir tudo.`;
+        } else {
+          msg = 'Parabéns! Você concluiu todos os quizzes! 🎉';
+        }
+        messageEl.textContent = msg;
+      }
     }
 
     function startQuiz(category) {

@@ -23,13 +23,19 @@
     /* CONTAINER COM ALTURA TRAVADA E ALINHAMENTO ALINHADO À TELA */
     .main-layout {
       display: flex;
-      gap: 16px;
+      gap: 8px; /* ALTERADO: era 16px, depois 10px — reduzido mais para ficar perceptível */
       align-items: stretch;
       height: calc(100vh - 115px); /* Mantém os dois cards na mesma altura relativa à viewport */
       max-height: 750px;           /* Evita estouro em telas gigantes */
       min-height: 580px;           /* Mantém estabilidade em telas menores */
       margin: 12px auto;
       box-sizing: border-box;
+    }
+
+    /* NOVO: anula o transform de sinalario.css que deslocava a sidebar (8px, 10px)
+       de forma independente do gap, mascarando o ajuste de proximidade acima */
+    .main-layout > .sidebar-column {
+      transform: none;
     }
 
     /* SIDEBAR DA ESQUERDA FIXA E ALINHADA */
@@ -120,15 +126,17 @@
       display: flex;
       flex-direction: column;
       height: 100%;
+      min-height: 0; /* NOVO: permite que a coluna encolha/role dentro do flex pai em vez de estourar */
     }
 
     .term-detail-card {
       display: flex;
       flex-direction: column;
       height: 100%;
+      min-height: 0; /* NOVO: propaga o encolhimento até o card interno */
       padding: 0;
       box-sizing: border-box;
-      overflow: hidden; /* SEM SCROLL NO CARD DA DIREITA */
+      overflow: hidden; /* SEM SCROLL NO CARD DA DIREITA (a barra azul e o rodapé continuam fixos) */
       background: #ffffff;
       border-radius: 12px;
       border: 1px solid #e2e8f0;
@@ -190,10 +198,13 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      padding: 10px 14px;
+      padding: 10px 18px 10px 14px; /* ALTERADO: padding-right maior (14px -> 18px) para dar respiro ao scroll */
       flex: 1.1;
+      min-height: 0;        /* NOVO: essencial para o overflow-y funcionar dentro do flex */
       justify-content: flex-start;
-      overflow: hidden;
+      overflow-y: auto;     /* ALTERADO: era "hidden" — agora rola internamente em vez de cortar o conteúdo */
+      overflow-x: hidden;
+      /* Scroll no estilo padrão do navegador, igual ao da .terms-list, para manter consistência visual */
     }
 
     /* GRID DO VÍDEO E DIREITA */
@@ -373,7 +384,7 @@
           <button class="pill active" data-cat="todos">Todos</button>
           <button class="pill" data-cat="hardware">Hardware</button>
           <button class="pill" data-cat="software">Software</button>
-          <button class="pill" data-cat="logica">Lógica</button>
+          <button class="pill" data-cat="programacao">Programação</button>
           <button class="pill" data-cat="eletricidade">Eletricidade</button>
           <button class="pill" data-cat="redes">Redes</button>
           <button class="pill" data-cat="favoritos">Favoritos</button>
@@ -484,8 +495,8 @@
       { term: "Sistema Operacional", cat: "Software", youtubeId: "SEU_ID_AQUI", def: "Software principal que gerencia os recursos de hardware e outros programas.", exPt: "O Linux é um sistema operacional muito estável.", exGlosa: "SISTEMA OPERACIONAL GERENCIAR COMPUTADOR", source: "Infolibras", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=2" },
       { term: "Linux", cat: "Software", youtubeId: "SEU_ID_AQUI", def: "Sistema operacional de código aberto bastante utilizado por desenvolvedores.", exPt: "Aprendemos a usar o terminal no Linux.", exGlosa: "LINUX SISTEMA LIVRE CÓDIGO", source: "NAPNEE - IFBA", link: "https://napneevdc.wixsite.com/ifba/letra-l" },
       { term: "Windows", cat: "Software", youtubeId: "SEU_ID_AQUI", def: "Sistema operacional desenvolvido pela empresa Microsoft.", exPt: "O Windows atualizou ontem à noite.", exGlosa: "WINDOWS SISTEMA JANELAS POPULAR", source: "Infolibras", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=2" },
-      { term: "Algoritmo", cat: "Lógica", youtubeId: "SEU_ID_AQUI", def: "Sequência finita de passos lógicos para resolver um problema.", exPt: "O algoritmo ordena a lista de nomes.", exGlosa: "ALGORITMO PASSO PASSO RESOLVER", source: "Dicionário UFV", link: "https://sistemas.cead.ufv.br/capes/dicionario/?cadastros=algoritmo" },
-      { term: "Variável", cat: "Lógica", youtubeId: "SEU_ID_AQUI", def: "Espaço na memória reservado para armazenar dados que podem mudar.", exPt: "Declarei uma variável para guardar a idade.", exGlosa: "VARIÁVEL MEMÓRIA GUARDAR MUDAR", source: "Glossário de TI", link: "#" },
+      { term: "Algoritmo", cat: "Programação", youtubeId: "SEU_ID_AQUI", def: "Sequência finita de passos lógicos para resolver um problema.", exPt: "O algoritmo ordena a lista de nomes.", exGlosa: "ALGORITMO PASSO PASSO RESOLVER", source: "Dicionário UFV", link: "https://sistemas.cead.ufv.br/capes/dicionario/?cadastros=algoritmo" },
+      { term: "Variável", cat: "Programação", youtubeId: "SEU_ID_AQUI", def: "Espaço na memória reservado para armazenar dados que podem mudar.", exPt: "Declarei uma variável para guardar a idade.", exGlosa: "VARIÁVEL MEMÓRIA GUARDAR MUDAR", source: "Glossário de TI", link: "#" },
       { term: "Potência", cat: "Eletricidade", youtubeId: "SEU_ID_AQUI", def: "Grandeza que mede a quantidade de energia elétrica consumida por segundo.", exPt: "A potência da fonte é de 500 Watts.", exGlosa: "POTÊNCIA ENERGIA FORÇA MEDIR", source: "SENAI/DN (2009)", link: "https://static.portaldaindustria.com.br" },
       { term: "Resistor", cat: "Eletricidade", youtubeId: "SEU_ID_AQUI", def: "Componente elétrico que limita e opõe resistência à passagem de corrente.", exPt: "O resistor protege o LED contra sobrecarga.", exGlosa: "RESISTOR SEGURAR CORRENTE ELÉTRICA", source: "SENAI/DN (2009)", link: "https://static.portaldaindustria.com.br" },
       { term: "Site", cat: "Redes", youtubeId: "SEU_ID_AQUI", def: "Conjunto de páginas web acessíveis na internet por um domínio.", exPt: "Acesse o site oficial do instituto para informações.", exGlosa: "SITE PÁGINA INTERNET ABRIR", source: "Glossário de TI", link: "#" },
@@ -493,7 +504,7 @@
     ];
 
     const dotMap = {
-      Hardware: "purple", Software: "blue", Lógica: "yellow", Eletricidade: "red", Redes: "green"
+      Hardware: "purple", Software: "blue", Programação: "yellow", Eletricidade: "red", Redes: "green"
     };
 
     let selectedCategory = 'todos';
@@ -630,7 +641,33 @@
         }
       });
 
+      // NOVO: lê o parâmetro ?cat= da URL (vindo do botão "Consultar" da página Praticar)
+      // e já abre o Sinalário filtrado direto na categoria escolhida.
+      const urlParams = new URLSearchParams(window.location.search);
+      const catParam = urlParams.get('cat');
+      if (catParam) {
+        const normalizedCat = catParam
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+
+        const matchingPill = document.querySelector(`#categoryPills .pill[data-cat="${normalizedCat}"]`);
+        if (matchingPill) {
+          pills.forEach(p => p.classList.remove('active'));
+          matchingPill.classList.add('active');
+          selectedCategory = normalizedCat;
+        }
+      }
+
       renderList();
+
+      // NOVO: se a categoria filtrada tiver algum termo, abre o primeiro termo dela automaticamente
+      const filteredAfterUrl = filterData();
+      if (catParam && filteredAfterUrl.length > 0) {
+        currentTerm = filteredAfterUrl[0];
+        renderList();
+      }
+
       renderCurrentTerm();
     });
   </script>
