@@ -15,22 +15,14 @@
     <section class="auth-visual visual-left">
       <div class="visual-inner">
         <div class="brand-area">
-          <img src="/assets/logo.png" alt="T.I. Libras" class="visual-logo">
+          <!-- Use your real logo path; fallback to /assets/logo.png -->
+          <img src="/assets/logo.png" alt="T.I. Libras" class="visual-logo-large">
         </div>
         <h1 class="visual-title">Aprenda e pratique Libras de forma prática e interativa</h1>
-        <p class="visual-sub">Veja momentos, pratique sinais e acompanhe seu progresso — tudo salvo na sua conta.</p>
-
-        <div class="visual-hero">
-          <!-- placeholder for illustration; keep rounded cards like example -->
-          <div class="cards">
-            <div class="card card-front"></div>
-            <div class="card card-mid"></div>
-            <div class="card card-back"></div>
-          </div>
-        </div>
+        <p class="visual-sub">Salve seu progresso, acompanhe seu desenvolvimento e pratique com exemplos reais. Crie uma conta gratuita para salvar favoritos e continuar de onde parou.</p>
 
         <div class="visual-actions">
-          <a href="index.html" class="btn btn-ghost">Explorar sem cadastro</a>
+          <a href="index.html" class="btn btn-ghost visual-explore">Explorar sem cadastro</a>
           <a href="register.html" class="btn btn-primary visual-cta">Comece agora</a>
         </div>
       </div>
@@ -42,7 +34,7 @@
         <h2 class="auth-heading">Entrar</h2>
 
         <div class="social-row">
-          <button id="btnGoogle" class="btn btn-google" type="button">
+          <button id="btnGoogle" class="btn btn-google btn-google-wide" type="button">
             <!-- Google G multi-color SVG -->
             <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;margin-right:8px;">
               <g fill="none" fill-rule="evenodd">
@@ -71,9 +63,7 @@
           </div>
 
           <div class="auth-links">
-            <a class="link" href="#">Esqueceu a senha?</a>
-            <span class="muted">•</span>
-            <a class="link" href="register.html">Criar nova conta</a>
+            <a class="btn btn-outline btn-create" href="register.html">Criar nova conta</a>
           </div>
 
           <div id="loginFeedback" class="feedback"></div>
@@ -83,18 +73,11 @@
           <p>Ao entrar, você concorda com nossos <a href="#">Termos</a> e <a href="#">Política de Privacidade</a>.</p>
         </div>
       </div>
-
-      <footer class="auth-footer">
-        <div class="footer-links">
-          <a href="#">Sobre</a>
-          <a href="#">Ajuda</a>
-          <a href="#">Privacidade</a>
-          <a href="#">Termos</a>
-        </div>
-        <div class="footer-copy">© 2026 T.I. Libras</div>
-      </footer>
     </section>
   </main>
+
+  <!-- Use the site's footer component so it's consistent -->
+  <app-footer></app-footer>
 
   <script type="module" src="js/firebase-config.js"></script>
   <script type="module" src="js/auth.js"></script>
