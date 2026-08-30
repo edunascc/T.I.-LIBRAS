@@ -1,7 +1,7 @@
 // js/auth.js
 // Module to handle authentication and simple progress sync with Firestore
-import { auth, db } from './firebase-config.js';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, updateProfile } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js';
+import { auth, db } from './js/firebase-config.js';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js';
 import { doc, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
 
 const provider = new GoogleAuthProvider();
@@ -48,46 +48,46 @@ async function saveProgressFromLocalToFirestore(user){
   }catch(err){ console.error('saveProgressFromLocalToFirestore', err); }
 }
 
-// Auth state management
-let authReady = false;
-let currentUser = null;
-
+// Listen for auth state changes and protect pages that require auth
 onAuthStateChanged(auth, async (user) =>{
-  authReady = true;
   if(user){
-    currentUser = { uid: user.uid, email: user.email, name: user.displayName };
     // ensure user doc exists and merge progress
     await createUserDocIfMissing(user);
     await mergeProgressToLocal(user);
+    // if on a protected page like sinalario.html, allow; else nothing
+    window.currentUser = { uid: user.uid, email: user.email, name: user.displayName };
   } else {
-    currentUser = null;
+    // if current page requires login, redirect
+    const protectedPages = ['/sinalario.html','/praticar.html'];
+    const pathname = window.location.pathname;
+    if(protectedPages.some(p => pathname.endsWith(p))){
+      // redirect to login and preserve intended path
+      const redirect = encodeURIComponent(window.location.pathname + window.location.search);
+      window.location.href = `login.html?next=${redirect}`;
+    }
   }
-  // dispatch global event so other scripts (guard) can react
-  window.currentUser = currentUser;
-  window.dispatchEvent(new CustomEvent('auth-changed', { detail: { user: currentUser } }));
 });
 
 // Expose some functions to global scope for use in login/register pages
 window.Auth = {
-  isLoggedIn: () => !!currentUser,
-  getUser: () => currentUser,
   registerWithEmail: async (name,email,pass) =>{
     const cred = await createUserWithEmailAndPassword(auth, email, pass);
-    try { await updateProfile(cred.user, { displayName: name }); }catch(e){}
+    // set displayName
+    try { await cred.user.updateProfile({ displayName: name }); }catch(e){}
     await createUserDocIfMissing(cred.user, name);
     await mergeProgressToLocal(cred.user);
-    return { uid: cred.user.uid, email: cred.user.email, name };
+    return cred.user;
   },
   loginWithEmail: async (email,pass) =>{
     const cred = await signInWithEmailAndPassword(auth, email, pass);
     await mergeProgressToLocal(cred.user);
-    return { uid: cred.user.uid, email: cred.user.email, name: cred.user.displayName };
+    return cred.user;
   },
   loginWithGoogle: async () =>{
     const cred = await signInWithPopup(auth, provider);
     await createUserDocIfMissing(cred.user);
     await mergeProgressToLocal(cred.user);
-    return { uid: cred.user.uid, email: cred.user.email, name: cred.user.displayName };
+    return cred.user;
   },
   saveProgress: async ()=>{
     const user = auth.currentUser;
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       try{
         await window.Auth.registerWithEmail(name,email,pass);
         if(fb) { fb.style.color = '#059669'; fb.textContent = 'Conta criada com sucesso. Redirecionando...'; }
-        setTimeout(()=> location.href = 'index.html', 900);
+        setTimeout(()=> location.href = 'sinalario.html', 800);
       }catch(err){ if(fb){ fb.style.color='#ef4444'; fb.textContent = err.message || 'Erro'; } }
     });
   }
@@ -122,9 +122,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
       const fb = $('loginFeedback'); if(fb) fb.textContent='';
       try{
         await window.Auth.loginWithEmail(email,pass);
+        // redirect to next if present
         const params = new URLSearchParams(window.location.search);
         const next = params.get('next');
-        location.href = next ? decodeURIComponent(next) : 'index.html';
+        location.href = next ? decodeURIComponent(next) : 'sinalario.html';
       }catch(err){ if(fb){ fb.style.color='#ef4444'; fb.textContent = err.message || 'Erro'; } }
     });
 
@@ -132,16 +133,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     if(btnGoogle){
       btnGoogle.addEventListener('click', async ()=>{
         const fb = $('loginFeedback'); if(fb) fb.textContent='';
-        try{ await window.Auth.loginWithGoogle(); location.href = 'index.html'; }
-        catch(err){ if(fb){ fb.style.color='#ef4444'; fb.textContent = err.message || 'Erro no login'; } }
-      });
-    }
-
-    const btnGoogleReg = $('btnGoogleReg');
-    if(btnGoogleReg){
-      btnGoogleReg.addEventListener('click', async ()=>{
-        const fb = $('registerFeedback'); if(fb) fb.textContent='';
-        try{ await window.Auth.loginWithGoogle(); location.href = 'index.html'; }
+        try{ await window.Auth.loginWithGoogle(); location.href = 'sinalario.html'; }
         catch(err){ if(fb){ fb.style.color='#ef4444'; fb.textContent = err.message || 'Erro no login'; } }
       });
     }

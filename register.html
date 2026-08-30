@@ -7,86 +7,36 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/auth.css">
 </head>
-<body>
+<body class="auth-body">
   <app-header></app-header>
-
-  <main class="auth-wrapper container">
-    <section class="visual-side">
-      <div class="visual-inner">
-        <div class="brand">
-          <img src="img/logo.jpg" alt="T.I. Libras" class="brand-logo">
-          <h1>T.I. Libras</h1>
+  <main class="auth-page container">
+    <section class="auth-card">
+      <h1>Criar conta</h1>
+      <form id="registerForm" class="form">
+        <label>Nome
+          <input id="regName" type="text" required placeholder="Seu nome">
+        </label>
+        <label>E‑mail
+          <input id="regEmail" type="email" required placeholder="seu@exemplo.com">
+        </label>
+        <label>Senha
+          <input id="regPass" type="password" minlength="6" required placeholder="Mínimo 6 caracteres">
+        </label>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Criar conta</button>
+          <a class="link" href="login.html">Já tenho conta</a>
         </div>
-
-        <h2 class="hero-title">Comece sua jornada em Libras</h2>
-        <p class="hero-text">Crie uma conta para salvar favoritos, acompanhar seu progresso e acessar quizzes e conteúdo exclusivo.</p>
-
-        <div class="overlay-card">
-          <h4>Benefícios</h4>
-          <ul>
-            <li>Aulas em vídeo e imagens</li>
-            <li>Favoritos e histórico sincronizados</li>
-            <li>Quizzes para praticar e testar seu conhecimento</li>
-          </ul>
-        </div>
-
-        <div class="cta-row">
-          <a href="login.html" class="cta-link">Já tenho conta</a>
-          <a href="index.html" class="cta-btn">Explorar (conteúdo limitado)</a>
-        </div>
-      </div>
+        <div id="registerFeedback" class="feedback"></div>
+      </form>
     </section>
-
-    <aside class="form-side">
-      <div class="form-card form-card-large">
-        <div class="logo-row">
-          <img src="img/logo.jpg" alt="T.I. Libras" class="mini-logo">
-          <div class="site-name">T.I. Libras</div>
-        </div>
-
-        <div class="toggle-row" role="tablist" aria-label="Autenticação">
-          <a href="login.html" class="toggle">Entrar</a>
-          <a href="register.html" class="toggle active">Cadastrar</a>
-        </div>
-
-        <h3 class="card-title">Crie sua conta</h3>
-        <p class="card-sub">Informe seus dados para começar.</p>
-
-        <div class="social-row">
-          <button id="btnGoogleReg" class="btn btn-social">
-            <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden style="vertical-align:middle;margin-right:8px">
-              <path fill="#EA4335" d="M12 11.5v2.9h5.4c-.2 1.3-1.3 3.9-5.4 3.9-3.3 0-6-2.7-6-6s2.7-6 6-6c1.8 0 3 .8 3.7 1.5l2.5-2.4C17.1 4.1 14.7 3 12 3 7 3 3 7 3 12s4 9 9 9c5.1 0 8.5-3.6 8.5-8.7 0-.6-.1-1.1-.2-1.5H12z"/>
-            </svg>
-            Continuar com Google
-          </button>
-        </div>
-
-        <div class="divider"><span>ou</span></div>
-
-        <form id="registerForm" class="form">
-          <label class="field">Nome
-            <input id="regName" type="text" required placeholder="Seu nome">
-          </label>
-          <label class="field">E‑mail
-            <input id="regEmail" type="email" required placeholder="seu@exemplo.com">
-          </label>
-          <label class="field">Senha
-            <input id="regPass" type="password" minlength="6" required placeholder="Mínimo 6 caracteres">
-          </label>
-
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Criar conta</button>
-            <a class="link" href="login.html">Já tenho conta</a>
-          </div>
-          <div id="registerFeedback" class="feedback"></div>
-        </form>
+    <aside class="auth-visual">
+      <div class="hero-box">
+        <p>Registre-se para salvar favoritos e progresso no Sinalário.</p>
       </div>
     </aside>
   </main>
-
   <app-footer></app-footer>
   <script type="module" src="js/firebase-config.js"></script>
   <script type="module" src="js/auth.js"></script>
-  <script src="js/auth-guard.js"></script>
 </body>
 </html>
