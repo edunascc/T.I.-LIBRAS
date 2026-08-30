@@ -113,6 +113,7 @@
 
     /* CONTAINER DO CONTEÚDO EXPANDIDO */
     .quiz-container-box {
+      flex: 1 0 auto !important; /* NOVO: esta classe não estava na lista de seletores que ganham flex:1 em css/style.css — sem isso, o comportamento do rodapé fica inconsistente com as outras páginas em certos cenários de conteúdo */
       width: 100% !important;
       max-width: 100% !important;
       padding: 0 clamp(10px, 2vw, 28px) !important; /* ALTERADO: era clamp(16px, 3.5vw, 44px) — ainda mais próximo das bordas */

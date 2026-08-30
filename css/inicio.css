@@ -2,6 +2,8 @@ body {
   min-height: 100vh; 
   display: flex; 
   flex-direction: column; 
+  max-width: 100%;   /* NOVO: mesma trava aplicada nas outras páginas, por consistência e segurança */
+  overflow-x: hidden; /* NOVO: evita scroll horizontal duplo da página em qualquer cenário futuro */
 } 
  
 /* 1. LAYOUT PRINCIPAL (Mantém os 280px e alinha os topos na régua) */ 
@@ -11,7 +13,8 @@ body {
   gap: 20px; 
   margin-top: 16px; 
   margin-bottom: 30px; 
-  align-items: flex-start; /* Força o topo exato dos dois lados */ 
+  align-items: stretch;   /* mantém as duas colunas com a mesma altura ENTRE SI (a da mais alta) — evita uma acabar antes da outra */
+  flex: 0 1 auto; /* ALTERADO/NOVO: cancela o "flex: 1" (crescimento sem limite) que vinha do style.css. Era isso que forçava o bloco inteiro a esticar até preencher todo o espaço vertical da tela em zooms baixos, o que por tabela obrigava a sidebar e o card do vídeo a se espalharem de forma esquisita para acompanhar. Agora o bloco mantém sempre o tamanho natural e proporcional (igual ao zoom que você aprovou), e só sobra um respiro de margem quando há espaço de sobra — em vez de esticar o conteúdo. */
 } 
  
 /* 2. SIDEBAR DA ESQUERDA */ 
@@ -19,6 +22,7 @@ body {
   display: flex; 
   flex-direction: column; 
   gap: 10px;
+  justify-content: space-between; /* NOVO (reaplicado): agora que .main-layout está travado no tamanho natural (não infla mais sem limite), a diferença de altura entre a sidebar e a coluna de conteúdo é pequena e estável — não depende mais do zoom/viewport. Por isso dá pra distribuir esse restinho de espaço entre os 4 blocos sem repetir o exagero de antes: o vão fica pequeno e a coluna termina alinhada com a direita, sem colar no rodapé. */
   transform: translate(15px, 13px);
 } 
  
@@ -187,14 +191,15 @@ body {
 .info-box, .video-box { 
   display: flex; 
   flex-direction: column; 
-  justify-content: space-between; 
   height: 100%; 
+  min-height: 0; /* NOVO: necessário para o overflow-y do parágrafo (abaixo) funcionar dentro do flex, em vez de estourar o card */
 } 
  
 .info-box h3, .video-box h3 { 
   font-size: 1.05rem; 
   color: #0f172a; 
   margin-bottom: 6px; 
+  flex-shrink: 0; /* NOVO: o título nunca encolhe, fica sempre fixo no topo do card */
 } 
  
 .info-box p { 
@@ -202,12 +207,16 @@ body {
   color: #475569; 
   line-height: 1.4; 
   margin-bottom: 12px; 
+  flex: 1;          /* ALTERADO: antes o espaçamento vinha do "justify-content: space-between" do card inteiro, o que espalhava título/texto/números com vãos enormes quando o card crescia. Agora é o parágrafo que cresce para ocupar o espaço livre, mantendo-se sempre colado ao título */
+  min-height: 0;     /* NOVO: permite que o overflow-y abaixo funcione (senão o texto simplesmente estoura o card) */
+  overflow-y: auto;  /* NOVO: se o texto não couber no espaço disponível (zoom bem alto, por exemplo), aparece um scroll só dentro do parágrafo — em vez de espremer/desalinhar o resto do card */
 } 
  
 .stats-counters { 
   display: grid; 
   grid-template-columns: repeat(3, 1fr); 
   gap: 8px; 
+  flex-shrink: 0; /* NOVO: os números nunca encolhem nem se movem — ficam sempre fixos embaixo do card */
 } 
  
 .stat-item { 
@@ -239,7 +248,7 @@ body {
   justify-content: center; 
   color: #ffffff; 
   gap: 8px; 
-  margin-top: 6px; 
+  margin: auto 0; /* ALTERADO: era "margin-top: 6px" — margem vertical automática nos dois lados centraliza o vídeo no espaço livre do card (que varia de tamanho conforme o texto do card ao lado), em vez de ficar preso no topo com um vão feio embaixo */
 } 
  
 .play-button { 

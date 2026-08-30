@@ -12,22 +12,37 @@
   <script src="js/components.js"></script>
 
   <style>
+    /* ALTERADO: removida a regra local "height: 100%" que existia aqui.
+       Ela brigava com o layout flex-column definido em css/style.css
+       (html, body { min-height: 100vh; display: flex; flex-direction: column })
+       — que é o que mantém o rodapé grudado embaixo via margin-top: auto.
+       "height: 100%" trava a altura total da página em vez de dar um piso mínimo,
+       forçando os elementos a se espremerem em certos níveis de zoom (é essa
+       espremida que "bugava" o rodapé). Agora a página herda o layout unificado
+       do style.css normalmente, sem duplicar/conflitar a regra aqui.
+       Mantém-se aqui apenas a trava contra scroll horizontal duplo da página. */
     html, body {
-      height: 100%;
-      font-size: 1rem;
-      margin: 0;
-      padding: 0;
-      overflow-y: auto;
+      max-width: 100%;
+      overflow-x: hidden;
     }
 
-    /* CONTAINER COM ALTURA TRAVADA E ALINHAMENTO ALINHADO À TELA */
+    /* CONTAINER QUE PREENCHE O ESPAÇO DISPONÍVEL DE FORMA FLUIDA (ALTERADO):
+       antes tinha "height: calc(100vh - 115px)" + "max-height: 750px" — ou seja,
+       uma altura travada em valores fixos de pixel. Isso funcionava "por acaso"
+       enquanto o body também tinha altura travada (height: 100%), mas depois de
+       remover aquela trava (para consertar o rodapé), esse teto de 750px passou
+       a deixar um vão vazio enorme entre o card e o rodapé em zooms baixos —
+       porque o card não crescia junto com o espaço extra que aparecia na tela.
+       Agora ".main-layout" usa "flex: 1" para ocupar exatamente o espaço
+       disponível entre o cabeçalho e o rodapé — nem mais, nem menos — em
+       qualquer nível de zoom, sem depender de contas de viewport nem de um teto
+       fixo em pixels. */
     .main-layout {
       display: flex;
-      gap: 8px; /* ALTERADO: era 16px, depois 10px — reduzido mais para ficar perceptível */
+      gap: 8px;
       align-items: stretch;
-      height: calc(100vh - 115px); /* Mantém os dois cards na mesma altura relativa à viewport */
-      max-height: 750px;           /* Evita estouro em telas gigantes */
-      min-height: 580px;           /* Mantém estabilidade em telas menores */
+      flex: 1 1 auto;      /* ocupa o espaço vertical restante entre header e footer */
+      min-height: 480px;   /* piso apenas para telas muito baixas, não um teto */
       margin: 12px auto;
       box-sizing: border-box;
     }
