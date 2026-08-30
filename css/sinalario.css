@@ -3,15 +3,13 @@
    ========================================== */
 
 .main-layout {
-  display: grid;
-  grid-template-columns: 280px 1fr;
+  display: flex; /* trocar grid por flex para evitar deslocamentos e melhor resposta ao zoom */
   gap: 16px;
-  align-items: flex-start; /* Alinha o topo das duas colunas perfeitamente */
+  align-items: flex-start; /* Alinha o topo das colunas */
   width: 100%;
 }
-.main-layout > :first-child {
-  transform: translate(8px, 10px);
-}
+
+/* Removida transformação que deslocava a sidebar e causava desalinhamento */
 
 /* ==========================================
    SIDEBAR DA ESQUERDA
@@ -106,10 +104,11 @@
   background: #f5f3ff;
 }
 
+/* Tornar as palavras pretas e maiores conforme solicitado */
 .term-item strong {
   display: block;
-  font-size: 0.8rem;
-  color: #0f172a;
+  font-size: 1.05rem; /* aumentado */
+  color: #000 !important; /* força preto */
 }
 
 .term-item small {
@@ -141,6 +140,7 @@
   overflow: hidden;
   background: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  flex: 1 1 auto; /* permite crescer e pegar o espaço sobrando quando der zoom out */
 }
 
 .term-header {
@@ -317,4 +317,74 @@
 /* Quando o mouse SAI da caixa, desativa o mouse no iframe por 0.1s para o YouTube recolher o menu NA HORA */
 .video-wrapper-yt.mouse-out iframe {
   pointer-events: none !important;
+}
+
+/* ======================
+   CHECKBOX / ÁREA CORES
+   ====================== */
+/* Suporte moderno via accent-color + fallback com label estilizado */
+.area-checkbox {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--area-color, #777);
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+/* Fallback visual: quando houver label imediatamente após o checkbox */
+.area-checkbox:checked + .area-label {
+  background-color: var(--area-color, #777);
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* ==========================================
+   RESPONSIVIDADE E HEADER (impedir que botões saltem para baixo em zoom)
+   ========================================== */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Evita quebra dos links do header — prevenindo que um botão caia pra baixo
+   entre os outros quando o navegador estiver em grande zoom */
+.nav-links {
+  display: flex;
+  gap: 6px;
+  flex-wrap: nowrap; /* evita wrap dentro do bloco */
+}
+
+.nav-links a {
+  white-space: nowrap; /* força cada botão a ficar inteiro em uma linha */
+}
+
+/* Media query já presente no site: reforçar comportamento no ponto móvel */
+@media (max-width: 900px) {
+  .header {
+    flex-wrap: wrap;
+    height: auto !important;
+    min-height: auto !important;
+    padding: 8px 10px !important;
+    gap: 8px !important;
+  }
+  .header .nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+  }
+  .header .nav-links a {
+    padding: 7px 14px;
+    font-size: 0.92rem;
+  }
+
+  .main-layout {
+    flex-direction: column;
+    gap: 12px;
+    margin: 10px;
+    height: auto;
+  }
 }
