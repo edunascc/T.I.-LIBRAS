@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Entrar — T.I. Libras</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+  <app-header></app-header>
+  <main class="auth-page container">
+    <section class="auth-card">
+      <h1>Entrar</h1>
+      <div class="social-row">
+        <button id="btnGoogle" class="btn btn-outline">Continuar com Google</button>
+      </div>
+      <div class="divider"><span>ou</span></div>
+      <form id="loginForm" class="form">
+        <label>E‑mail
+          <input id="loginEmail" type="email" required placeholder="seu@exemplo.com">
+        </label>
+        <label>Senha
+          <input id="loginPass" type="password" minlength="6" required placeholder="••••••••">
+        </label>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Entrar</button>
+          <a class="link" href="register.html">Criar conta</a>
+        </div>
+        <div id="loginFeedback" class="feedback"></div>
+      </form>
+    </section>
+    <aside class="auth-visual">
+      <div class="hero-box">
+        <p>Salve seu progresso e continue de onde parou.</p>
+      </div>
+    </aside>
+  </main>
+  <app-footer></app-footer>
+  <script type="module" src="js/firebase-config.js"></script>
+  <script type="module" src="js/auth.js"></script>
+</body>
+</html>
