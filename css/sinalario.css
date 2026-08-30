@@ -1,18 +1,20 @@
 /* ==========================================
-   LAYOUT PRINCIPAL COMPACTO
+   LAYOUT PRINCIPAL ALINHADO E FLUIDO
    ========================================== */
 
 .main-layout {
   display: grid;
   grid-template-columns: 280px 1fr;
   gap: 16px;
-  margin-top: 16px;
-  margin-bottom: 24px;
-  align-items: stretch;
+  align-items: flex-start; /* Alinha o topo das duas colunas perfeitamente */
+  width: 100%;
+}
+.main-layout > :first-child {
+  transform: translate(8px, 10px);
 }
 
 /* ==========================================
-   SIDEBAR DA ESQUERDA COMPACTA
+   SIDEBAR DA ESQUERDA
    ========================================== */
 
 .search-card {
@@ -20,7 +22,6 @@
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -40,7 +41,7 @@
 
 .search-box input {
   width: 100%;
-  padding: 6px 10px;
+  padding: 8px 12px;
   border: 1px solid #e2e8f0;
   border-radius: 16px;
   font-size: 0.78rem;
@@ -61,7 +62,7 @@
   border: none;
   background: #f1f5f9;
   color: #475569;
-  padding: 3px 8px;
+  padding: 4px 10px;
   border-radius: 10px;
   font-size: 0.7rem;
   font-weight: 600;
@@ -85,8 +86,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  flex: 1;
-  max-height: 480px;
+  max-height: 520px;
   overflow-y: auto;
 }
 
@@ -137,18 +137,16 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   border-radius: 14px;
   overflow: hidden;
   background: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  height: 100%;
 }
 
 .term-header {
   background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
   color: #ffffff;
-  padding: 10px 16px;
+  padding: 12px 16px;
 }
 
 .category-tag {
@@ -163,16 +161,13 @@
   margin: 0;
 }
 
-/* ESTRUTURA INTERNA DO CARD DE TERMO */
 .term-body {
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  flex: 1;
 }
 
-/* 1. SEÇÃO SUPERIOR: VÍDEO (ESQ) | IMAGEM + DEFINIÇÃO (DIR) */
 .top-grid {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
@@ -192,35 +187,6 @@
   display: block;
 }
 
-.video-preview-169 {
-  background: #0f172a;
-  border-radius: 10px;
-  aspect-ratio: 16 / 9;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  gap: 6px;
-}
-
-.play-button {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-  cursor: pointer;
-  font-size: 0.85rem;
-}
-
-.video-preview-169 span {
-  font-size: 0.75rem;
-  opacity: 0.9;
-}
-
 .right-top-container {
   display: flex;
   flex-direction: column;
@@ -236,7 +202,7 @@
   justify-content: center;
   padding: 6px;
   width: 100%;
-  height: 220px;
+  height: 200px;
 }
 
 .term-image-box img {
@@ -245,7 +211,6 @@
   object-fit: contain;
 }
 
-/* DEFINIÇÃO AMPLIADA */
 .definition-card {
   padding: 12px 14px;
   border-left: 4px solid #6366f1;
@@ -255,14 +220,13 @@
 }
 
 .definition-card p {
-  font-size: 1.05rem; /* Fonte visivelmente maior */
+  font-size: 1rem;
   line-height: 1.5;
   color: #0f172a;
   font-weight: 500;
   margin: 4px 0 0 0;
 }
 
-/* 2. SEÇÃO INFERIOR: CARDS EMPILHADOS NA LARGURA TOTAL */
 .bottom-list-container {
   display: flex;
   flex-direction: column;
@@ -318,7 +282,6 @@
   color: #065f46;
 }
 
-/* NAVEGAÇÃO DO TERMO */
 .term-footer {
   display: flex;
   align-items: center;
@@ -351,104 +314,7 @@
   font-weight: 700;
   cursor: pointer;
 }
-
-/* ==========================================
-   RODAPÉ FIXO COMPACTO
-   ========================================== */
-
-footer.footer {
-  width: 100vw !important;
-  position: relative !important;
-  left: 50% !important;
-  right: 50% !important;
-  margin-left: -50vw !important;
-  margin-right: -50vw !important;
-  background: #ffffff !important;
-  border-top: 1px solid #e2e8f0 !important;
-  padding: 12px 0 !important;
-  margin-top: 30px !important;
-  box-sizing: border-box !important;
-}
-
-footer .footer-container {
-  width: 100% !important;
-  max-width: 1200px !important;
-  margin: 0 auto !important;
-  padding: 0 24px !important;
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  box-sizing: border-box !important;
-}
-
-footer .footer-logo {
-  display: flex !important;
-  align-items: center !important;
-  gap: 6px !important;
-  text-decoration: none !important;
-}
-
-footer .footer-logo .brand {
-  font-weight: 800 !important;
-  color: #4f46e5 !important;
-  font-size: 0.9rem !important;
-}
-
-footer .footer-links {
-  display: flex !important;
-  gap: 8px !important;
-}
-
-footer .footer-btn {
-  background: #f8fafc !important;
-  border: 1px solid #e2e8f0 !important;
-  color: #475569 !important;
-  padding: 5px 12px !important;
-  border-radius: 8px !important;
-  text-decoration: none !important;
-  font-size: 0.75rem !important;
-  font-weight: 500 !important;
-}
-
-footer .footer-tag span {
-  font-size: 0.72rem !important;
-  color: #64748b !important;
-}
-/* Adicione esta classe no seu CSS para estilizar a mensagem DENTRO do card */
-.answer-status-tag {
-  margin-left: auto;
-  font-size: 0.85rem;
-  font-weight: 800;
-  padding: 4px 10px;
-  border-radius: 6px;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.option-btn-card.correct .answer-status-tag {
-  background: #10b981;
-  color: #ffffff;
-}
-
-.option-btn-card.wrong .answer-status-tag {
-  background: #ef4444;
-  color: #ffffff;
-}
-/* Botão de Coração dentro do Card */
-.btn-fav {
-  background: transparent;
-  border: none;
-  font-size: 1.4rem;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-  padding: 4px;
-}
-
-.btn-fav:hover {
-  transform: scale(1.2);
-}
-
-.btn-fav.active {
-  color: #ef4444; /* Coração vermelho quando favoritado */
+/* Quando o mouse SAI da caixa, desativa o mouse no iframe por 0.1s para o YouTube recolher o menu NA HORA */
+.video-wrapper-yt.mouse-out iframe {
+  pointer-events: none !important;
 }

@@ -13,7 +13,7 @@ class AppHeader extends HTMLElement {
           <a href="sinalario.html" id="nav-sinalario">Sinalário</a>
         </nav>
         <div class="header-actions">
-          <button class="icon-btn" title="Acessibilidade"><i class="fa-solid fa-universal-access"></i></button>
+          <button class="icon-btn" title="Configurações"><i class="fa-solid fa-gear"></i></button>
           <button class="icon-btn" title="Perfil"><i class="fa-solid fa-user"></i></button>
         </div>
       </header>
@@ -36,7 +36,7 @@ class AppFooter extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
       <footer class="footer">
-        <div class="container footer-wrapper">
+        <div class="footer-inner">
           <!-- Lado Esquerdo -->
           <div class="footer-links-left">
             <a href="ficha-tecnica.html" class="pill-link">Ficha Técnica</a>
@@ -45,10 +45,10 @@ class AppFooter extends HTMLElement {
 
           <!-- Lado Direito -->
           <div class="footer-social-right">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-btn github-btn">
+            <a href="https://github.com/edunascc/T.I.-LIBRAS" target="_blank" rel="noopener noreferrer" class="social-btn github-btn">
               <i class="fa-brands fa-github"></i> GitHub
             </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-btn youtube-btn">
+            <a href="https://www.youtube.com/@t.i.libras" target="_blank" rel="noopener noreferrer" class="social-btn youtube-btn">
               <i class="fa-brands fa-youtube"></i> YouTube
             </a>
           </div>

@@ -8,76 +8,225 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/sinalario.css">
 
-  <!-- REGISTRO DOS WEB COMPONENTS (Funciona em file:// e http://) -->
+  <!-- REGISTRO DOS WEB COMPONENTS -->
   <script src="js/components.js"></script>
 
   <style>
-    /* Estilos customizados para o botão de Favoritar e Layout dos Itens */
-    .term-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: relative;
+    html, body {
+      height: 100%;
+      font-size: 1rem;
+      margin: 0;
+      padding: 0;
+      overflow-y: auto;
     }
 
-    .term-item-content {
+    /* CONTAINER COM ALTURA TRAVADA E ALINHAMENTO ALINHADO À TELA */
+    .main-layout {
       display: flex;
-      align-items: center;
-      gap: 10px;
+      gap: 16px;
+      align-items: stretch;
+      height: calc(100vh - 115px); /* Mantém os dois cards na mesma altura relativa à viewport */
+      max-height: 750px;           /* Evita estouro em telas gigantes */
+      min-height: 580px;           /* Mantém estabilidade em telas menores */
+      margin: 12px auto;
+      box-sizing: border-box;
+    }
+
+    /* SIDEBAR DA ESQUERDA FIXA E ALINHADA */
+    .sidebar-column {
+      flex: 0 0 340px;
+      display: flex;
+      flex-direction: column;
+      height: 96.7%;
+    }
+
+    .search-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 12px;
+      box-sizing: border-box;
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      overflow: hidden; /* Impede que o card estique para fora */
+    }
+
+    .search-card h2 {
+      font-size: 1.35rem;
+      margin: 0 0 2px 0;
+    }
+
+    .subtitle {
+      font-size: 0.82rem;
+      color: #64748b;
+      margin: 0 0 8px 0;
+    }
+
+    .search-box input {
+      font-size: 0.9rem;
+      padding: 8px 12px;
+      width: 100%;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+    }
+
+    /* BOTÕES DE CATEGORIA COM ALTURA ESTÁVEL */
+    .category-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin: 8px 0;
+      min-height: 62px; /* Garante tamanho constante no topo */
+      align-content: flex-start;
+    }
+
+    .pill {
+      font-size: 0.78rem;
+      padding: 4px 9px;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .pill.active, .pill:hover {
+      background: #3b82f6;
+      color: #fff;
+      border-color: #3b82f6;
+    }
+
+    .terms-count {
+      font-size: 0.78rem;
+      font-weight: bold;
+      color: #94a3b8;
+      margin: 2px 0 6px 0;
+      display: block;
+    }
+
+    /* SCROLL DA LISTA COM ALTURA TOTALMENTE TRAVADA */
+    .terms-list {
       flex: 1;
-      cursor: pointer;
+      min-height: 0; /* ESSENCIAL: impede a div de expandir a sidebar */
+      padding-right: 1cap;
     }
 
-    .btn-fav {
-      background: transparent;
-      border: none;
-      font-size: 1.1rem;
-      cursor: pointer;
-      padding: 4px;
-      transition: transform 0.2s ease;
-      line-height: 1;
+    /* CARD DA DIREITA (CONTEÚDO) */
+    .content-column {
+      flex: 1.1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
 
-    .btn-fav:hover {
-      transform: scale(1.25);
+    .term-detail-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 0;
+      box-sizing: border-box;
+      overflow: hidden; /* SEM SCROLL NO CARD DA DIREITA */
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    /* BARRA SUPERIOR AZUL COMPACTA */
+    .term-header-blue {
+      background-color: #3b82f6;
+      color: #ffffff;
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex-shrink: 0;
+    }
+
+    .category-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      opacity: 0.9;
     }
 
     .term-header-title {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
+    }
+
+    .term-header-title h2 {
+      font-size: 1.4rem;
+      margin: 0;
+      font-weight: 700;
+      color: #ffffff;
     }
 
     .btn-fav-large {
-      background: #f1f5f9;
-      border: 1px solid #cbd5e1;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
       border-radius: 50%;
-      width: 38px;
-      height: 38px;
+      width: 30px;
+      height: 30px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
+      font-size: 0.95rem;
       cursor: pointer;
+      color: #1e293b;
       transition: all 0.2s ease;
     }
 
     .btn-fav-large:hover {
-      background: #fee2e2;
-      border-color: #ef4444;
-      transform: scale(1.08);
+      background: #ffffff;
+      transform: scale(1.1);
     }
 
-    /* Container de vídeo do YouTube Responsivo */
+    /* CORPO DO CONTEÚDO DA DIREITA */
+    .term-body {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px 14px;
+      flex: 1.1;
+      justify-content: flex-start;
+      overflow: hidden;
+    }
+
+    /* GRID DO VÍDEO E DIREITA */
+    .top-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .video-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .section-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
     .video-wrapper-yt {
       position: relative;
       width: 100%;
-      padding-bottom: 56.25%; /* Proporção 16:9 */
+      padding-bottom: 56.25%;
       height: 0;
       overflow: hidden;
-      border-radius: 12px;
+      border-radius: 8px;
       background: #000;
-      margin-top: 8px;
     }
 
     .video-wrapper-yt iframe {
@@ -88,6 +237,118 @@
       height: 100%;
       border: 0;
     }
+
+    .right-top-container {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      height: 100%;
+    }
+
+    /* CARD IMAGEM */
+    .term-image-box {
+      flex: 1.3;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 6px 8px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .image-content-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .term-image-box img {
+      max-width: 100%;
+      max-height: 100px;
+      object-fit: contain;
+    }
+    .definition-card {
+      flex: 0.5;
+      padding: 6px 8px;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .definition-card p {
+      font-size: 0.88rem;
+      line-height: 1.25;
+      color: #1e293b;
+      margin: 2px 0 0 0;
+    }
+
+    /* INFORMAÇÕES ABAIXO */
+    .bottom-list-container {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .info-card {
+      padding: 5px px;
+      border-radius: 6px;
+    }
+
+    .info-label {
+      font-size: 0.72rem;
+      font-weight: bold;
+      letter-spacing: 0.3px;
+    }
+
+    .quote, .libras-text {
+      font-size: 0.88rem;
+      margin: 1px 0 0 0;
+    }
+
+    /* ITENS DA LISTA */
+    .term-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 8px;
+      border-radius: 6px;
+      margin-bottom: 2px;
+      cursor: pointer;
+    }
+
+    .term-item.active {
+      background: #eff6ff;
+      border-left: 3px solid #3b82f6;
+    }
+
+    .term-item-content {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .term-item-content strong {
+      font-size: 0.88rem;
+      display: block;
+    }
+
+    .term-item-content small {
+      font-size: 0.72rem;
+      color: #64748b;
+    }
+
+    .btn-fav {
+      background: transparent;
+      border: none;
+      font-size: 0.95rem;
+      cursor: pointer;
+      padding: 2px;
+    }
   </style>
 </head>
 <body>
@@ -95,7 +356,7 @@
   <!-- CABEÇALHO DINÂMICO -->
   <app-header></app-header>
 
-  <!-- CONTEÚDO PRINCIPAL COMPACTO -->
+  <!-- LAYOUT CENTRALIZADO E TRAVADO NA MESMA ALTURA -->
   <div class="container main-layout">
     
     <!-- SIDEBAR DA ESQUERDA -->
@@ -108,7 +369,7 @@
           <input type="text" id="searchInput" placeholder="Buscar termo...">
         </div>
 
-        <div class="category-pills">
+        <div class="category-pills" id="categoryPills">
           <button class="pill active" data-cat="todos">Todos</button>
           <button class="pill" data-cat="hardware">Hardware</button>
           <button class="pill" data-cat="software">Software</button>
@@ -121,17 +382,17 @@
         <span class="terms-count" id="termsCount">63 TERMOS</span>
 
         <div class="terms-list" id="termsList">
-          <!-- Gerado via JS -->
+          <!-- Lista montada via JS -->
         </div>
       </div>
     </aside>
 
-    <!-- COLUNA DIREITA: DETALHES DO TERMO -->
+    <!-- CARD DA DIREITA -->
     <main class="content-column">
       <div class="card term-detail-card">
         
-        <!-- CABEÇALHO DO TERMO -->
-        <div class="term-header">
+        <!-- BARRA AZUL SUPERIOR -->
+        <div class="term-header-blue">
           <span class="category-tag" id="displayCategory">HARDWARE</span>
           <div class="term-header-title">
             <h2 id="displayTerm">Monitor</h2>
@@ -139,19 +400,16 @@
           </div>
         </div>
 
-        <!-- CORPO PRINCIPAL DO CARD -->
+        <!-- CORPO INTERNO COMPACTO -->
         <div class="term-body">
           
-          <!-- PARTE SUPERIOR: 2 COLUNAS -->
           <div class="top-grid">
-            
-            <!-- Coluna da Esquerda: Vídeo do YouTube -->
             <div class="video-container">
               <span class="section-title"><i class="fa-solid fa-play"></i> Vídeo do Sinal</span>
               <div class="video-wrapper-yt">
                 <iframe 
                   id="ytPlayer" 
-                  src="https://www.youtube.com/embed/SEU_ID_AQUI" 
+                  src="https://www.youtube.com/embed/SEU_ID_AQUI?autoplay=1&controls=0&modestbranding=1&rel=0&loop=1" 
                   title="Vídeo do Sinal em Libras" 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                   allowfullscreen>
@@ -159,50 +417,38 @@
               </div>
             </div>
 
-            <!-- Coluna da Direita: Imagem + Definição Ampliada -->
             <div class="right-top-container">
               <div class="term-image-box">
-                <img src="img/monitor.png" alt="Termo" id="termImage" onerror="this.src='https://via.placeholder.com/160x130?text=Sinal+TI'">
+                <span class="section-title"><i class="fa-solid fa-image"></i> Imagem do termo:</span>
+                <div class="image-content-wrapper">
+                  <img src="img/monitor.png" alt="Termo" id="termImage" onerror="this.src='https://via.placeholder.com/160x130?text=Sinal+TI'">
+                </div>
               </div>
               
               <div class="info-card definition-card">
                 <span class="info-label"><i class="fa-solid fa-book-open"></i> DEFINIÇÃO</span>
-                <p id="displayDef">Dispositivo de saída que exibe imagens, vídeos e a interface gráfica do sistema para o usuário.</p>
+                <p id="displayDef">Dispositivo de saída que exibe a interface visual do computador.</p>
               </div>
             </div>
-
           </div>
 
-          <!-- PARTE INFERIOR -->
           <div class="bottom-list-container">
-            
-            <!-- 1. Exemplo em Português -->
             <div class="info-card border-blue">
               <span class="info-label"><i class="fa-solid fa-language"></i> EXEMPLO EM PORTUGUÊS</span>
-              <p class="quote" id="displayExPt">"Liguei o segundo monitor para programar com mais espaço."</p>
+              <p class="quote" id="displayExPt">"O monitor exibe a imagem em alta definição."</p>
             </div>
 
-            <!-- 2. Exemplo em Libras -->
             <div class="info-card border-green">
               <span class="info-label"><i class="fa-solid fa-hand"></i> EXEMPLO EM LIBRAS</span>
-              <p class="libras-text" id="displayExGlosa">MEU MONITOR NOVO GRANDE COMPUTADOR</p>
+              <p class="libras-text" id="displayExGlosa">MONITOR MOSTRAR IMAGEM BONITO</p>
             </div>
 
-            <!-- 3. Fonte de Pesquisa -->
             <div class="info-card source-card">
               <span class="info-label"><i class="fa-solid fa-link"></i> FONTE DE PESQUISA</span>
-              <p><a href="#" id="displaySource" target="_blank">Infolibras (IFBA Campus Seabra) 🔗</a></p>
+              <p><a href="#" id="displaySource" target="_blank">Infolibras (IFBA) 🔗</a></p>
             </div>
-
           </div>
 
-        </div>
-
-        <!-- RODAPÉ DE NAVEGAÇÃO -->
-        <div class="term-footer">
-          <button class="btn-nav" id="btnPrev"><i class="fa-solid fa-chevron-left"></i> Anterior</button>
-          <button class="btn-quiz" id="btnQuizLink"><i class="fa-solid fa-bullseye"></i> Praticar Quiz desta Área</button>
-          <button class="btn-nav" id="btnNext">Próximo <i class="fa-solid fa-chevron-right"></i></button>
         </div>
 
       </div>
@@ -213,7 +459,7 @@
   <!-- RODAPÉ DINÂMICO -->
   <app-footer></app-footer>
 
-  <!-- INÍCIO DO COMPONENTE VLIBRAS -->
+  <!-- VLIBRAS -->
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
     <div vw-plugin-wrapper>
@@ -224,93 +470,36 @@
   <script>
     new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
-  <!-- FIM DO COMPONENTE VLIBRAS -->
 
+  <!-- SCRIPT JS FUNCIONAL -->
   <script>
     const database = [
-      // Hardware (17)
-      { term: "Monitor", cat: "Hardware", youtubeId: "Ndzqo_R9334", def: "Dispositivo de saída que exibe a interface visual do computador.", exPt: "O monitor exibe a imagem em alta definição.", exGlosa: "MONITOR MOSTRAR IMAGEM BONITO", source: "Infolibras (IFBA)", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=1&page=3" },
+      { term: "Monitor", cat: "Hardware", youtubeId: "x2uwlO43nas", def: "Dispositivo de saída que exibe a interface visual do computador.", exPt: "O monitor exibe a imagem em alta definição.", exGlosa: "MONITOR MOSTRAR IMAGEM BONITO", source: "Infolibras (IFBA)", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=1&page=3" },
       { term: "Mouse", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Periférico de entrada usado para mover o ponteiro na tela.", exPt: "Clique com o botão direito do mouse.", exGlosa: "MOUSE APONTAR CLICAR TELA", source: "Infolibras (IFBA)", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=1&page=3" },
       { term: "Teclado", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Periférico de entrada com teclas para digitação de texto e comandos.", exPt: "Estou digitando o código no teclado.", exGlosa: "TECLADO DIGITAR RÁPIDO CÓDIGO", source: "Infolibras (IFBA)", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=1&page=2" },
       { term: "Fone de ouvido", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Dispositivo de áudio individual colocado nas orelhas.", exPt: "Coloque os fones de ouvido para ouvir a aula.", exGlosa: "FONE ORELHA OUVIR AULA", source: "Canal Integra Surdos", link: "https://www.youtube.com/watch?v=swhKLnJlFeA" },
       { term: "Microfone", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Equipamento que capta ondas sonoras e as converte em sinal elétrico.", exPt: "O microfone está mudo na reunião.", exGlosa: "MICROFONE FALAR SOM ENTAR", source: "Canal Ensino Libras", link: "https://www.youtube.com/watch?v=lU71pnlfF9c" },
       { term: "Webcam", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Câmera de vídeo conectada ao computador para transmissões ao vivo.", exPt: "Ligue a webcam para a videochamada.", exGlosa: "WEBCAM MOSTRAR ROSTO REUNIÃO", source: "NAPNEE — IFBA", link: "https://www.youtube.com/embed/haw92ao5FEY" },
       { term: "Impressora", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Dispositivo que imprime documentos em papel.", exPt: "A impressora precisa de mais papel.", exGlosa: "IMPRESSORA PAPEL SAIR TEXTO", source: "NAPNEE — IFBA", link: "https://www.youtube.com/embed/k7fdi7G9pBM" },
-      { term: "Placa Mãe", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Placa de circuito impresso principal que conecta todos os componentes.", exPt: "A placa mãe interliga o processador e as memórias.", exGlosa: "PLACA-MÃE CONECTAR PEÇAS TODAS", source: "Infolibras / NAPNEE", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=1&page=1" },
-      { term: "Memória RAM", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Memória de acesso aleatório de alta velocidade usada temporariamente.", exPt: "Aumentei a memória RAM para o sistema rodar rápido.", exGlosa: "MEMÓRIA-RAM GUARDAR TEMPO RÁPIDO", source: "Infolibras / IFPB", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=1" },
-      { term: "Fonte de alimentação", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Componente que converte a energia da tomada para os componentes.", exPt: "A fonte de alimentação queimou durante a tempestade.", exGlosa: "FONTE ENERGIA DISTRIBUIR COMPUTADOR", source: "Infolibras", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=1&page=3" },
-      { term: "HD", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Dispositivo de armazenamento magnético permanente de dados.", exPt: "O HD armazena todos os arquivos do computador.", exGlosa: "HD ARQUIVOS GUARDAR MUITO", source: "Infolibras / NAPNEE", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=1&page=1" },
-      { term: "SSD", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Unidade de armazenamento em estado sólido, muito mais rápida que o HD.", exPt: "O SSD faz o sistema operacional carregar em segundos.", exGlosa: "SSD ARMAZENAR RÁPIDO DEMAIS", source: "Infolibras", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=1&page=4" },
-      { term: "Processador", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Unidade central de processamento (CPU) que executa os cálculos do sistema.", exPt: "O processador é o cérebro do computador.", exGlosa: "PROCESSADOR CÉREBRO COMPUTADOR PENSAR", source: "Infolibras", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=1" },
-      { term: "Gabinete", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Estrutura metálica ou plástica que abriga as peças internas.", exPt: "Abri o gabinete para limpar a poeira interna.", exGlosa: "GABINETE CAIXA PEÇAS GUARDAR DENTRO", source: "NAPNEE — IFBA", link: "https://www.youtube.com/embed/fpJqP_d5A5g" },
-      { term: "Laptop", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Computador portátil alimentado por bateria.", exPt: "Levei meu laptop para a biblioteca.", exGlosa: "LAPTOP COMPUTADOR PORTÁTIL MESA", source: "Sing Libras", link: "https://www.singlibras.com/sinal-de-notebook-em-libras/" },
-      { term: "Cooler", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Ventoinha para arrefecimento e resfriamento do processador.", exPt: "O cooler evita o superaquecimento do processador.", exGlosa: "COOLER VENTO ESFRIAR PROCESSADOR", source: "Infolibras", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=1&page=3" },
-      { term: "Pendrive", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Dispositivo portátil de memória flash conectado via USB.", exPt: "Salvei o trabalho no pendrive para levar ao IFRN.", exGlosa: "PENDRIVE GUARDAR COLOCAR USB", source: "NAPNEE — IFBA", link: "https://www.youtube.com/embed/BACpOhn86HE" },
-
-      // Software (11)
       { term: "Sistema Operacional", cat: "Software", youtubeId: "SEU_ID_AQUI", def: "Software principal que gerencia os recursos de hardware e outros programas.", exPt: "O Linux é um sistema operacional muito estável.", exGlosa: "SISTEMA OPERACIONAL GERENCIAR COMPUTADOR", source: "Infolibras", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=2" },
       { term: "Linux", cat: "Software", youtubeId: "SEU_ID_AQUI", def: "Sistema operacional de código aberto bastante utilizado por desenvolvedores.", exPt: "Aprendemos a usar o terminal no Linux.", exGlosa: "LINUX SISTEMA LIVRE CÓDIGO", source: "NAPNEE - IFBA", link: "https://napneevdc.wixsite.com/ifba/letra-l" },
       { term: "Windows", cat: "Software", youtubeId: "SEU_ID_AQUI", def: "Sistema operacional desenvolvido pela empresa Microsoft.", exPt: "O Windows atualizou ontem à noite.", exGlosa: "WINDOWS SISTEMA JANELAS POPULAR", source: "Infolibras", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=2" },
-      { term: "Office", cat: "Software", youtubeId: "SEU_ID_AQUI", def: "Pacote de programas para escritório (Word, Excel, PowerPoint).", exPt: "Instalei o pacote Office no meu computador.", exGlosa: "OFFICE PACOTE PROGRAMAS TRABALHO", source: "Glossário de TI", link: "#" },
-      { term: "Aplicativo", cat: "Software", youtubeId: "SEU_ID_AQUI", def: "Programa de computador ou celular projetado para uma tarefa específica.", exPt: "Baixei um aplicativo novo de estudos.", exGlosa: "APLICATIVO PROGRAMA CELULAR USAR", source: "Infolibras", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=2" },
-      { term: "Kernel", cat: "Software", youtubeId: "SEU_ID_AQUI", def: "Núcleo principal do sistema operacional que liga software ao hardware.", exPt: "O Kernel gerencia a memória e as instruções de CPU.", exGlosa: "KERNEL NÚCLEO SISTEMA CONTROLAR", source: "Infolibras", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=2&page=3" },
-      { term: "E-Mail", cat: "Software", youtubeId: "SEU_ID_AQUI", def: "Serviço de envio e recebimento de mensagens eletrônicas.", exPt: "Enviei o relatório pelo e-mail acadêmico.", exGlosa: "EMAIL MENSAGEM ENVIAR COMPUTADOR", source: "Infolibras", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=2&page=4" },
-      { term: "Mac", cat: "Software", youtubeId: "SEU_ID_AQUI", def: "Sistema operacional e linha de computadores desenvolvidos pela Apple.", exPt: "O sistema Mac é famoso pela interface fluida.", exGlosa: "MAC SISTEMA APPLE COMPUTADOR", source: "Glossário de TI", link: "#" },
-      { term: "Word", cat: "Software", youtubeId: "SEU_ID_AQUI", def: "Processador e editor de textos do pacote Microsoft Office.", exPt: "Digitei a redação no Microsoft Word.", exGlosa: "WORD EDITOR TEXTO ESCREVER", source: "Infolibras", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=2&page=4" },
-      { term: "Excel", cat: "Software", youtubeId: "SEU_ID_AQUI", def: "Editor de planilhas eletrônicas com cálculo e tabelas.", exPt: "Criei uma tabela financeira no Excel.", exGlosa: "EXCEL PLANILHA CALCULAR TABELA", source: "IFPB Campina Grande", link: "https://culturasurda.net/2016/01/06/informatica-em-libras/" },
-      { term: "PowerPoint", cat: "Software", youtubeId: "SEU_ID_AQUI", def: "Software para criação e exibição de apresentações de slides.", exPt: "Apresentamos os slides pelo PowerPoint.", exGlosa: "POWERPOINT SLIDES APRESENTAR AULA", source: "NAPNEE - IFBA", link: "https://napneevdc.wixsite.com/ifba/letra-p" },
-
-      // Lógica (12)
       { term: "Algoritmo", cat: "Lógica", youtubeId: "SEU_ID_AQUI", def: "Sequência finita de passos lógicos para resolver um problema.", exPt: "O algoritmo ordena a lista de nomes.", exGlosa: "ALGORITMO PASSO PASSO RESOLVER", source: "Dicionário UFV", link: "https://sistemas.cead.ufv.br/capes/dicionario/?cadastros=algoritmo" },
       { term: "Variável", cat: "Lógica", youtubeId: "SEU_ID_AQUI", def: "Espaço na memória reservado para armazenar dados que podem mudar.", exPt: "Declarei uma variável para guardar a idade.", exGlosa: "VARIÁVEL MEMÓRIA GUARDAR MUDAR", source: "Glossário de TI", link: "#" },
-      { term: "Laço de Repetição", cat: "Lógica", youtubeId: "SEU_ID_AQUI", def: "Estrutura de código que repete um bloco enquanto uma condição for verdadeira.", exPt: "O laço for percorre todo o vetor.", exGlosa: "LAÇO REPETIÇÃO VÁRIAS VEZES CÓDIGO", source: "Glossário de TI", link: "#" },
-      { term: "Operador", cat: "Lógica", youtubeId: "SEU_ID_AQUI", def: "Símbolo que realiza operações matemáticas, lógicas ou de comparação.", exPt: "O operador '+' soma dois números inteiros.", exGlosa: "OPERADOR SÍMBOLO SOMAR COMPARAR", source: "Glossário de TI", link: "#" },
-      { term: "Java", cat: "Lógica", youtubeId: "SEU_ID_AQUI", def: "Linguagem de programação orientada a objetos bastante usada em grandes sistemas.", exPt: "Desenvolvemos o sistema back-end em Java.", exGlosa: "JAVA LINGUAGEM PROGRAMAÇÃO DATILOLOGIA J-A-V-A", source: "Datilologia / Libras", link: "#" },
-      { term: "HTML", cat: "Lógica", youtubeId: "SEU_ID_AQUI", def: "Linguagem de marcação usada na estruturação de páginas web.", exPt: "O elemento `<h1>` define o título em HTML.", exGlosa: "HTML ESTRUTURA SITE WEB DATILOLOGIA H-T-M-L", source: "Datilologia / Libras", link: "#" },
-      { term: "CSS", cat: "Lógica", youtubeId: "SEU_ID_AQUI", def: "Linguagem de estilo usada para estilizar elementos em páginas HTML.", exPt: "Mudamos as cores da página utilizando CSS.", exGlosa: "CSS ESTILO COR DESIGN SITE DATILOLOGIA C-S-S", source: "Datilologia / Libras", link: "#" },
-      { term: "JavaScript", cat: "Lógica", youtubeId: "SEU_ID_AQUI", def: "Linguagem de programação para adicionar interatividade em sites.", exPt: "O script em JavaScript valida o formulário.", exGlosa: "JAVASCRIPT INTERAÇÃO SITE DINÂMICO", source: "Datilologia / Libras", link: "#" },
-      { term: "Python", cat: "Lógica", youtubeId: "SEU_ID_AQUI", def: "Linguagem de programação de sintaxe simples e alta aplicabilidade em dados.", exPt: "Usamos Python para análise de dados e IA.", exGlosa: "PYTHON LINGUAGEM CÓDIGO FÁCIL DATILOLOGIA P-Y-T-H-O-N", source: "Datilologia / Libras", link: "#" },
-      { term: "NetBeans", cat: "Lógica", youtubeId: "SEU_ID_AQUI", def: "Ambiente de desenvolvimento integrado (IDE) para programação.", exPt: "Compilamos o código Java dentro do NetBeans.", exGlosa: "NETBEANS IDE PROGRAMAR CÓDIGO", source: "Datilologia / Libras", link: "#" },
-      { term: "GitHub", cat: "Lógica", youtubeId: "SEU_ID_AQUI", def: "Plataforma de hospedagem de código fonte e controle de versão.", exPt: "Subi o projeto do grupo para o GitHub.", exGlosa: "GITHUB GUARDAR CÓDIGO NUVEM GRUPO", source: "Datilologia / Libras", link: "#" },
-      { term: "Repositório", cat: "Lógica", youtubeId: "SEU_ID_AQUI", def: "Local de armazenamento onde os arquivos de um projeto ficam salvos.", exPt: "Clonei o repositório remoto para o computador.", exGlosa: "REPOSITÓRIO PASTA PROJETO GUARDAR CÓDIGO", source: "Glossário de TI", link: "#" },
-
-      // Eletricidade (11)
       { term: "Potência", cat: "Eletricidade", youtubeId: "SEU_ID_AQUI", def: "Grandeza que mede a quantidade de energia elétrica consumida por segundo.", exPt: "A potência da fonte é de 500 Watts.", exGlosa: "POTÊNCIA ENERGIA FORÇA MEDIR", source: "SENAI/DN (2009)", link: "https://static.portaldaindustria.com.br" },
       { term: "Resistor", cat: "Eletricidade", youtubeId: "SEU_ID_AQUI", def: "Componente elétrico que limita e opõe resistência à passagem de corrente.", exPt: "O resistor protege o LED contra sobrecarga.", exGlosa: "RESISTOR SEGURAR CORRENTE ELÉTRICA", source: "SENAI/DN (2009)", link: "https://static.portaldaindustria.com.br" },
-      { term: "Tensão", cat: "Eletricidade", youtubeId: "SEU_ID_AQUI", def: "Diferença de potencial elétrico entre dois pontos (Voltagem).", exPt: "A tensão nominal da tomada é 220 Volts.", exGlosa: "TENSÃO VOLTAGEM TOMADA MEDIR", source: "SENAI/DN (2009)", link: "https://static.portaldaindustria.com.br" },
-      { term: "Corrente Elétrica", cat: "Eletricidade", youtubeId: "SEU_ID_AQUI", def: "Fluxo ordenado de cargas elétricas que se movem em um condutor.", exPt: "A corrente elétrica passa pelo circuito fechado.", exGlosa: "CORRENTE ELÉTRICA FLUXO PASSAR FIO", source: "SENAI/DN (2009)", link: "https://static.portaldaindustria.com.br" },
-      { term: "Cabo", cat: "Eletricidade", youtubeId: "SEU_ID_AQUI", def: "Condutor elétrico isolado por uma capa de proteção.", exPt: "Conecte o cabo de energia na tomada.", exGlosa: "CABO FIO ENERGIA CONECTAR", source: "SENAI/DN (2009)", link: "https://static.portaldaindustria.com.br" },
-      { term: "Alicate", cat: "Eletricidade", youtubeId: "SEU_ID_AQUI", def: "Ferramenta manual para cortar, dobrar ou desencapar fios elétricos.", exPt: "Usei o alicate de corte para decapador o cabo.", exGlosa: "ALICATE FERRAMENTA CORTAR FIO", source: "SENAI/DN (2009)", link: "https://static.portaldaindustria.com.br" },
-      { term: "Condutor", cat: "Eletricidade", youtubeId: "SEU_ID_AQUI", def: "Material que permite a livre circulação de elétrons e energia.", exPt: "O cobre é um excelente condutor elétrico.", exGlosa: "CONDUTOR MATERIAL ENERGIA PASSAR FÁCIL", source: "SENAI/DN (2009)", link: "https://static.portaldaindustria.com.br" },
-      { term: "LED", cat: "Eletricidade", youtubeId: "SEU_ID_AQUI", def: "Diodo emissor de luz de alto rendimento e baixo consumo de energia.", exPt: "O LED indicador acendeu na cor verde.", exGlosa: "LED LUZ PEQUENA ACENDER", source: "Glossário de Eletrônica", link: "#" },
-      { term: "Corrente Alternada", cat: "Eletricidade", youtubeId: "SEU_ID_AQUI", def: "Corrente elétrica cujo sentido de circulação varia periodicamente.", exPt: "As tomadas residenciais fornecem corrente alternada.", exGlosa: "CORRENTE ALTERNADA ONDA MUDAR SENTIDO", source: "SENAI/DN (2009)", link: "https://static.portaldaindustria.com.br" },
-      { term: "Disjuntor", cat: "Eletricidade", youtubeId: "SEU_ID_AQUI", def: "Dispositivo de proteção que desliga o circuito em caso de sobrecarga.", exPt: "O disjuntor armou ao ligar muitos aparelhos.", exGlosa: "DISJUNTOR PROTEÇÃO DESLIGAR ENERGIA SOBRECARGA", source: "SENAI/DN (2009)", link: "https://static.portaldaindustria.com.br" },
-      { term: "Multímetro", cat: "Eletricidade", youtubeId: "SEU_ID_AQUI", def: "Instrumento de medição de tensão, corrente e resistência elétrica.", exPt: "Meça a voltagem da bateria com o multímetro.", exGlosa: "MULTÍMETRO APARELHO MEDIR VOLTAGEM CORRENTE", source: "SENAI/DN (2009)", link: "https://static.portaldaindustria.com.br" },
-
-      // Redes (12)
       { term: "Site", cat: "Redes", youtubeId: "SEU_ID_AQUI", def: "Conjunto de páginas web acessíveis na internet por um domínio.", exPt: "Acesse o site oficial do instituto para informações.", exGlosa: "SITE PÁGINA INTERNET ABRIR", source: "Glossário de TI", link: "#" },
-      { term: "Navegador de Internet", cat: "Redes", youtubeId: "SEU_ID_AQUI", def: "Software que permite acessar e visualizar páginas da World Wide Web.", exPt: "Abra o navegador de internet para pesquisar.", exGlosa: "NAVEGADOR PROGRAMA ENTRAR INTERNET", source: "Infolibras", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=2" },
-      { term: "Google Chrome", cat: "Redes", youtubeId: "SEU_ID_AQUI", def: "Navegador de internet desenvolvido pela empresa Google.", exPt: "Uso o Google Chrome como navegador padrão.", exGlosa: "GOOGLE CHROME NAVEGADOR POPULAR", source: "Canal Ed Libras", link: "https://www.youtube.com/watch?v=eY_tti9XP0M" },
-      { term: "Edge", cat: "Redes", youtubeId: "SEU_ID_AQUI", def: "Navegador de internet desenvolvido pela Microsoft.", exPt: "O Microsoft Edge vem integrado ao Windows.", exGlosa: "EDGE NAVEGADOR MICROSOFT", source: "Glossário de TI", link: "#" },
-      { term: "Firefox", cat: "Redes", youtubeId: "SEU_ID_AQUI", def: "Navegador web de código aberto mantido pela Mozilla.", exPt: "O Firefox garante maior privacidade durante a navegação.", exGlosa: "FIREFOX NAVEGADOR RAPOSA PRIVACIDADE", source: "Glossário de TI", link: "#" },
-      { term: "Abas", cat: "Redes", youtubeId: "SEU_ID_AQUI", def: "Guias no navegador que permitem abrir múltiplos sites numa mesma janela.", exPt: "Estou com várias abas abertas ao mesmo tempo.", exGlosa: "ABAS JANELAS VÁRIAS JUNTO NAVEGADOR", source: "Glossário de TI", link: "#" },
-      { term: "Maximizar e Minimizar", cat: "Redes", youtubeId: "SEU_ID_AQUI", def: "Ações de expandir a janela em tela cheia ou ocultá-la na barra de tarefas.", exPt: "Minimizar a janela esconde o aplicativo na barra.", exGlosa: "MAXIMIZAR ABRIR TELA // MINIMIZAR ESCONDER EM BAIXO", source: "NAPNEE — IFBA", link: "https://napneevdc.wixsite.com/ifba/glossrio-de-informtica-em-libras" },
-      { term: "Google", cat: "Redes", youtubeId: "mVY0RGFQCws", def: "Motor de busca mais utilizado no mundo para pesquisas na web.", exPt: "Pesquise a resposta da questão no Google.", exGlosa: "GOOGLE PESQUISAR TUDO INTERNET", source: "NAPNEE — IFBA", link: "https://www.youtube.com/embed/mVY0RGFQCws" },
-      { term: "Vírus", cat: "Redes", youtubeId: "SEU_ID_AQUI", def: "Programa malicioso projetado para infectar e danificar sistemas.", exPt: "O vírus malicioso apagou os arquivos do computador.", exGlosa: "VÍRUS PROGRAMA MAU ESTRAGAR COMPUTADOR", source: "Infolibras", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=2&page=3" },
-      { term: "Antivírus", cat: "Redes", youtubeId: "SEU_ID_AQUI", def: "Software responsável por detectar e remover malwares do sistema.", exPt: "O antivírus bloqueou a ameaça baixada.", exGlosa: "ANTIVÍRUS PROTEÇÃO MATAR VÍRUS", source: "Infolibras", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=2&page=2" },
-      { term: "Backup", cat: "Redes", youtubeId: "SEU_ID_AQUI", def: "Cópia de segurança de arquivos para prevenção de perda de dados.", exPt: "Faça o backup de seus trabalhos semanalmente.", exGlosa: "BACKUP CÓPIA GUARDAR SEGURANÇA", source: "Infolibras", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=2" },
-      { term: "Link", cat: "Redes", youtubeId: "SEU_ID_AQUI", def: "Endereço ou elemento clicável que conecta a outra página na web.", exPt: "Clique no link enviado para abrir o documento.", exGlosa: "LINK CLICAR ABRIR PÁGINA OUTRA", source: "Infolibras", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=2&page=2" }
+      { term: "Navegador de Internet", cat: "Redes", youtubeId: "SEU_ID_AQUI", def: "Software que permite acessar e visualizar páginas da World Wide Web.", exPt: "Abra o navegador de internet para pesquisar.", exGlosa: "NAVEGADOR PROGRAMA ENTRAR INTERNET", source: "Infolibras", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=2" }
     ];
 
     const dotMap = {
-      Hardware: "purple",
-      Software: "blue",
-      Lógica: "yellow",
-      Eletricidade: "red",
-      Redes: "green"
+      Hardware: "purple", Software: "blue", Lógica: "yellow", Eletricidade: "red", Redes: "green"
     };
 
-    // GERENCIAMENTO DE FAVORITOS
+    let selectedCategory = 'todos';
+    let searchQuery = '';
+    let currentTerm = database[0];
+
     function getFavoritos() {
       return JSON.parse(localStorage.getItem('termosFavoritos') || '[]');
     }
@@ -323,201 +512,126 @@
         favs.push(termoNome);
       }
       localStorage.setItem('termosFavoritos', JSON.stringify(favs));
+      renderList();
+      renderCurrentTerm();
     }
 
-    // CONTABILIZAÇÃO DE SINAIS VISTOS
-    function registrarSinalVisto(termoNome) {
-      let vistos = JSON.parse(localStorage.getItem('sinaisVistos') || '[]');
-      if (!vistos.includes(termoNome)) {
-        vistos.push(termoNome);
-        localStorage.setItem('sinaisVistos', JSON.stringify(vistos));
+    function filterData() {
+      const favs = getFavoritos();
+      return database.filter(item => {
+        const catNormalized = item.cat.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const matchCat = selectedCategory === 'todos' ? true :
+                         selectedCategory === 'favoritos' ? favs.includes(item.term) :
+                         catNormalized === selectedCategory;
+
+        const matchSearch = item.term.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchCat && matchSearch;
+      });
+    }
+
+    function renderList() {
+      const termsListContainer = document.getElementById('termsList');
+      const filtered = filterData();
+      document.getElementById('termsCount').textContent = `${filtered.length} TERMOS`;
+      termsListContainer.innerHTML = '';
+
+      const favs = getFavoritos();
+
+      filtered.forEach((item) => {
+        const div = document.createElement('div');
+        div.className = `term-item ${currentTerm && currentTerm.term === item.term ? 'active' : ''}`;
+        
+        const isFav = favs.includes(item.term);
+
+        div.innerHTML = `
+          <div class="term-item-content">
+            <span class="dot ${dotMap[item.cat] || 'purple'}"></span>
+            <div>
+              <strong>${item.term}</strong>
+              <small>${item.cat}</small>
+            </div>
+          </div>
+          <button class="btn-fav" title="Favoritar">
+            ${isFav ? '<i class="fa-solid fa-heart" style="color: #ef4444;"></i>' : '<i class="fa-regular fa-heart"></i>'}
+          </button>
+        `;
+
+        div.querySelector('.term-item-content').addEventListener('click', () => {
+          currentTerm = item;
+          renderList();
+          renderCurrentTerm();
+        });
+
+        div.querySelector('.btn-fav').addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleFavorito(item.term);
+        });
+
+        termsListContainer.appendChild(div);
+      });
+    }
+
+    function renderCurrentTerm() {
+      if (!currentTerm) return;
+
+      const favs = getFavoritos();
+      const isFav = favs.includes(currentTerm.term);
+
+      document.getElementById('displayTerm').textContent = currentTerm.term;
+      document.getElementById('displayCategory').textContent = currentTerm.cat.toUpperCase();
+      document.getElementById('displayDef').textContent = currentTerm.def;
+      document.getElementById('displayExPt').textContent = `"${currentTerm.exPt}"`;
+      document.getElementById('displayExGlosa').textContent = currentTerm.exGlosa;
+
+      const srcEl = document.getElementById('displaySource');
+      if (srcEl) {
+        srcEl.textContent = `${currentTerm.source} 🔗`;
+        srcEl.href = currentTerm.link;
+      }
+
+      const imgEl = document.getElementById('termImage');
+      if (imgEl) {
+        const slug = currentTerm.term.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-');
+        imgEl.src = `img/${slug}.png`;
+      }
+
+      const ytPlayer = document.getElementById('ytPlayer');
+      if (ytPlayer && currentTerm.youtubeId) {
+        ytPlayer.src = currentTerm.youtubeId.includes("youtube.com") || currentTerm.youtubeId.includes("youtu.be")
+          ? currentTerm.youtubeId 
+          : `https://www.youtube.com/embed/${currentTerm.youtubeId}`;
+      }
+
+      const btnMainFav = document.getElementById('btnMainFav');
+      if (btnMainFav) {
+        btnMainFav.innerHTML = isFav ? '<i class="fa-solid fa-heart" style="color: #ef4444;"></i>' : '<i class="fa-regular fa-heart"></i>';
       }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      const termsListContainer = document.getElementById('termsList');
-      const categoryBtns = document.querySelectorAll('.category-pills .pill');
-      const searchInput = document.getElementById('searchInput');
-      const btnQuizLink = document.getElementById('btnQuizLink');
-      const btnMainFav = document.getElementById('btnMainFav');
-      const ytPlayer = document.getElementById('ytPlayer');
-      
-      let currentIndex = 0;
-      let activeCategory = 'todos';
+      document.getElementById('searchInput').addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        renderList();
+      });
 
-      function renderSidebarList() {
-        termsListContainer.innerHTML = '';
-        const favs = getFavoritos();
-
-        database.forEach((item, index) => {
-          const div = document.createElement('div');
-          div.className = `term-item ${index === currentIndex ? 'active' : ''}`;
-          
-          const catClean = item.cat.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-          div.setAttribute('data-cat', catClean);
-          div.setAttribute('data-idx', index);
-
-          const isFav = favs.includes(item.term);
-
-          div.innerHTML = `
-            <div class="term-item-content">
-              <span class="dot ${dotMap[item.cat] || 'purple'}"></span>
-              <div>
-                <strong>${item.term}</strong>
-                <small>${item.cat}</small>
-              </div>
-            </div>
-            <button class="btn-fav" data-term="${item.term}" title="Favoritar">
-              ${isFav ? '<i class="fa-solid fa-heart" style="color: #ef4444;"></i>' : '<i class="fa-regular fa-heart"></i>'}
-            </button>
-          `;
-
-          div.querySelector('.term-item-content').addEventListener('click', () => renderTerm(index));
-
-          const favBtn = div.querySelector('.btn-fav');
-          favBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleFavorito(item.term);
-            renderSidebarList();
-            renderTerm(currentIndex);
-          });
-
-          termsListContainer.appendChild(div);
-        });
-
-        applyFilter();
-      }
-
-      function renderTerm(idx) {
-        if (idx < 0 || idx >= database.length) return;
-        currentIndex = idx;
-        const data = database[idx];
-        const favs = getFavoritos();
-        const isFav = favs.includes(data.term);
-
-        document.getElementById('displayTerm').textContent = data.term;
-        document.getElementById('displayCategory').textContent = data.cat.toUpperCase();
-        document.getElementById('displayDef').textContent = data.def;
-        document.getElementById('displayExPt').textContent = `"${data.exPt}"`;
-        document.getElementById('displayExGlosa').textContent = data.exGlosa;
-
-        const srcEl = document.getElementById('displaySource');
-        if (srcEl) {
-          srcEl.textContent = `${data.source} 🔗`;
-          srcEl.href = data.link;
-        }
-
-        const imgEl = document.getElementById('termImage');
-        if (imgEl) {
-          const slug = data.term.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-');
-          imgEl.src = `img/${slug}.png`;
-        }
-
-        if (ytPlayer) {
-          if (data.youtubeId && data.youtubeId !== "SEU_ID_AQUI") {
-            ytPlayer.src = data.youtubeId.includes("youtube.com") || data.youtubeId.includes("youtu.be")
-              ? data.youtubeId 
-              : `https://www.youtube.com/embed/${data.youtubeId}`;
-          } else {
-            ytPlayer.src = "https://www.youtube.com/embed/SEU_ID_AQUI";
-          }
-        }
-
-        if (btnMainFav) {
-          btnMainFav.innerHTML = isFav 
-            ? '<i class="fa-solid fa-heart" style="color: #ef4444;"></i>' 
-            : '<i class="fa-regular fa-heart"></i>';
-        }
-
-        // Destaca o item ativo na lista
-        document.querySelectorAll('.term-item').forEach(el => {
-          const itemIdx = parseInt(el.getAttribute('data-idx'), 10);
-          if (itemIdx === idx) {
-            el.classList.add('active');
-            el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          } else {
-            el.classList.remove('active');
-          }
-        });
-
-        registrarSinalVisto(data.term);
-      }
-
-      function applyFilter() {
-        const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
-        const favs = getFavoritos();
-        let visibleCount = 0;
-
-        document.querySelectorAll('.term-item').forEach(el => {
-          const idx = parseInt(el.getAttribute('data-idx'), 10);
-          const item = database[idx];
-          const catClean = item.cat.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-          const termClean = item.term.toLowerCase();
-
-          const matchesCategory = (activeCategory === 'todos') ||
-            (activeCategory === 'favoritos' ? favs.includes(item.term) : catClean === activeCategory);
-          const matchesSearch = termClean.includes(query);
-
-          if (matchesCategory && matchesSearch) {
-            el.style.display = 'flex';
-            visibleCount++;
-          } else {
-            el.style.display = 'none';
-          }
-        });
-
-        const countEl = document.getElementById('termsCount');
-        if (countEl) {
-          countEl.textContent = `${visibleCount} TERMOS`;
-        }
-      }
-
-      // EVENTOS
-      categoryBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          categoryBtns.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          activeCategory = btn.getAttribute('data-cat');
-          applyFilter();
+      const pills = document.querySelectorAll('#categoryPills .pill');
+      pills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          pills.forEach(p => p.classList.remove('active'));
+          pill.classList.add('active');
+          selectedCategory = pill.getAttribute('data-cat');
+          renderList();
         });
       });
 
-      if (searchInput) {
-        searchInput.addEventListener('input', applyFilter);
-      }
-
-      if (btnMainFav) {
-        btnMainFav.addEventListener('click', () => {
-          const data = database[currentIndex];
-          if (data) {
-            toggleFavorito(data.term);
-            renderSidebarList();
-            renderTerm(currentIndex);
-          }
-        });
-      }
-
-      document.getElementById('btnPrev')?.addEventListener('click', () => {
-        let prev = currentIndex - 1;
-        if (prev < 0) prev = database.length - 1;
-        renderTerm(prev);
+      document.getElementById('btnMainFav').addEventListener('click', () => {
+        if (currentTerm) {
+          toggleFavorito(currentTerm.term);
+        }
       });
 
-      document.getElementById('btnNext')?.addEventListener('click', () => {
-        let next = currentIndex + 1;
-        if (next >= database.length) next = 0;
-        renderTerm(next);
-      });
-
-      if (btnQuizLink) {
-        btnQuizLink.addEventListener('click', () => {
-          window.location.href = 'praticar.html';
-        });
-      }
-
-      // INICIALIZAÇÃO
-      renderSidebarList();
-      renderTerm(0);
+      renderList();
+      renderCurrentTerm();
     });
   </script>
 </body>

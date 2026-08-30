@@ -1,3 +1,6 @@
+/* ==========================================
+   1. VARIÁVEIS GLOBAIS & RESET
+   ========================================== */
 :root {
   --primary: #7c3aed;
   --primary-gradient: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
@@ -20,22 +23,35 @@
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
-body {
+app-header, 
+app-footer {
+  display: block;
+  width: 100%;
+}
+
+html, body {
+  min-height: 100vh;
   background-color: var(--bg-page);
   color: var(--text-main);
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Header */
+/* ==========================================
+   2. HEADER (EMPURRADO PROS CANTOS)
+   ========================================== */
 .header {
-  background: #ffffff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 5%;
+  background: #ffffff !important;
+  width: 100% !important;
+  height: 60px !important;
+  min-height: 60px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 0 16px !important;
   box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+  box-sizing: border-box !important;
+  flex-shrink: 0 !important;
 }
 
 .logo {
@@ -43,161 +59,103 @@ body {
   align-items: center;
   gap: 10px;
   font-weight: 800;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   color: var(--primary);
   text-decoration: none;
 }
 
-.logo-icon {
-  background: var(--primary);
-  color: white;
-  width: 36px;
-  height: 36px;
+.brand-logo {
+  height: 36px !important;
+  width: auto !important;
+  object-fit: contain;
+  vertical-align: middle;
   border-radius: 10px;
-  display: grid;
-  place-items: center;
 }
 
 .nav-links {
   display: flex;
-  gap: 12px;
+  gap: 6px;
   background: #f1f5f9;
-  padding: 6px;
+  padding: 4px;
   border-radius: 30px;
 }
 
 .nav-links a {
   text-decoration: none;
   color: var(--text-muted);
-  padding: 8px 18px;
+  padding: 6px 16px;
   border-radius: 20px;
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   font-weight: 600;
   transition: all 0.2s;
 }
 
-.nav-links a.active, .nav-links a:hover {
+.nav-links a.active, 
+.nav-links a:hover {
   background: #e9d5ff;
   color: var(--primary);
 }
 
 .header-actions {
   display: flex;
+  align-items: center;
   gap: 10px;
 }
 
 .icon-btn {
   background: #f1f5f9;
   border: none;
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   cursor: pointer;
   display: grid;
   place-items: center;
   color: var(--primary);
-}
-.container {
-  max-width: 1280px;
-  width: 90%;
-  margin: 2rem auto;
-  flex: 1;
-}
-
-/* Footer */
-.footer {
-  background: #ffffff;
-  padding: 1.5rem 5%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: auto;
-  border-top: 1px solid #e2e8f0;
-}
-
-.footer-nav {
-  display: flex;
-  gap: 10px;
-}
-
-.footer-nav a {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  padding: 8px 16px;
-  border-radius: 10px;
-  text-decoration: none;
-  color: var(--text-muted);
   font-size: 0.9rem;
 }
 
-.footer-copy {
-  color: var(--text-muted);
-  font-size: 0.85rem;
-}
-footer.footer {
-  width: 100%;
-  height: 75px;
-  min-height: 75px;
-  background: #ffffff;
-  border-top: 1px solid #e2e8f0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  margin-top: auto;
+/* ==========================================
+   3. FOOTER (PERFEITAMENTE NOS CANTOS)
+   ========================================== */
+footer.footer, 
+.footer {
+  width: 100% !important;
+  height: 55px !important;
+  min-height: 55px !important;
+  background: #ffffff !important;
+  border-top: 1px solid #e2e8f0 !important;
+  display: flex !important;
+  align-items: center !important;
+  margin-top: auto !important;
+  box-sizing: border-box !important;
+  flex-shrink: 0 !important;
 }
 
+.footer-inner,
 .footer-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  padding: 0 16px !important;
 }
 
-.footer-brand, .footer-copy {
-  font-size: 0.72rem;
-  color: #64748b;
-}
-
-.footer-brand {
-  font-weight: 700;
-  color: #4f46e5;
-}
-
-.footer-nav {
-  display: flex;
-  gap: 8px;
+.footer-links-left, 
+.footer-social-right {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
 }
 
 .pill-link {
   background: #f1f5f9;
-  padding: 10px 18px;
-  border-radius: 12px;
+  padding: 6px 14px;
+  border-radius: 10px;
   text-decoration: none;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   color: #334155;
   font-weight: 600;
-  line-height: 1;
-}
-.brand-logo {
-  height: 38px !important;
-  width: auto !important;
-  object-fit: contain;
-  vertical-align: middle;
-  border-radius: 10px; /* Arredonda os cantos para esconder a borda preta */
-  overflow: hidden;     /* Corta tudo o que estiver fora do arredondamento */
-}
-.footer-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
-.footer-links-left, .footer-social-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
 }
 
 .social-btn {
@@ -206,22 +164,27 @@ footer.footer {
   gap: 6px;
   padding: 6px 14px;
   border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 0.8rem;
+  font-weight: 600;
   text-decoration: none;
-  transition: opacity 0.2s ease;
 }
 
-.github-btn {
-  background-color: #24292e;
-  color: #ffffff;
-}
+.github-btn { background-color: #24292e; color: #ffffff; }
+.youtube-btn { background-color: #ff0000; color: #ffffff; }
 
-.youtube-btn {
-  background-color: #ff0000;
-  color: #ffffff;
-}
-
-.social-btn:hover {
-  opacity: 0.85;
+/* ==========================================
+   4. MIOLO DAS PÁGINAS (SEM ESPAÇÃO NO TOPO)
+   ========================================== */
+main,
+.main-layout, 
+.main-praticar, 
+.sinalario-container,
+.praticar-container,
+.container {
+  flex: 1;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 12px 16px !important; /* Apenas 12px no topo para remover o buraco */
+  margin: 0 !important;
+  box-sizing: border-box !important;
 }

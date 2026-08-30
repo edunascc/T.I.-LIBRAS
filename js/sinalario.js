@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
       p.classList.toggle('active', p.dataset.cat === catParam);
     });
   }
+
   function registrarSinalVisto(idTermo) {
     let aprendidos = JSON.parse(localStorage.getItem('sinaisAprendidos') || '[]');
     if (!aprendidos.includes(idTermo)) {
@@ -57,6 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     registrarSinalVisto(termo.id || termo.nome);
 
+    const videoId = termo.youtubeId || termo.ytId || '';
+
     detailPanel.innerHTML = `
       <div class="detail-header">
         <span style="font-size:0.8rem; text-transform:uppercase; letter-spacing:1px;">${termo.categoria}</span>
@@ -67,9 +70,23 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="detail-grid">
           <div>
             <span style="font-size:0.85rem; font-weight:700; display:block; margin-bottom:8px;">▶ Vídeo do Sinal</span>
-            <div class="video-detail-box">
-              <span style="font-size:2rem;">💻</span>
-              <p style="margin-top:8px; font-size:0.85rem;">Sinal de: ${termo.nome}</p>
+            
+            <div class="video-wrapper-yt" id="videoContainer" style="position:relative; width:100%; aspect-ratio:16/9; border-radius:12px; overflow:hidden; background:#000;">
+              ${videoId ? `
+                <iframe 
+                  id="ytPlayer" 
+                  style="width:100%; height:100%; border:0;"
+                  src="https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}&rel=0&modestbranding=1" 
+                  title="Vídeo do Sinal em Libras: ${termo.nome}" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowfullscreen>
+                </iframe>
+              ` : `
+                <div class="video-detail-box" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:#fff;">
+                  <span style="font-size:2rem;">💻</span>
+                  <p style="margin-top:8px; font-size:0.85rem;">Vídeo em breve</p>
+                </div>
+              `}
             </div>
           </div>
 
@@ -98,6 +115,18 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </div>
     `;
+
+    // FAZ O MENU SUMIR RÁPIDO AO TIRAR O MOUSE
+    const videoContainer = document.getElementById('videoContainer');
+    if (videoContainer) {
+      videoContainer.addEventListener('mouseleave', () => {
+        videoContainer.classList.add('hide-controls');
+        document.activeElement.blur(); // Remove o foco do iframe
+        setTimeout(() => {
+          videoContainer.classList.remove('hide-controls');
+        }, 200);
+      });
+    }
 
     document.getElementById('btnPrev').addEventListener('click', () => {
       if (termoAtualIndex > 0) {
