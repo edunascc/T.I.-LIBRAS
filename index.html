@@ -13,6 +13,8 @@
 
   <!-- REGISTRO DOS WEB COMPONENTS (Funciona em file:// e http://) -->
   <script src="js/components.js"></script>
+  <!-- FONTE ÚNICA DE DADOS (total de sinais do sinalário) -->
+  <script src="js/dados.js"></script>
 </head>
 <body>
 
@@ -27,26 +29,26 @@
         <h3>Olá, Estudante!</h3>
       </div>
 
-      <div class="card card-section">
-        <span class="section-label">MENU</span>
-        <ul class="nav-menu">
-          <li><a href="login.html"><i class="fa-solid fa-key"></i> Fazer Login</a></li>
-          <li><a href="cadastro.html"><i class="fa-solid fa-user-plus"></i> Fazer Cadastro</a></li>
-        </ul>
+      <div class="card card-section menu-card">
+        <span class="section-label"><i class="fa-solid fa-bars"></i> MENU</span>
+        <div class="nav-menu">
+          <button class="menu-btn" id="btn-trocar-conta"><i class="fa-solid fa-right-left"></i> Trocar de Conta</button>
+          <button class="menu-btn menu-btn-sair" id="btn-sair"><i class="fa-solid fa-right-from-bracket"></i> Sair</button>
+        </div>
       </div>
 
       <!-- SEÇÃO SEU PROGRESSO DINÂMICA -->
-      <div class="card card-section">
-        <span class="section-label">SEU PROGRESSO</span>
+      <div class="card card-section progress-card">
+        <span class="section-label"><i class="fa-solid fa-chart-line"></i> SEU PROGRESSO</span>
         
         <div class="progress-info">
-          <span>Sinais Vistos</span>
+          <span class="progress-label"><i class="fa-solid fa-hands-asl-interpreting"></i> Sinais Vistos</span>
           <strong id="sinaisText">0/63</strong>
         </div>
         <div class="progress-bar"><div class="progress-fill" id="sinaisFill" style="width: 0%;"></div></div>
 
-        <div class="progress-info" style="margin-top: 10px;">
-          <span>Quizzes feitos</span>
+        <div class="progress-info">
+          <span class="progress-label"><i class="fa-solid fa-circle-check"></i> Quizzes feitos</span>
           <strong id="quizzesText">0/6</strong>
         </div>
         <div class="progress-bar"><div class="progress-fill" id="quizzesFill" style="width: 0%;"></div></div>
@@ -68,6 +70,14 @@
             <p>Dicionário visual em Libras</p>
           </div>
         </a>
+
+        <div class="card action-card static-card">
+          <span class="action-icon"><i class="fa-solid fa-graduation-cap"></i></span>
+          <div>
+            <strong>100% Gratuito</strong>
+            <p>Ensino acessível e sem custo</p>
+          </div>
+        </div>
 
         <div class="card action-card static-card">
           <span class="action-icon"><i class="fa-solid fa-universal-access"></i></span>
@@ -94,19 +104,19 @@
       <div class="content-grid">
         <div class="card info-box">
           <h3><i class="fa-solid fa-book-open-reader"></i> Sobre o Projeto</h3>
-          <p>Desenvolvida por alunos do IFRN Campus Santa Cruz, a plataforma T.I. Libras foi criada para democratizar o ensino de Tecnologia da Informação e impulsionar a inclusão digital da comunidade surda. O projeto conecta o ensino da Língua Brasileira de Sinais ao universo da computação por meio de um ecossistema prático e acessível: reúne vídeos explicativos gravados com alta qualidade para a demonstração precisa dos termos técnicos, quizzes interativos voltados à fixação do conhecimento e uma interface moderna construída sob as diretrizes internacionais de acessibilidade (WCAG), capacitando estudantes e profissionais para o mercado de tecnologia.</p>
+          <p>O T.I. Libras é uma plataforma educacional desenvolvida no IFRN Campus Santa Cruz com o objetivo de tornar o ensino de Tecnologia da Informação verdadeiramente acessível à comunidade surda. No Brasil, grande parte dos conteúdos de TI é produzida em formatos textuais e auditivos, o que cria barreiras para quem se comunica por meio da Língua Brasileira de Sinais. Para superar esse desafio, a plataforma oferece um sinalário digital completo, com termos técnicos apresentados em Libras por meio de vídeo, imagem, definição e exemplos de uso; quizzes interativos, que ajudam a fixar e testar o que foi estudado no ritmo de cada um; e uma interface cuidadosamente desenhada segundo as diretrizes internacionais de acessibilidade (WCAG), com leitura confortável e navegação simples. Ao reunir sinal, palavra e contexto em um único ambiente, o projeto não apenas ensina conteúdo técnico, mas também contribui para ampliar a participação, a autonomia e a representatividade de pessoas surdas no mercado de tecnologia.</p>
           
           <div class="stats-counters">
             <div class="stat-item">
-              <strong>60+</strong>
+              <strong id="statTermos">16</strong>
               <span>Termos</span>
             </div>
             <div class="stat-item">
-              <strong>6</strong>
+              <strong id="statQuizzes">6</strong>
               <span>Quizzes</span>
             </div>
             <div class="stat-item">
-              <strong>50+</strong>
+              <strong id="statVideos">16</strong>
               <span>Vídeos</span>
             </div>
           </div>
@@ -118,6 +128,7 @@
             <button class="play-button"><i class="fa-solid fa-play"></i></button>
             <span>Introdução ao T.I Libras</span>
           </div>
+          <div class="video-caption">Este vídeo apresenta o funcionamento da plataforma e seus principais recursos: o sinalário em Libras, os quizzes interativos e as ferramentas de acessibilidade.</div>
         </div>
       </div>
     </main>
@@ -142,49 +153,21 @@
   <!-- LÓGICA DA PÁGINA INÍCIO -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const TOTAL_SINAIS = 63;
-      const TOTAL_QUIZZES = 6;
+      // Totais dinâmicos conectados à fonte única de dados
+      const TOTAL_SINAIS = (typeof bancoSinalario !== 'undefined' && bancoSinalario.length > 0)
+        ? bancoSinalario.length
+        : parseInt(localStorage.getItem('totalSinais') || '16', 10);
+      const TOTAL_QUIZZES = parseInt(localStorage.getItem('totalQuizzes') || '6', 10);
 
-      // 1. Sinais Vistos
+      // 1. Sinais Vistos (gravados pela página Sinalário)
       const sinaisVistos = JSON.parse(localStorage.getItem('sinaisVistos') || '[]');
       const numSinais = Array.isArray(sinaisVistos) ? sinaisVistos.length : 0;
 
-      // 2. Busca Quizzes Concluídos
-      let numQuizzes = 0;
-      const possibleKeys = [
-        'quizzesConcluidos', 
-        'quizzesFeitos', 
-        'concluidos', 
-        'completedQuizzes', 
-        'quizzes'
-      ];
+      // 2. Quizzes Concluídos (gravados pelos quizzes — chave "completedQuizzes")
+      const quizzesConcluidos = JSON.parse(localStorage.getItem('completedQuizzes') || '[]');
+      const numQuizzes = Array.isArray(quizzesConcluidos) ? quizzesConcluidos.length : 0;
 
-      for (const key of possibleKeys) {
-        const rawData = localStorage.getItem(key);
-        if (rawData) {
-          try {
-            const parsed = JSON.parse(rawData);
-            if (Array.isArray(parsed)) {
-              numQuizzes = parsed.length;
-              break;
-            } else if (typeof parsed === 'object' && parsed !== null) {
-              numQuizzes = Object.values(parsed).filter(Boolean).length;
-              break;
-            } else if (typeof parsed === 'number') {
-              numQuizzes = parsed;
-              break;
-            }
-          } catch (e) {
-            const parsedInt = parseInt(rawData, 10);
-            if (!isNaN(parsedInt)) {
-              numQuizzes = parsedInt;
-              break;
-            }
-          }
-        }
-      }
-
-      // 3. Cálculos de Porcentagem
+      // 3. Percentuais
       const sinaisPercent = Math.min(Math.round((numSinais / TOTAL_SINAIS) * 100), 100);
       const quizzesPercent = Math.min(Math.round((numQuizzes / TOTAL_QUIZZES) * 100), 100);
 
@@ -199,7 +182,108 @@
 
       if (sinaisFillEl) sinaisFillEl.style.width = `${sinaisPercent}%`;
       if (quizzesFillEl) quizzesFillEl.style.width = `${quizzesPercent}%`;
+
+      // 4b. Estatísticas do card "Sobre o Projeto" (sempre coerentes com os dados reais)
+      const statTermosEl = document.getElementById('statTermos');
+      const statQuizzesEl = document.getElementById('statQuizzes');
+      const statVideosEl = document.getElementById('statVideos');
+      if (statTermosEl) statTermosEl.textContent = TOTAL_SINAIS;
+      if (statQuizzesEl) statQuizzesEl.textContent = TOTAL_QUIZZES;
+      if (statVideosEl) statVideosEl.textContent = TOTAL_SINAIS;
+
+      // 5. Confetes quando todos os sinais E todos os quizzes forem concluídos
+      if (TOTAL_SINAIS > 0 && TOTAL_QUIZZES > 0 && numSinais >= TOTAL_SINAIS && numQuizzes >= TOTAL_QUIZZES) {
+        launchConfetti();
+      }
+
+      // 6. Ações do MENU (Sair / Trocar de Conta)
+      const clearSession = () => {
+        ['sinaisVistos', 'quizzesConcluidos', 'quizzesFeitos', 'concluidos', 'completedQuizzes', 'quizzes', 'user', 'usuario', 'login', 'session'].forEach(k => localStorage.removeItem(k));
+      };
+
+      document.getElementById('btn-sair')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        clearSession();
+        location.reload();
+      });
+
+      document.getElementById('btn-trocar-conta')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        clearSession();
+        location.href = 'login.html';
+      });
     });
+
+    // Confetes leves em canvas, exibidos quando o progresso for 100%
+    function launchConfetti() {
+      const canvas = document.createElement('canvas');
+      canvas.id = 'confetti-canvas';
+      document.body.appendChild(canvas);
+      const ctx = canvas.getContext('2d');
+      let W = canvas.width = window.innerWidth;
+      let H = canvas.height = window.innerHeight;
+      const colors = ['#7c3aed', '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#eab308'];
+      const pieces = Array.from({ length: 150 }, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H - H,
+        w: Math.random() * 10 + 5,
+        h: Math.random() * 6 + 3,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        rot: Math.random() * 360,
+        vr: (Math.random() - 0.5) * 6,
+        vy: Math.random() * 2 + 1,
+        vx: (Math.random() - 0.5) * 2
+      }));
+      const style = canvas.style;
+      style.position = 'fixed';
+      style.top = '0';
+      style.left = '0';
+      style.width = '100%';
+      style.height = '100%';
+      style.pointerEvents = 'none';
+      style.zIndex = '9999';
+      let frames = 0;
+      (function draw() {
+        ctx.clearRect(0, 0, W, H);
+        pieces.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.rot += p.vr;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot * Math.PI / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          ctx.restore();
+        });
+        frames++;
+        if (frames < 260) {
+          requestAnimationFrame(draw);
+        } else {
+          canvas.remove();
+        }
+      })();
+      window.addEventListener('resize', () => {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+      });
+    }
+  </script>
+
+  <!-- IGUALA A ALTURA DO CARD "SOBRE" À DO CARD DO VÍDEO (com scroll interno no texto) -->
+  <script>
+    function syncCardHeights() {
+      const videoBox = document.querySelector('.video-box');
+      const infoBox = document.querySelector('.info-box');
+      if (!videoBox || !infoBox) return;
+      if (videoBox.offsetHeight > 0) {
+        infoBox.style.maxHeight = 'none';   /* libera o teto do CSS e usa a altura exata do vídeo */
+        infoBox.style.height = videoBox.offsetHeight + 'px';
+      }
+    }
+    document.addEventListener('DOMContentLoaded', syncCardHeights);
+    window.addEventListener('load', syncCardHeights);
+    window.addEventListener('resize', syncCardHeights);
   </script>
 </body>
 </html>

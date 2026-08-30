@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap');
+
 /* ==========================================
    1. VARIÁVEIS GLOBAIS & RESET
    ========================================== */
@@ -27,6 +29,7 @@ app-header,
 app-footer {
   display: block;
   width: 100%;
+  flex-shrink: 0;
 }
 
 html, body {
@@ -35,6 +38,8 @@ html, body {
   color: var(--text-main);
   display: flex;
   flex-direction: column;
+  max-width: 100%;
+  overflow-x: hidden;   /* impede transbordo horizontal que desalinha o rodapé */
 }
 
 /* ==========================================
@@ -58,10 +63,21 @@ html, body {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-weight: 800;
-  font-size: 1.3rem;
   color: var(--primary);
   text-decoration: none;
+}
+
+.logo-text {
+  font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  background: linear-gradient(90deg, #7c3aed, #3b82f6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
 }
 
 .brand-logo {
@@ -74,7 +90,7 @@ html, body {
 
 .nav-links {
   display: flex;
-  gap: 6px;
+  gap: 5px;
   background: #f1f5f9;
   padding: 4px;
   border-radius: 30px;
@@ -83,10 +99,10 @@ html, body {
 .nav-links a {
   text-decoration: none;
   color: var(--text-muted);
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 0.88rem;
-  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 22px;
+  font-size: 1rem;
+  font-weight: 700;
   transition: all 0.2s;
 }
 
@@ -99,20 +115,20 @@ html, body {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .icon-btn {
   background: #f1f5f9;
   border: none;
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   cursor: pointer;
   display: grid;
   place-items: center;
   color: var(--primary);
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 /* ==========================================
@@ -121,7 +137,6 @@ html, body {
 footer.footer, 
 .footer {
   width: 100% !important;
-  height: 55px !important;
   min-height: 55px !important;
   background: #ffffff !important;
   border-top: 1px solid #e2e8f0 !important;
@@ -130,6 +145,7 @@ footer.footer,
   margin-top: auto !important;
   box-sizing: border-box !important;
   flex-shrink: 0 !important;
+  padding: 6px 0 !important;
 }
 
 .footer-inner,
@@ -139,6 +155,7 @@ footer.footer,
   justify-content: space-between !important;
   width: 100% !important;
   padding: 0 16px !important;
+  box-sizing: border-box !important;
 }
 
 .footer-links-left, 
@@ -150,22 +167,22 @@ footer.footer,
 
 .pill-link {
   background: #f1f5f9;
-  padding: 6px 14px;
+  padding: 8px 16px;
   border-radius: 10px;
   text-decoration: none;
-  font-size: 0.78rem;
-  color: #334155;
-  font-weight: 600;
+  font-size: 0.92rem;
+  color: #1e293b;
+  font-weight: 700;
 }
 
 .social-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 14px;
+  padding: 8px 16px;
   border-radius: 8px;
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-size: 0.92rem;
+  font-weight: 700;
   text-decoration: none;
 }
 

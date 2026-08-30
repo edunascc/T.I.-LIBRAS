@@ -5,7 +5,7 @@ class AppHeader extends HTMLElement {
       <header class="header">
         <a href="index.html" class="logo">
           <img src="img/logo.jpg" alt="T.I. Libras Logo" class="brand-logo">
-          T.I Libras
+          <span class="logo-text">T.I Libras</span>
         </a>
         <nav class="nav-links">
           <a href="index.html" id="nav-inicio">Início</a>

@@ -10,6 +10,10 @@
 
   <!-- REGISTRO DOS WEB COMPONENTS -->
   <script src="js/components.js"></script>
+  <!-- FONTE ÚNICA DE DADOS DO SINALÁRIO -->
+  <script src="js/dados.js"></script>
+  <!-- API DO YOUTUBE (para detectar quando o vídeo termina de tocar) -->
+  <script src="https://www.youtube.com/iframe_api"></script>
 
   <style>
     /* ALTERADO: removida a regra local "height: 100%" que existia aqui.
@@ -39,10 +43,10 @@
        fixo em pixels. */
     .main-layout {
       display: flex;
-      gap: 8px;
+      gap: 6px;            /* ALTERADO: era 8px — card esquerdo um pouco mais perto do direito */
       align-items: stretch;
       flex: 1 1 auto;      /* ocupa o espaço vertical restante entre header e footer */
-      min-height: 480px;   /* piso apenas para telas muito baixas, não um teto */
+      min-height: 0;       /* o card esquerdo preenche a altura do card da direita, sempre fixo */
       margin: 12px auto;
       box-sizing: border-box;
     }
@@ -53,18 +57,19 @@
       transform: none;
     }
 
-    /* SIDEBAR DA ESQUERDA FIXA E ALINHADA */
+    /* SIDEBAR DA ESQUERDA — estica para preencher a mesma altura do card da direita */
     .sidebar-column {
       flex: 0 0 340px;
       display: flex;
       flex-direction: column;
-      height: 96.7%;
+      min-height: 0;       /* a lista rola por dentro, mantendo a altura sempre fixa */
     }
 
     .search-card {
       display: flex;
       flex-direction: column;
-      height: 100%;
+      flex: 1 1 0;         /* preenche a altura da coluna esquerda (fixa) */
+      min-height: 0;
       padding: 12px;
       box-sizing: border-box;
       background: #ffffff;
@@ -104,20 +109,30 @@
     }
 
     .pill {
+      display: inline-flex;      /* NOVO: alinha o ícone com o texto */
+      align-items: center;
+      gap: 6px;
       font-size: 0.78rem;
-      padding: 4px 9px;
+      padding: 4px 10px;
       font-weight: 600;
-      border-radius: 6px;
+      border-radius: 8px;
       border: 1px solid #cbd5e1;
       background: #f8fafc;
       cursor: pointer;
       transition: all 0.2s;
     }
 
-    .pill.active, .pill:hover {
-      background: #3b82f6;
+    /* A cor do botão selecionado é definida por JavaScript pela área temática */
+    .pill.active {
+      background: #6366f1;
       color: #fff;
-      border-color: #3b82f6;
+      border-color: #6366f1;
+    }
+
+    .pill:not(.active):hover {
+      background: #eef2ff;
+      color: #334155;
+      border-color: #c7d2fe;
     }
 
     .terms-count {
@@ -140,14 +155,13 @@
       flex: 1.1;
       display: flex;
       flex-direction: column;
-      height: 100%;
       min-height: 0; /* NOVO: permite que a coluna encolha/role dentro do flex pai em vez de estourar */
     }
 
     .term-detail-card {
       display: flex;
       flex-direction: column;
-      height: 100%;
+      flex: 1 1 0;       /* preenche a altura da coluna direita (fixa) */
       min-height: 0; /* NOVO: propaga o encolhimento até o card interno */
       padding: 0;
       box-sizing: border-box;
@@ -264,6 +278,19 @@
       border: 0;
     }
 
+    .seen-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: #ecfdf5;
+      color: #059669;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
     .right-top-container {
       display: flex;
       flex-direction: column;
@@ -375,6 +402,59 @@
       cursor: pointer;
       padding: 2px;
     }
+
+    /* ==========================================
+       RESPONSIVIDADE PARA CELULAR
+       ========================================== */
+    @media (max-width: 900px) {
+      .header {
+        flex-wrap: wrap;
+        height: auto !important;
+        min-height: auto !important;
+        padding: 8px 10px !important;
+        gap: 8px !important;
+      }
+      .header .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+      }
+      .header .nav-links a {
+        padding: 7px 14px;
+        font-size: 0.92rem;
+      }
+
+      .main-layout {
+        flex-direction: column;
+        gap: 12px;
+        margin: 10px;
+        height: auto;
+      }
+      .sidebar-column {
+        flex: 0 0 auto;
+        height: auto;
+      }
+      .search-card {
+        flex: 0 0 auto;
+      }
+      .terms-list {
+        max-height: 40vh;
+      }
+      .content-column {
+        flex: 0 0 auto;
+      }
+      .term-detail-card {
+        flex: 0 0 auto;
+        height: auto;
+        overflow: visible;
+      }
+      .term-body {
+        overflow: visible;   /* no celular o conteúdo flui naturalmente, sem corte */
+      }
+      .top-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -396,13 +476,13 @@
         </div>
 
         <div class="category-pills" id="categoryPills">
-          <button class="pill active" data-cat="todos">Todos</button>
-          <button class="pill" data-cat="hardware">Hardware</button>
-          <button class="pill" data-cat="software">Software</button>
-          <button class="pill" data-cat="programacao">Programação</button>
-          <button class="pill" data-cat="eletricidade">Eletricidade</button>
-          <button class="pill" data-cat="redes">Redes</button>
-          <button class="pill" data-cat="favoritos">Favoritos</button>
+          <button class="pill active" data-cat="todos"><i class="fa-solid fa-trophy"></i> Todos</button>
+          <button class="pill" data-cat="hardware"><i class="fa-solid fa-desktop"></i> Hardware</button>
+          <button class="pill" data-cat="software"><i class="fa-solid fa-compact-disc"></i> Software</button>
+          <button class="pill" data-cat="programacao"><i class="fa-solid fa-laptop-code"></i> Programação</button>
+          <button class="pill" data-cat="eletricidade"><i class="fa-solid fa-plug"></i> Eletricidade</button>
+          <button class="pill" data-cat="redes"><i class="fa-solid fa-tower-broadcast"></i> Redes</button>
+          <button class="pill" data-cat="favoritos"><i class="fa-solid fa-heart"></i> Favoritos</button>
         </div>
 
         <span class="terms-count" id="termsCount">63 TERMOS</span>
@@ -435,7 +515,7 @@
               <div class="video-wrapper-yt">
                 <iframe 
                   id="ytPlayer" 
-                  src="https://www.youtube.com/embed/SEU_ID_AQUI?autoplay=1&controls=0&modestbranding=1&rel=0&loop=1" 
+                  src="https://www.youtube.com/embed/?enablejsapi=1&rel=0" 
                   title="Vídeo do Sinal em Libras" 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                   allowfullscreen>
@@ -499,32 +579,122 @@
 
   <!-- SCRIPT JS FUNCIONAL -->
   <script>
-    const database = [
-      { term: "Monitor", cat: "Hardware", youtubeId: "x2uwlO43nas", def: "Dispositivo de saída que exibe a interface visual do computador.", exPt: "O monitor exibe a imagem em alta definição.", exGlosa: "MONITOR MOSTRAR IMAGEM BONITO", source: "Infolibras (IFBA)", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=1&page=3" },
-      { term: "Mouse", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Periférico de entrada usado para mover o ponteiro na tela.", exPt: "Clique com o botão direito do mouse.", exGlosa: "MOUSE APONTAR CLICAR TELA", source: "Infolibras (IFBA)", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=1&page=3" },
-      { term: "Teclado", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Periférico de entrada com teclas para digitação de texto e comandos.", exPt: "Estou digitando o código no teclado.", exGlosa: "TECLADO DIGITAR RÁPIDO CÓDIGO", source: "Infolibras (IFBA)", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=1&page=2" },
-      { term: "Fone de ouvido", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Dispositivo de áudio individual colocado nas orelhas.", exPt: "Coloque os fones de ouvido para ouvir a aula.", exGlosa: "FONE ORELHA OUVIR AULA", source: "Canal Integra Surdos", link: "https://www.youtube.com/watch?v=swhKLnJlFeA" },
-      { term: "Microfone", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Equipamento que capta ondas sonoras e as converte em sinal elétrico.", exPt: "O microfone está mudo na reunião.", exGlosa: "MICROFONE FALAR SOM ENTAR", source: "Canal Ensino Libras", link: "https://www.youtube.com/watch?v=lU71pnlfF9c" },
-      { term: "Webcam", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Câmera de vídeo conectada ao computador para transmissões ao vivo.", exPt: "Ligue a webcam para a videochamada.", exGlosa: "WEBCAM MOSTRAR ROSTO REUNIÃO", source: "NAPNEE — IFBA", link: "https://www.youtube.com/embed/haw92ao5FEY" },
-      { term: "Impressora", cat: "Hardware", youtubeId: "SEU_ID_AQUI", def: "Dispositivo que imprime documentos em papel.", exPt: "A impressora precisa de mais papel.", exGlosa: "IMPRESSORA PAPEL SAIR TEXTO", source: "NAPNEE — IFBA", link: "https://www.youtube.com/embed/k7fdi7G9pBM" },
-      { term: "Sistema Operacional", cat: "Software", youtubeId: "SEU_ID_AQUI", def: "Software principal que gerencia os recursos de hardware e outros programas.", exPt: "O Linux é um sistema operacional muito estável.", exGlosa: "SISTEMA OPERACIONAL GERENCIAR COMPUTADOR", source: "Infolibras", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=2" },
-      { term: "Linux", cat: "Software", youtubeId: "SEU_ID_AQUI", def: "Sistema operacional de código aberto bastante utilizado por desenvolvedores.", exPt: "Aprendemos a usar o terminal no Linux.", exGlosa: "LINUX SISTEMA LIVRE CÓDIGO", source: "NAPNEE - IFBA", link: "https://napneevdc.wixsite.com/ifba/letra-l" },
-      { term: "Windows", cat: "Software", youtubeId: "SEU_ID_AQUI", def: "Sistema operacional desenvolvido pela empresa Microsoft.", exPt: "O Windows atualizou ontem à noite.", exGlosa: "WINDOWS SISTEMA JANELAS POPULAR", source: "Infolibras", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=2" },
-      { term: "Algoritmo", cat: "Programação", youtubeId: "SEU_ID_AQUI", def: "Sequência finita de passos lógicos para resolver um problema.", exPt: "O algoritmo ordena a lista de nomes.", exGlosa: "ALGORITMO PASSO PASSO RESOLVER", source: "Dicionário UFV", link: "https://sistemas.cead.ufv.br/capes/dicionario/?cadastros=algoritmo" },
-      { term: "Variável", cat: "Programação", youtubeId: "SEU_ID_AQUI", def: "Espaço na memória reservado para armazenar dados que podem mudar.", exPt: "Declarei uma variável para guardar a idade.", exGlosa: "VARIÁVEL MEMÓRIA GUARDAR MUDAR", source: "Glossário de TI", link: "#" },
-      { term: "Potência", cat: "Eletricidade", youtubeId: "SEU_ID_AQUI", def: "Grandeza que mede a quantidade de energia elétrica consumida por segundo.", exPt: "A potência da fonte é de 500 Watts.", exGlosa: "POTÊNCIA ENERGIA FORÇA MEDIR", source: "SENAI/DN (2009)", link: "https://static.portaldaindustria.com.br" },
-      { term: "Resistor", cat: "Eletricidade", youtubeId: "SEU_ID_AQUI", def: "Componente elétrico que limita e opõe resistência à passagem de corrente.", exPt: "O resistor protege o LED contra sobrecarga.", exGlosa: "RESISTOR SEGURAR CORRENTE ELÉTRICA", source: "SENAI/DN (2009)", link: "https://static.portaldaindustria.com.br" },
-      { term: "Site", cat: "Redes", youtubeId: "SEU_ID_AQUI", def: "Conjunto de páginas web acessíveis na internet por um domínio.", exPt: "Acesse o site oficial do instituto para informações.", exGlosa: "SITE PÁGINA INTERNET ABRIR", source: "Glossário de TI", link: "#" },
-      { term: "Navegador de Internet", cat: "Redes", youtubeId: "SEU_ID_AQUI", def: "Software que permite acessar e visualizar páginas da World Wide Web.", exPt: "Abra o navegador de internet para pesquisar.", exGlosa: "NAVEGADOR PROGRAMA ENTRAR INTERNET", source: "Infolibras", link: "https://infolibras.ifbaseabra.edu.br/sinais?categoria_id=2" }
-    ];
+    // Usa a fonte única de dados definida em js/dados.js
+    const database = bancoSinalario;
 
     const dotMap = {
       Hardware: "purple", Software: "blue", Programação: "yellow", Eletricidade: "red", Redes: "green"
     };
 
+    /* Cor temática de cada área (iguais às cores usadas na página Praticar) */
+    const catColors = {
+      Hardware: "#8b5cf6",
+      Software: "#3b82f6",
+      "Programação": "#f59e0b",
+      Eletricidade: "#ef4444",
+      Redes: "#10b981"
+    };
+    /* Cor do botão de filtro quando selecionado, por data-cat */
+    const pillColors = {
+      todos: "#6366f1",
+      hardware: "#8b5cf6",
+      software: "#3b82f6",
+      programacao: "#f59e0b",
+      eletricidade: "#ef4444",
+      redes: "#10b981",
+      favoritos: "#ec4899"
+    };
+
+    /* Aplica a cor temática no botão de filtro que está selecionado */
+    function styleActivePill() {
+      document.querySelectorAll('#categoryPills .pill').forEach(p => {
+        p.style.background = '';
+        p.style.borderColor = '';
+        p.style.color = '';
+      });
+      const active = document.querySelector('#categoryPills .pill.active');
+      if (active) {
+        const cat = active.getAttribute('data-cat');
+        const color = pillColors[cat] || '#6366f1';
+        active.style.background = color;
+        active.style.borderColor = color;
+        active.style.color = '#ffffff';
+      }
+    }
+
     let selectedCategory = 'todos';
     let searchQuery = '';
     let currentTerm = database[0];
+
+    /* --- Controle de "Sinal Visto" (10s de visualização + vídeo até o fim) --- */
+    let ytPlayer = null;
+    let ytReady = false;
+    let pendingVideoId = '';
+    let watchTimer = null;
+    let watch = { term: null, timerDone: false, videoEnded: false };
+
+    function extractVideoId(input) {
+      if (!input) return '';
+      const m = input.match(/(?:v=|youtu\.be\/|embed\/)([\w-]{11})/);
+      return m ? m[1] : input.trim();
+    }
+
+    function resetWatch(term) {
+      if (watchTimer) { clearTimeout(watchTimer); watchTimer = null; }
+      watch = { term: term, timerDone: false, videoEnded: false };
+      watchTimer = setTimeout(() => {
+        if (watch && watch.term === term) {
+          watch.timerDone = true;
+          tryMarkSeen();
+        }
+      }, 10000);
+    }
+
+    function tryMarkSeen() {
+      if (!watch || !watch.term) return;
+      if (!(watch.timerDone && watch.videoEnded)) return;
+      const sinaisVistos = JSON.parse(localStorage.getItem('sinaisVistos') || '[]');
+      if (!sinaisVistos.includes(watch.term)) {
+        sinaisVistos.push(watch.term);
+        localStorage.setItem('sinaisVistos', JSON.stringify(sinaisVistos));
+        renderList();           // atualiza a lista à esquerda
+      }
+    }
+
+    function isSeen(term) {
+      const sinaisVistos = JSON.parse(localStorage.getItem('sinaisVistos') || '[]');
+      return sinaisVistos.includes(term);
+    }
+
+    function loadVideo(videoId) {
+      if (ytPlayer && ytReady && videoId) {
+        ytPlayer.loadVideoById(videoId);
+      } else if (videoId) {
+        pendingVideoId = videoId;
+      }
+    }
+
+    function onYouTubeIframeAPIReady() {
+      ytPlayer = new YT.Player('ytPlayer', {
+        videoId: pendingVideoId || '',
+        playerVars: { rel: 0, modestbranding: 1 },
+        events: {
+          onReady: () => {
+            ytReady = true;
+            if (pendingVideoId) {
+              ytPlayer.loadVideoById(pendingVideoId);
+              pendingVideoId = '';
+            }
+          },
+          onStateChange: (e) => {
+            if (e.data === YT.PlayerState.ENDED && watch && watch.term) {
+              watch.videoEnded = true;
+              tryMarkSeen();
+            }
+          }
+        }
+      });
+    }
 
     function getFavoritos() {
       return JSON.parse(localStorage.getItem('termosFavoritos') || '[]');
@@ -565,7 +735,8 @@
 
       filtered.forEach((item) => {
         const div = document.createElement('div');
-        div.className = `term-item ${currentTerm && currentTerm.term === item.term ? 'active' : ''}`;
+        const isActive = !!(currentTerm && currentTerm.term === item.term);
+        div.className = `term-item ${isActive ? 'active' : ''}`;
         
         const isFav = favs.includes(item.term);
 
@@ -588,6 +759,12 @@
           renderCurrentTerm();
         });
 
+        // Palavra do termo na cor temática da área (facilita distinguir as áreas)
+        const strongEl = div.querySelector('.term-item-content strong');
+        if (strongEl && catColors[item.cat]) {
+          strongEl.style.color = catColors[item.cat];
+        }
+
         div.querySelector('.btn-fav').addEventListener('click', (e) => {
           e.stopPropagation();
           toggleFavorito(item.term);
@@ -599,6 +776,10 @@
 
     function renderCurrentTerm() {
       if (!currentTerm) return;
+
+      // Marcação de sinal VISTO: só conta depois de (1) ficar 10s neste sinal
+      // e (2) o vídeo do YouTube tocar até o fim. Reinicia a contagem a cada termo.
+      resetWatch(currentTerm.term);
 
       const favs = getFavoritos();
       const isFav = favs.includes(currentTerm.term);
@@ -623,9 +804,7 @@
 
       const ytPlayer = document.getElementById('ytPlayer');
       if (ytPlayer && currentTerm.youtubeId) {
-        ytPlayer.src = currentTerm.youtubeId.includes("youtube.com") || currentTerm.youtubeId.includes("youtu.be")
-          ? currentTerm.youtubeId 
-          : `https://www.youtube.com/embed/${currentTerm.youtubeId}`;
+        loadVideo(extractVideoId(currentTerm.youtubeId));
       }
 
       const btnMainFav = document.getElementById('btnMainFav');
@@ -646,6 +825,7 @@
           pills.forEach(p => p.classList.remove('active'));
           pill.classList.add('active');
           selectedCategory = pill.getAttribute('data-cat');
+          styleActivePill();
           renderList();
         });
       });
@@ -671,10 +851,12 @@
           pills.forEach(p => p.classList.remove('active'));
           matchingPill.classList.add('active');
           selectedCategory = normalizedCat;
+          styleActivePill();
         }
       }
 
       renderList();
+      styleActivePill();
 
       // NOVO: se a categoria filtrada tiver algum termo, abre o primeiro termo dela automaticamente
       const filteredAfterUrl = filterData();

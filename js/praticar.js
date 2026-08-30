@@ -1,10 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const metaTotalQuestoes = 40;
-  const metaTotalQuizzes = 10;
+  const metaTotalQuestoes = 63;
+  const metaTotalQuizzes = 6;
   const metaQuestoesPorCategoria = 10;
 
+  // Publica os totais para o card SEU PROGRESSO da página inicial
+  localStorage.setItem('totalQuizzes', metaTotalQuizzes.toString());
+  localStorage.setItem('totalQuestoes', metaTotalQuestoes.toString());
+
   const totalQuestoesFeitas = parseInt(localStorage.getItem('totalQuestoesFeitas') || '0', 10);
-  const quizzesConcluidos = JSON.parse(localStorage.getItem('quizzesConcluidos') || '[]');
+  const quizzesConcluidos = JSON.parse(localStorage.getItem('completedQuizzes') || '[]');
   const statsQuestoes = JSON.parse(localStorage.getItem('statsQuestoes') || '{}');
 
   const lblTotalQuestoes = document.getElementById('lblTotalQuestoes');

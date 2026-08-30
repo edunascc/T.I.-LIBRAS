@@ -728,6 +728,18 @@
       grid.scrollBy({ left: distance, behavior: 'smooth' });
     }
 
+    // Esconde os botões < > e centraliza os cards quando NÃO há scroll necessário
+    function updateCarouselState() {
+      const grid = document.getElementById('selectionGrid');
+      const btns = document.querySelector('.carousel-nav-btns');
+      if (!grid) return;
+      const hasOverflow = grid.scrollWidth > grid.clientWidth + 1;
+      if (btns) btns.style.display = hasOverflow ? 'flex' : 'none';
+      grid.style.justifyContent = hasOverflow ? 'flex-start' : 'center';
+    }
+    window.addEventListener('resize', updateCarouselState);
+    document.addEventListener('DOMContentLoaded', updateCarouselState);
+
     // BASE DE DADOS COMPLETA (63 QUESTÕES)
     const allQuestions = [
       { term: "Monitor", cat: "Hardware", img: "imagens/sinais/monitor.png" },
@@ -806,6 +818,10 @@
     let timeLeft = 60;
 
     document.addEventListener('DOMContentLoaded', () => {
+      // Publica os totais reais para o card SEU PROGRESSO da página inicial
+      localStorage.setItem('totalQuizzes', '6');               // são 6 categorias de quiz
+      localStorage.setItem('totalQuestoes', String(allQuestions.length));
+
       updateProgressDisplay();
 
       const urlParams = new URLSearchParams(window.location.search);

@@ -1,309 +1,442 @@
-body { 
-  min-height: 100vh; 
-  display: flex; 
-  flex-direction: column; 
-  max-width: 100%;   /* NOVO: mesma trava aplicada nas outras páginas, por consistência e segurança */
-  overflow-x: hidden; /* NOVO: evita scroll horizontal duplo da página em qualquer cenário futuro */
-} 
- 
-/* 1. LAYOUT PRINCIPAL (Mantém os 280px e alinha os topos na régua) */ 
-.main-layout { 
-  display: grid; 
-  grid-template-columns: 280px 1fr; /* Largura preservada 100% */ 
-  gap: 20px; 
-  margin-top: 16px; 
-  margin-bottom: 30px; 
-  align-items: stretch;   /* mantém as duas colunas com a mesma altura ENTRE SI (a da mais alta) — evita uma acabar antes da outra */
-  flex: 0 1 auto; /* ALTERADO/NOVO: cancela o "flex: 1" (crescimento sem limite) que vinha do style.css. Era isso que forçava o bloco inteiro a esticar até preencher todo o espaço vertical da tela em zooms baixos, o que por tabela obrigava a sidebar e o card do vídeo a se espalharem de forma esquisita para acompanhar. Agora o bloco mantém sempre o tamanho natural e proporcional (igual ao zoom que você aprovou), e só sobra um respiro de margem quando há espaço de sobra — em vez de esticar o conteúdo. */
-} 
- 
-/* 2. SIDEBAR DA ESQUERDA */ 
-.sidebar-column { 
-  display: flex; 
-  flex-direction: column; 
+html, body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  overflow-x: hidden;      /* impede transbordo horizontal que desalinha o rodapé */
+}
+
+/* 1. LAYOUT PRINCIPAL
+   Tamanho natural (não estica), colunas alinhadas no topo. */
+.main-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;               /* cada coluna na própria altura — o vídeo nunca estica */
+  flex: 1 1 auto !important;        /* ocupa o espaço entre header e footer */
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 10px 14px 14px !important;
+  box-sizing: border-box !important;
+  min-width: 0;
+}
+
+/* O <main> interno recebe padding/margem do style.css; aqui anulamos. */
+.content-column {
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+  min-width: 0;
+}
+
+.sidebar-column {
+  min-width: 0;
+}
+
+/* ==========================================================
+   2. SIDEBAR DA ESQUERDA
+   ========================================================== */
+.sidebar-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;                       /* espaços pequenos e uniformes */
+  justify-content: flex-start;     /* começa no topo */
+  min-width: 0;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.user-card {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  color: #ffffff;
+}
+
+.tag-label {
+  font-size: 0.72rem;
+  opacity: 0.9;
+}
+
+.user-card h3 {
+  font-size: 1.15rem;
+  margin-top: 2px;
+  margin-bottom: 0;
+}
+
+.section-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #64748b;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+}
+
+/* Botões reais do MENU */
+.menu-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   gap: 10px;
-  justify-content: space-between; /* NOVO (reaplicado): agora que .main-layout está travado no tamanho natural (não infla mais sem limite), a diferença de altura entre a sidebar e a coluna de conteúdo é pequena e estável — não depende mais do zoom/viewport. Por isso dá pra distribuir esse restinho de espaço entre os 4 blocos sem repetir o exagero de antes: o vão fica pequeno e a coluna termina alinhada com a direita, sem colar no rodapé. */
-  transform: translate(15px, 13px);
-} 
- 
-.card { 
-  background: #ffffff; 
-  border-radius: 12px; 
-  padding: 14px 16px; 
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); 
-} 
- 
-.user-card { 
-  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); 
-  color: #ffffff; 
-} 
- 
-.tag-label { 
-  font-size: 0.72rem; 
-  opacity: 0.9; 
-} 
- 
-.user-card h3 { 
-  font-size: 1.15rem; 
-  margin-top: 2px; 
-  margin-bottom: 0; 
-} 
- 
-.section-label { 
-  font-size: 0.68rem; 
-  font-weight: 700; 
-  color: #64748b; 
-  display: block; 
-  margin-bottom: 6px; 
-} 
- 
-.nav-menu { 
-  list-style: none; 
-  padding: 0; 
-  margin: 0; 
-  display: flex; 
-  flex-direction: column; 
-  gap: 4px; 
-} 
- 
-.nav-menu a { 
-  text-decoration: none; 
-  color: #1e293b; 
-  font-size: 0.82rem; 
-  font-weight: 600; 
-} 
- 
-.progress-info { 
-  display: flex; 
-  justify-content: space-between; 
-  font-size: 0.78rem; 
-  color: #475569; 
-  margin-bottom: 4px; 
-} 
- 
-.progress-bar { 
-  height: 6px; 
-  background: #e2e8f0; 
-  border-radius: 4px; 
-  overflow: hidden; 
-} 
- 
-.progress-fill { 
-  height: 100%; 
-  background: #6366f1; 
-} 
- 
-.actions-list { 
-  display: flex; 
-  flex-direction: column; 
-  gap: 8px; 
-} 
- 
-.action-card { 
-  display: flex; 
-  align-items: center; 
-  gap: 10px; 
-  padding: 10px 12px; 
-  text-decoration: none; 
-  color: inherit; 
-} 
- 
-.action-card strong { 
-  font-size: 0.82rem; 
-  color: #0f172a; 
-  display: block; 
-} 
- 
-.action-card p { 
-  font-size: 0.72rem; 
-  color: #64748b; 
-  margin: 0; 
-} 
- 
-.action-icon { 
-  font-size: 1.1rem; 
-} 
- 
-/* 3. COLUNA DA DIREITA (CONTEÚDO) */ 
-.content-column { 
-  display: flex; 
-  flex-direction: column; 
-  gap: 15px; 
-  justify-content: flex-start; 
-} 
- 
-/* Ajuste proporcional no Hero Box para alinhar o topo visual com a esquerda */ 
-.hero-box { 
-  background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%); 
-  color: #ffffff; 
-  padding: 20px 24px; /* Ajustado de 40px para 20px pra casar perfeitamente */ 
-} 
- 
-.hero-tag { 
-  font-size: 0.68rem; 
-  font-weight: 700; 
-  letter-spacing: 0.5px; 
-  opacity: 0.9; 
-  display: block; 
-} 
- 
-.hero-box h1 { 
-  font-size: 1.65rem; 
-  margin: 4px 0; 
-} 
- 
-.hero-box p { 
-  font-size: 0.95rem; 
-  opacity: 0.95; 
-  margin-bottom: 16px; 
-} 
- 
-.hero-buttons { 
-  display: flex; 
-  gap: 10px; 
-} 
- 
-.btn { 
-  padding: 8px 18px; 
-  border-radius: 20px; 
-  text-decoration: none; 
-  font-size: 0.82rem; 
-  font-weight: 700; 
-} 
- 
-.btn-primary { 
-  background: #ffffff; 
-  color: #4f46e5; 
-} 
- 
-.btn-secondary { 
-  background: rgba(255, 255, 255, 0.2); 
-  color: #ffffff; 
-} 
- 
-.content-grid { 
-  display: grid; 
-  grid-template-columns: 1fr 1fr; 
-  gap: 20px; 
-  align-items: stretch; 
-} 
- 
-.info-box, .video-box { 
-  display: flex; 
-  flex-direction: column; 
-  height: 100%; 
-  min-height: 0; /* NOVO: necessário para o overflow-y do parágrafo (abaixo) funcionar dentro do flex, em vez de estourar o card */
-} 
- 
-.info-box h3, .video-box h3 { 
-  font-size: 1.05rem; 
-  color: #0f172a; 
-  margin-bottom: 6px; 
-  flex-shrink: 0; /* NOVO: o título nunca encolhe, fica sempre fixo no topo do card */
-} 
- 
-.info-box p { 
-  font-size: 0.82rem; 
-  color: #475569; 
-  line-height: 1.4; 
-  margin-bottom: 12px; 
-  flex: 1;          /* ALTERADO: antes o espaçamento vinha do "justify-content: space-between" do card inteiro, o que espalhava título/texto/números com vãos enormes quando o card crescia. Agora é o parágrafo que cresce para ocupar o espaço livre, mantendo-se sempre colado ao título */
-  min-height: 0;     /* NOVO: permite que o overflow-y abaixo funcione (senão o texto simplesmente estoura o card) */
-  overflow-y: auto;  /* NOVO: se o texto não couber no espaço disponível (zoom bem alto, por exemplo), aparece um scroll só dentro do parágrafo — em vez de espremer/desalinhar o resto do card */
-} 
- 
-.stats-counters { 
-  display: grid; 
-  grid-template-columns: repeat(3, 1fr); 
-  gap: 8px; 
-  flex-shrink: 0; /* NOVO: os números nunca encolhem nem se movem — ficam sempre fixos embaixo do card */
-} 
- 
-.stat-item { 
-  background: #f8fafc; 
-  padding: 8px 4px; 
-  border-radius: 8px; 
-  text-align: center; 
-} 
- 
-.stat-item strong { 
-  display: block; 
-  font-size: 1rem; 
-  color: #4f46e5; 
-} 
- 
-.stat-item span { 
-  font-size: 0.68rem; 
-  color: #64748b; 
-} 
- 
-.video-preview { 
-  background: #0f172a; 
-  border-radius: 10px; 
-  width: 100%; 
-  aspect-ratio: 16 / 9;  
-  display: flex; 
-  flex-direction: column; 
-  align-items: center; 
-  justify-content: center; 
-  color: #ffffff; 
-  gap: 8px; 
-  margin: auto 0; /* ALTERADO: era "margin-top: 6px" — margem vertical automática nos dois lados centraliza o vídeo no espaço livre do card (que varia de tamanho conforme o texto do card ao lado), em vez de ficar preso no topo com um vão feio embaixo */
-} 
- 
-.play-button { 
-  width: 42px; 
-  height: 42px; 
-  border-radius: 50%; 
-  border: none; 
-  background: rgba(255, 255, 255, 0.2); 
-  color: #ffffff; 
-  font-size: 0.9rem; 
-  cursor: pointer; 
-} 
- 
-.video-preview span { 
-  font-size: 0.78rem; 
-  opacity: 0.9; 
-} 
- 
-/* 4. RODAPÉ */ 
-.footer { 
-  width: 100%; 
-  background: #ffffff; 
-  border-top: 1px solid #e2e8f0; 
-  padding: 12px 0; 
-  margin-top: auto; 
-} 
- 
-.footer-wrapper { 
-  display: flex; 
-  align-items: center; 
-  justify-content: space-between; 
-} 
- 
-.footer-brand { 
-  font-weight: 700; 
-  color: #4f46e5; 
-  font-size: 0.9rem; 
-} 
- 
-.footer-nav { 
-  display: flex; 
-  gap: 10px; 
-} 
- 
-.pill-link { 
-  background: #f1f5f9; 
-  padding: 4px 14px; 
-  border-radius: 20px; 
-  text-decoration: none; 
-  font-size: 0.78rem; 
-  color: #334155; 
-  font-weight: 600; 
-} 
- 
-.footer-copy { 
-  font-size: 0.78rem; 
-  color: #64748b; 
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  background: #f1f5f9;
+  color: #1e293b;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.menu-btn:hover {
+  background: #e2e8f0;
+}
+
+.menu-btn i {
+  font-size: 0.95rem;
+  width: 18px;
+  text-align: center;
+  color: #6366f1;
+}
+
+.menu-btn-sair {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.menu-btn-sair:hover {
+  background: #fee2e2;
+}
+
+.menu-btn-sair i {
+  color: #dc2626;
+}
+
+.menu-card {
+  padding: 14px 18px;               /* um tico mais largo */
+}
+
+.progress-card {
+  /* altura natural: não estica, então não sobra espaço vazio embaixo */
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 13px;                        /* espaços pequenos entre as barras */
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #475569;
+}
+
+.progress-info strong {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #4f46e5;
+  background: #eef2ff;
+  padding: 3px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.progress-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress-label i {
+  color: #6366f1;
+  font-size: 0.95rem;
+  width: 18px;
+  text-align: center;
+}
+
+.progress-bar {
+  height: 12px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.actions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.action-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.action-card strong {
+  font-size: 0.82rem;
+  color: #0f172a;
+  display: block;
+}
+
+.action-card p {
+  font-size: 0.72rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.action-icon {
+  font-size: 1.1rem;
+}
+
+/* ==========================================================
+   3. COLUNA DA DIREITA (CONTEÚDO)
+   ========================================================== */
+.content-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: flex-start;
+}
+
+.hero-box {
+  background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
+  color: #ffffff;
+  padding: 30px 22px;              /* mais alto, dando destaque ao topo */
+}
+
+.hero-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  opacity: 0.9;
+  display: block;
+}
+
+.hero-box h1 {
+  font-size: 1.4rem;
+  margin: 2px 0;
+}
+
+.hero-box p {
+  font-size: 0.92rem;
+  opacity: 0.95;
+  margin-bottom: 10px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  padding: 7px 16px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.btn-primary {
+  background: #ffffff;
+  color: #4f46e5;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;   /* Sobre estreito, Vídeo um pouco mais largo */
+  gap: 16px;
+  align-items: start;              /* cards na altura natural — o vídeo NÃO estica */
+  flex: 1;                         /* preenche o espaço abaixo do hero */
+  min-height: 0;
+}
+
+.info-box, .video-box {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 14px;              /* compacto, reduzindo a altura dos cards */
+}
+
+.info-box h3, .video-box h3 {
+  font-size: 1.05rem;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.info-box {
+  min-height: 0;                   /* card flexível: acompanha a altura do vídeo */
+  max-height: 420px;               /* teto antes do JS medir o vídeo (sem flash feio) */
+  overflow: hidden;
+}
+
+.info-box p {
+  flex: 1 1 auto;                  /* cresce para igualar a altura do card do vídeo */
+  min-height: 0;                   /* se o texto for longo, rola dentro do card */
+  overflow-y: auto;                /* scroll interno apenas quando necessário */
+  text-align: justify;             /* final das linhas alinhado, como em documentos */
+  hyphens: auto;                   /* quebra palavras com hífen para o alinhamento */
+  font-size: 0.98rem;              /* legível, sem esticar o card */
+  color: #0b0b0f;                  /* preto, para leitura confortável */
+  line-height: 1.55;
+  margin-bottom: 12px;
+  padding-right: 4px;              /* respiro para a barra de rolagem */
+}
+
+.stats-counters {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: auto;                /* números fixos na base do card */
+}
+
+.stat-item {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 14px 8px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.stat-item strong {
+  display: block;
+  font-size: 1.5rem;              /* números maiores e mais destacados */
+  color: #4f46e5;
+}
+
+.stat-item span {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+/* Vídeo sempre em proporção 16:9, centrado no espaço disponível */
+.video-preview {
+  background: #0f172a;
+  border-radius: 10px;
+  width: 100%;
+  aspect-ratio: 16 / 9;            /* SEMPRE 16:9, em qualquer tamanho de tela */
+  margin: 0 0 10px;                /* colado no topo, sem espaços estranhos */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  gap: 8px;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.video-caption {
+  margin-top: 8px;                 /* legenda logo abaixo do vídeo */
+  font-size: 0.85rem;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.play-button {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.video-preview span {
+  font-size: 0.78rem;
+  opacity: 0.9;
+}
+
+/* ==========================================================
+   4. RODAPÉ (sempre firme no fundo da tela)
+   ========================================================== */
+.footer {
+  width: 100%;
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  padding: 12px 0;
+  margin-top: auto;               /* empurra o rodapé para baixo da tela */
+  flex-shrink: 0;
+  position: relative;             /* fica acima do conteúdo em caso de sobreposição */
+  z-index: 5;
+}
+
+.footer-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-brand {
+  font-weight: 700;
+  color: #4f46e5;
+  font-size: 0.9rem;
+}
+
+.footer-nav {
+  display: flex;
+  gap: 10px;
+}
+
+.pill-link {
+  background: #f1f5f9;
+  padding: 4px 14px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 0.78rem;
+  color: #334155;
+  font-weight: 600;
+}
+
+.footer-copy {
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+/* ==========================================================
+   5. RESPONSIVO (telas estreitas / celulares)
+   ========================================================== */
+@media (max-width: 900px) {
+  .main-layout {
+    grid-template-columns: 1fr;   /* sidebar acima do conteúdo */
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;   /* cards empilhados */
+  }
 }
