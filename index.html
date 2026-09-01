@@ -3,141 +3,147 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>T.I. Libras - Início</title>
-  
-  <!-- Biblioteca Font Awesome para Ícones Vetoriais Profissionais -->
+  <title>T.I. Libras - Aprenda TI em Libras</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/inicio.css">
-
-  <!-- REGISTRO DOS WEB COMPONENTS (Funciona em file:// e http://) -->
+  <link rel="stylesheet" href="css/auth.css">
   <script src="js/components.js"></script>
-  <!-- FONTE ÚNICA DE DADOS (total de sinais do sinalário) -->
   <script src="js/dados.js"></script>
 </head>
 <body>
-
-  <!-- CABEÇALHO DINÂMICO -->
   <app-header></app-header>
-
-  <div class="container main-layout">
-    <aside class="sidebar-column">
-      
-      <div class="card user-card">
-        <span class="tag-label">Bem-vindo(a) <i class="fa-solid fa-hands-asl-interpreting"></i></span>
-        <h3>Olá, Estudante!</h3>
+  <main class="landing">
+    <section class="hero">
+      <div class="hero-content">
+      <span class="hero-tag">PLATAFORMA EDUCACIONAL</span>
+      <img src="img/logo.jpg" alt="T.I. Libras" class="hero-logo">
+      <h1>Aprenda TI em <span class="hero-highlight">Libras</span></h1>
+      <p>Vídeos de sinais, quizzes interativos e dicionário completo. Tecnologia acessível, do jeito que você precisa.</p>
+      <div class="hero-actions">
+      <button class="btn btn-light" id="openLogin"><i class="fa-solid fa-right-to-bracket"></i> Entrar</button>
+      <button class="btn btn-ghost-light" id="openRegister"><i class="fa-solid fa-user-plus"></i> Criar conta gratuita</button>
       </div>
-
-      <div class="card card-section menu-card">
-        <span class="section-label"><i class="fa-solid fa-bars"></i> MENU</span>
-        <div class="nav-menu">
-          <button class="menu-btn" id="btn-trocar-conta"><i class="fa-solid fa-right-left"></i> Trocar de Conta</button>
-          <button class="menu-btn menu-btn-sair" id="btn-sair"><i class="fa-solid fa-right-from-bracket"></i> Sair</button>
-        </div>
       </div>
-
-      <!-- SEÇÃO SEU PROGRESSO DINÂMICA -->
-      <div class="card card-section progress-card">
-        <span class="section-label"><i class="fa-solid fa-chart-line"></i> SEU PROGRESSO</span>
-        
-        <div class="progress-info">
-          <span class="progress-label"><i class="fa-solid fa-hands-asl-interpreting"></i> Sinais Vistos</span>
-          <strong id="sinaisText">0/63</strong>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" id="sinaisFill" style="width: 0%;"></div></div>
-
-        <div class="progress-info">
-          <span class="progress-label"><i class="fa-solid fa-circle-check"></i> Quizzes feitos</span>
-          <strong id="quizzesText">0/6</strong>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" id="quizzesFill" style="width: 0%;"></div></div>
+    </section>
+    <section class="presentation">
+    <div class="pres-card pres-feature">
+      <div class="pres-media">
+      <i class="fa-solid fa-hands-asl-interpreting"></i>
       </div>
-
-      <div class="actions-list">
-        <a href="praticar.html" class="card action-card">
-          <span class="action-icon"><i class="fa-solid fa-bullseye"></i></span>
-          <div>
-            <strong>Quizzes Interativos</strong>
-            <p>Teste conhecimentos</p>
-          </div>
-        </a>
-
-        <a href="sinalario.html" class="card action-card">
-          <span class="action-icon"><i class="fa-solid fa-book-bookmark"></i></span>
-          <div>
-            <strong>Sinalário Digital</strong>
-            <p>Dicionário visual em Libras</p>
-          </div>
-        </a>
-
-        <div class="card action-card static-card">
-          <span class="action-icon"><i class="fa-solid fa-graduation-cap"></i></span>
-          <div>
-            <strong>100% Gratuito</strong>
-            <p>Ensino acessível e sem custo</p>
-          </div>
-        </div>
-
-        <div class="card action-card static-card">
-          <span class="action-icon"><i class="fa-solid fa-universal-access"></i></span>
-          <div>
-            <strong>Acessível</strong>
-            <p>Feito para Todos os públicos</p>
-          </div>
+      <div class="pres-body">
+          <span class="pres-tag">SOBRE A PLATAFORMA</span>
+          <h2>Tecnologia acessível em Libras</h2>
+          <p>O T.I. Libras transforma o aprendizado de Tecnologia da Informação em uma experiência visual e inclusiva, com sinais demonstrados em vídeo e prática guiada.</p>
+          <ul class="pres-points">
+            <li><i class="fa-solid fa-circle-check"></i> Vídeos de sinais de TI</li>
+            <li><i class="fa-solid fa-circle-check"></i> Quizzes interativos</li>
+            <li><i class="fa-solid fa-circle-check"></i> Sinalário completo</li>
+          </ul>
         </div>
       </div>
 
-    </aside>
-
-    <main class="content-column">
-      <div class="card hero-box">
-        <span class="hero-tag">PLATAFORMA EDUCACIONAL</span>
-        <h1>Aprenda TI em Libras <i class="fa-solid fa-hands-asl-interpreting"></i></h1>
-        <p>Domine diversos termos de TI através de vídeos de sinais, quizzes interativos e dicionário completo.</p>
-        <div class="hero-buttons">
-          <a href="praticar.html" class="btn btn-primary">Começar a Praticar</a>
-          <a href="sinalario.html" class="btn btn-secondary">Ver Sinalário</a>
+      <div class="perks">
+        <div class="perk-card">
+          <span class="perk-icon"><i class="fa-solid fa-hand-holding-heart"></i></span>
+          <div><strong>100% Gratuito</strong><p>Ensino acessível e sem custo</p></div>
+        </div>
+        <div class="perk-card">
+          <span class="perk-icon"><i class="fa-solid fa-universal-access"></i></span>
+          <div><strong>Acessível</strong><p>Feito para todos os públicos</p></div>
         </div>
       </div>
 
-      <div class="content-grid">
-        <div class="card info-box">
-          <h3><i class="fa-solid fa-book-open-reader"></i> Sobre o Projeto</h3>
-          <p>O T.I. Libras é uma plataforma educacional desenvolvida no IFRN Campus Santa Cruz com o objetivo de tornar o ensino de Tecnologia da Informação verdadeiramente acessível à comunidade surda. No Brasil, grande parte dos conteúdos de TI é produzida em formatos textuais e auditivos, o que cria barreiras para quem se comunica por meio da Língua Brasileira de Sinais. Para superar esse desafio, a plataforma oferece um sinalário digital completo, com termos técnicos apresentados em Libras por meio de vídeo, imagem, definição e exemplos de uso; quizzes interativos, que ajudam a fixar e testar o que foi estudado no ritmo de cada um; e uma interface cuidadosamente desenhada segundo as diretrizes internacionais de acessibilidade (WCAG), com leitura confortável e navegação simples. Ao reunir sinal, palavra e contexto em um único ambiente, o projeto não apenas ensina conteúdo técnico, mas também contribui para ampliar a participação, a autonomia e a representatividade de pessoas surdas no mercado de tecnologia.</p>
-          
-          <div class="stats-counters">
-            <div class="stat-item">
-              <strong id="statTermos">16</strong>
-              <span>Termos</span>
-            </div>
-            <div class="stat-item">
-              <strong id="statQuizzes">6</strong>
-              <span>Quizzes</span>
-            </div>
-            <div class="stat-item">
-              <strong id="statVideos">16</strong>
-              <span>Vídeos</span>
-            </div>
-          </div>
+      <div class="pres-grid">
+        <div class="pres-card pres-item">
+          <span class="pres-icon"><i class="fa-solid fa-video"></i></span>
+          <h3>Sinais em vídeo</h3>
+          <p>Aprenda o sinal de cada termo com exemplos reais.</p>
         </div>
-
-        <div class="card video-box">
-          <h3><i class="fa-solid fa-video"></i> Vídeo Explicativo</h3>
-          <div class="video-preview">
-            <button class="play-button"><i class="fa-solid fa-play"></i></button>
-            <span>Introdução ao T.I Libras</span>
-          </div>
-          <div class="video-caption">Este vídeo apresenta o funcionamento da plataforma e seus principais recursos: o sinalário em Libras, os quizzes interativos e as ferramentas de acessibilidade.</div>
+        <div class="pres-card pres-item">
+          <span class="pres-icon"><i class="fa-solid fa-bullseye"></i></span>
+          <h3>Quizzes interativos</h3>
+          <p>Teste e fixe o que você acabou de aprender.</p>
+        </div>
+        <div class="pres-card pres-item">
+          <span class="pres-icon"><i class="fa-solid fa-chart-line"></i></span>
+          <h3>Progresso sincronizado</h3>
+          <p>Salve favoritos e acompanhe seu avanço na conta.</p>
         </div>
       </div>
-    </main>
-  </div>
+    </section>
+  </main>
 
-  <!-- RODAPÉ DINÂMICO -->
   <app-footer></app-footer>
 
-  <!-- VLIBRAS -->
+  <div class="auth-modal" id="authModal" hidden>
+    <div class="auth-backdrop" id="authBackdrop"></div>
+    <div class="auth-panel">
+      <button class="auth-close" id="authClose" aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button>
+
+      <div class="auth-view" id="viewLogin">
+        <h2>Entrar</h2>
+        <button id="btnGoogle" class="btn btn-google btn-google-wide" type="button">
+          <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;margin-right:8px;">
+            <g fill="none" fill-rule="evenodd">
+              <path d="M17.64 9.2045c0-.638-.0573-1.252-.164-1.839H9v3.48h4.84c-.208 1.12-.84 2.07-1.792 2.71v2.25h2.9c1.696-1.565 2.676-3.864 2.676-6.6z" fill="#4285F4"/>
+              <path d="M9 18c2.43 0 4.47-.8 5.96-2.17l-2.9-2.25c-.8.54-1.82.86-3.06.86-2.35 0-4.34-1.58-5.05-3.72H1.02v2.34C2.5 15.98 5.5 18 9 18z" fill="#34A853"/>
+              <path d="M3.95 11.77A5.96 5.96 0 0 1 3.6 9c0-.96.23-1.87.65-2.68V3.98H1.02A9.002 9.002 0 0 0 0 9c0 1.45.33 2.82.9 4.02l3.05-1.25z" fill="#FBBC05"/>
+              <path d="M9 3.58c1.32 0 2.5.45 3.43 1.33l2.58-2.58C13.48.98 11.46 0 9 0 5.5 0 2.5 2.02 1.02 4.98l2.93 2.34C4.66 5.16 6.65 3.58 9 3.58z" fill="#EA4335"/>
+            </g>
+          </svg>
+          Continuar com Google
+        </button>
+        <div class="divider">ou</div>
+        <form id="loginForm" class="form">
+          <label>E-mail
+            <input id="loginEmail" type="email" required placeholder="seu@exemplo.com">
+          </label>
+          <label>Senha
+            <input id="loginPass" type="password" minlength="6" required placeholder="••••••••">
+          </label>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-full">Entrar</button>
+          </div>
+          <div id="loginFeedback" class="feedback"></div>
+        </form>
+        <p class="auth-switch">Novo por aqui? <button type="button" id="switchToRegister">Criar conta</button></p>
+      </div>
+
+      <div class="auth-view" id="viewRegister" hidden>
+        <h2>Criar conta</h2>
+        <button id="btnGoogleRegister" class="btn btn-google btn-google-wide" type="button">
+          <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;margin-right:8px;">
+            <g fill="none" fill-rule="evenodd">
+              <path d="M17.64 9.2045c0-.638-.0573-1.252-.164-1.839H9v3.48h4.84c-.208 1.12-.84 2.07-1.792 2.71v2.25h2.9c1.696-1.565 2.676-3.864 2.676-6.6z" fill="#4285F4"/>
+              <path d="M9 18c2.43 0 4.47-.8 5.96-2.17l-2.9-2.25c-.8.54-1.82.86-3.06.86-2.35 0-4.34-1.58-5.05-3.72H1.02v2.34C2.5 15.98 5.5 18 9 18z" fill="#34A853"/>
+              <path d="M3.95 11.77A5.96 5.96 0 0 1 3.6 9c0-.96.23-1.87.65-2.68V3.98H1.02A9.002 9.002 0 0 0 0 9c0 1.45.33 2.82.9 4.02l3.05-1.25z" fill="#FBBC05"/>
+              <path d="M9 3.58c1.32 0 2.5.45 3.43 1.33l2.58-2.58C13.48.98 11.46 0 9 0 5.5 0 2.5 2.02 1.02 4.98l2.93 2.34C4.66 5.16 6.65 3.58 9 3.58z" fill="#EA4335"/>
+            </g>
+          </svg>
+          Continuar com Google
+        </button>
+        <div class="divider">ou</div>
+        <form id="registerForm" class="form">
+          <label>Nome
+            <input id="regName" type="text" required placeholder="Seu nome">
+          </label>
+          <label>E-mail
+            <input id="regEmail" type="email" required placeholder="seu@exemplo.com">
+          </label>
+          <label>Senha
+            <input id="regPass" type="password" minlength="6" required placeholder="Mínimo 6 caracteres">
+          </label>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-full">Criar conta</button>
+          </div>
+          <div id="registerFeedback" class="feedback"></div>
+        </form>
+        <p class="auth-switch">Já tem conta? <button type="button" id="switchToLogin">Entrar</button></p>
+      </div>
+    </div>
+  </div>
+
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
     <div vw-plugin-wrapper>
@@ -150,140 +156,46 @@
     new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
 
-  <!-- LÓGICA DA PÁGINA INÍCIO -->
+  <script type="module" src="js/firebase-config.js"></script>
+  <script type="module" src="js/auth.js"></script>
+  <script src="js/auth-guard.js"></script>
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Totais dinâmicos conectados à fonte única de dados
-      const TOTAL_SINAIS = (typeof bancoSinalario !== 'undefined' && bancoSinalario.length > 0)
-        ? bancoSinalario.length
-        : parseInt(localStorage.getItem('totalSinais') || '16', 10);
-      const TOTAL_QUIZZES = parseInt(localStorage.getItem('totalQuizzes') || '6', 10);
+      const modal = document.getElementById('authModal');
+      const viewLogin = document.getElementById('viewLogin');
+      const viewRegister = document.getElementById('viewRegister');
 
-      // 1. Sinais Vistos (gravados pela página Sinalário)
-      const sinaisVistos = JSON.parse(localStorage.getItem('sinaisVistos') || '[]');
-      const numSinais = Array.isArray(sinaisVistos) ? sinaisVistos.length : 0;
-
-      // 2. Quizzes Concluídos (gravados pelos quizzes — chave "completedQuizzes")
-      const quizzesConcluidos = JSON.parse(localStorage.getItem('completedQuizzes') || '[]');
-      const numQuizzes = Array.isArray(quizzesConcluidos) ? quizzesConcluidos.length : 0;
-
-      // 3. Percentuais
-      const sinaisPercent = Math.min(Math.round((numSinais / TOTAL_SINAIS) * 100), 100);
-      const quizzesPercent = Math.min(Math.round((numQuizzes / TOTAL_QUIZZES) * 100), 100);
-
-      // 4. Renderização na Tela
-      const sinaisTextEl = document.getElementById('sinaisText');
-      const quizzesTextEl = document.getElementById('quizzesText');
-      const sinaisFillEl = document.getElementById('sinaisFill');
-      const quizzesFillEl = document.getElementById('quizzesFill');
-
-      if (sinaisTextEl) sinaisTextEl.textContent = `${numSinais}/${TOTAL_SINAIS}`;
-      if (quizzesTextEl) quizzesTextEl.textContent = `${numQuizzes}/${TOTAL_QUIZZES}`;
-
-      if (sinaisFillEl) sinaisFillEl.style.width = `${sinaisPercent}%`;
-      if (quizzesFillEl) quizzesFillEl.style.width = `${quizzesPercent}%`;
-
-      // 4b. Estatísticas do card "Sobre o Projeto" (sempre coerentes com os dados reais)
-      const statTermosEl = document.getElementById('statTermos');
-      const statQuizzesEl = document.getElementById('statQuizzes');
-      const statVideosEl = document.getElementById('statVideos');
-      if (statTermosEl) statTermosEl.textContent = TOTAL_SINAIS;
-      if (statQuizzesEl) statQuizzesEl.textContent = TOTAL_QUIZZES;
-      if (statVideosEl) statVideosEl.textContent = TOTAL_SINAIS;
-
-      // 5. Confetes quando todos os sinais E todos os quizzes forem concluídos
-      if (TOTAL_SINAIS > 0 && TOTAL_QUIZZES > 0 && numSinais >= TOTAL_SINAIS && numQuizzes >= TOTAL_QUIZZES) {
-        launchConfetti();
-      }
-
-      // 6. Ações do MENU (Sair / Trocar de Conta)
-      const clearSession = () => {
-        ['sinaisVistos', 'quizzesConcluidos', 'quizzesFeitos', 'concluidos', 'completedQuizzes', 'quizzes', 'user', 'usuario', 'login', 'session'].forEach(k => localStorage.removeItem(k));
+      const open = (view) => {
+        viewLogin.hidden = view !== 'login';
+        viewRegister.hidden = view !== 'register';
+        modal.hidden = false;
       };
 
-      document.getElementById('btn-sair')?.addEventListener('click', (e) => {
-        e.preventDefault();
-        clearSession();
-        location.reload();
+      document.getElementById('openLogin').addEventListener('click', () => open('login'));
+      document.getElementById('openRegister').addEventListener('click', () => open('register'));
+      document.getElementById('switchToRegister').addEventListener('click', () => open('register'));
+      document.getElementById('switchToLogin').addEventListener('click', () => open('login'));
+
+      const headerLogin = document.getElementById('headerLogin');
+      const headerRegister = document.getElementById('headerRegister');
+      if (headerLogin) headerLogin.addEventListener('click', (e) => { e.preventDefault(); open('login'); });
+      if (headerRegister) headerRegister.addEventListener('click', (e) => { e.preventDefault(); open('register'); });
+      document.getElementById('authClose').addEventListener('click', () => modal.hidden = true);
+      document.getElementById('authBackdrop').addEventListener('click', () => modal.hidden = true);
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') modal.hidden = true; });
+
+      document.getElementById('btnGoogleRegister').addEventListener('click', async () => {
+        const fb = document.getElementById('registerFeedback');
+        if (fb) fb.textContent = '';
+        try { await window.Auth.loginWithGoogle(); location.href = 'index.html'; }
+        catch (err) { if (fb) { fb.style.color = '#ef4444'; fb.textContent = 'Erro no cadastro'; } }
       });
 
-      document.getElementById('btn-trocar-conta')?.addEventListener('click', (e) => {
-        e.preventDefault();
-        clearSession();
-        location.href = 'login.html';
-      });
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('auth') === 'register') open('register');
+      else if (params.get('auth') === 'login' || params.get('next')) open('login');
     });
-
-    // Confetes leves em canvas, exibidos quando o progresso for 100%
-    function launchConfetti() {
-      const canvas = document.createElement('canvas');
-      canvas.id = 'confetti-canvas';
-      document.body.appendChild(canvas);
-      const ctx = canvas.getContext('2d');
-      let W = canvas.width = window.innerWidth;
-      let H = canvas.height = window.innerHeight;
-      const colors = ['#7c3aed', '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#eab308'];
-      const pieces = Array.from({ length: 150 }, () => ({
-        x: Math.random() * W,
-        y: Math.random() * H - H,
-        w: Math.random() * 10 + 5,
-        h: Math.random() * 6 + 3,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        rot: Math.random() * 360,
-        vr: (Math.random() - 0.5) * 6,
-        vy: Math.random() * 2 + 1,
-        vx: (Math.random() - 0.5) * 2
-      }));
-      const style = canvas.style;
-      style.position = 'fixed';
-      style.top = '0';
-      style.left = '0';
-      style.width = '100%';
-      style.height = '100%';
-      style.pointerEvents = 'none';
-      style.zIndex = '9999';
-      let frames = 0;
-      (function draw() {
-        ctx.clearRect(0, 0, W, H);
-        pieces.forEach(p => {
-          p.x += p.vx;
-          p.y += p.vy;
-          p.rot += p.vr;
-          ctx.save();
-          ctx.translate(p.x, p.y);
-          ctx.rotate(p.rot * Math.PI / 180);
-          ctx.fillStyle = p.color;
-          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
-          ctx.restore();
-        });
-        frames++;
-        if (frames < 260) {
-          requestAnimationFrame(draw);
-        } else {
-          canvas.remove();
-        }
-      })();
-      window.addEventListener('resize', () => {
-        W = canvas.width = window.innerWidth;
-        H = canvas.height = window.innerHeight;
-      });
-    }
-  </script>
-
-  <!-- IGUALA A ALTURA DO CARD "SOBRE" À DO CARD DO VÍDEO (com scroll interno no texto) -->
-  <script>
-    function syncCardHeights() {
-      const videoBox = document.querySelector('.video-box');
-      const infoBox = document.querySelector('.info-box');
-      if (!videoBox || !infoBox) return;
-      if (videoBox.offsetHeight > 0) {
-        infoBox.style.maxHeight = 'none';   /* libera o teto do CSS e usa a altura exata do vídeo */
-        infoBox.style.height = videoBox.offsetHeight + 'px';
-      }
-    }
-    document.addEventListener('DOMContentLoaded', syncCardHeights);
-    window.addEventListener('load', syncCardHeights);
-    window.addEventListener('resize', syncCardHeights);
   </script>
 </body>
 </html>

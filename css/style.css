@@ -1,21 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap');
 
-/* ==========================================
-   1. VARIÁVEIS GLOBAIS & RESET
-   ========================================== */
 :root {
   --primary: #7c3aed;
-  --primary-gradient: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
+  --primary-2: #4f46e5;
+  --blue: #3b82f6;
+  --gradient: linear-gradient(135deg, #a855f7 0%, #6366f1 45%, #3b82f6 100%);
   --bg-page: #f5f3ff;
   --bg-card: #ffffff;
   --text-main: #1e1b4b;
   --text-muted: #6b7280;
-  --accent-blue: #0284c7;
-  --accent-green: #10b981;
-  --accent-orange: #f59e0b;
-  --accent-red: #ef4444;
-  --border-radius: 16px;
-  --shadow: 0 10px 25px -5px rgba(124, 58, 237, 0.08);
+  --border-radius: 14px;
+  --shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.12);
 }
 
 * {
@@ -25,7 +20,7 @@
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
-app-header, 
+app-header,
 app-footer {
   display: block;
   width: 100%;
@@ -39,22 +34,19 @@ html, body {
   display: flex;
   flex-direction: column;
   max-width: 100%;
-  overflow-x: hidden;   /* impede transbordo horizontal que desalinha o rodapé */
+  overflow-x: hidden;
 }
 
-/* ==========================================
-   2. HEADER (EMPURRADO PROS CANTOS)
-   ========================================== */
 .header {
   background: #ffffff !important;
   width: 100% !important;
-  height: 60px !important;
-  min-height: 60px !important;
+  height: 62px !important;
+  min-height: 62px !important;
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
-  padding: 0 16px !important;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+  padding: 0 18px !important;
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04);
   box-sizing: border-box !important;
   flex-shrink: 0 !important;
 }
@@ -70,10 +62,10 @@ html, body {
 .logo-text {
   font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
   font-weight: 800;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   letter-spacing: 0.2px;
   white-space: nowrap;
-  background: linear-gradient(90deg, #7c3aed, #3b82f6);
+  background: var(--gradient);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -90,7 +82,7 @@ html, body {
 
 .nav-links {
   display: flex;
-  gap: 5px;
+  gap: 4px;
   background: #f1f5f9;
   padding: 4px;
   border-radius: 30px;
@@ -106,16 +98,42 @@ html, body {
   transition: all 0.2s;
 }
 
-.nav-links a.active, 
+.nav-links a.active,
 .nav-links a:hover {
-  background: #e9d5ff;
-  color: var(--primary);
+  background: var(--gradient);
+  color: #ffffff;
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+}
+
+.auth-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 20px;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: #ffffff;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.auth-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.auth-login {
+  background: #3b82f6;
+}
+
+.auth-register {
+  background: #7c3aed;
 }
 
 .icon-btn {
@@ -127,81 +145,130 @@ html, body {
   cursor: pointer;
   display: grid;
   place-items: center;
-  color: var(--primary);
-  font-size: 1rem;
+  color: var(--primary-2);
+  font-size: 1.05rem;
 }
 
-/* ==========================================
-   3. FOOTER (PERFEITAMENTE NOS CANTOS)
-   ========================================== */
-footer.footer, 
 .footer {
-  width: 100% !important;
-  min-height: 55px !important;
-  background: #ffffff !important;
-  border-top: 1px solid #e2e8f0 !important;
-  display: flex !important;
-  align-items: center !important;
-  margin-top: auto !important;
-  box-sizing: border-box !important;
-  flex-shrink: 0 !important;
-  padding: 6px 0 !important;
+  width: 100%;
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  margin-top: auto;
+  padding: 26px 0 0;
+  flex-shrink: 0;
 }
 
-.footer-inner,
-.footer-wrapper {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  width: 100% !important;
-  padding: 0 16px !important;
-  box-sizing: border-box !important;
+.footer-top {
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 60px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
-.footer-links-left, 
-.footer-social-right {
-  display: flex !important;
-  align-items: center !important;
-  gap: 10px !important;
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.pill-link {
-  background: #f1f5f9;
-  padding: 8px 16px;
+.footer-brand .brand-logo {
+  height: 42px !important;
   border-radius: 10px;
+}
+
+.footer-brand-text strong {
+  display: block;
+  font-size: 1.05rem;
+  color: #1e1b4b;
+}
+
+.footer-brand-text span {
+  font-size: 0.82rem;
+  color: #64748b;
+}
+
+.footer-social {
+  display: flex;
+  gap: 10px;
+}
+
+.social-round {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: #ffffff;
+  text-decoration: none;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.social-round:hover {
+  transform: translateY(-3px);
+}
+
+.social-round.github {
+  background: #24292e;
+}
+
+.social-round.youtube {
+  background: linear-gradient(135deg, #ff0000, #cc0000);
+}
+
+.footer-links {
+  max-width: 1480px;
+  margin: 20px auto 0;
+  padding: 18px clamp(20px, 4vw, 60px);
+  border-top: 1px solid #eef2f7;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 30px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-links-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 30px;
+  align-items: center;
+}
+
+.footer-links a {
+  color: #475569;
   text-decoration: none;
   font-size: 0.92rem;
-  color: #1e293b;
-  font-weight: 700;
-}
-
-.social-btn {
+  font-weight: 600;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 0.92rem;
-  font-weight: 700;
-  text-decoration: none;
+  gap: 8px;
+  transition: color 0.2s;
 }
 
-.github-btn { background-color: #24292e; color: #ffffff; }
-.youtube-btn { background-color: #ff0000; color: #ffffff; }
+.footer-links a:hover {
+  color: #4f46e5;
+}
 
-/* ==========================================
-   4. MIOLO DAS PÁGINAS (SEM ESPAÇÃO NO TOPO)
-   ========================================== */
-main,
-.main-layout, 
-.main-praticar, 
-.sinalario-container,
-.praticar-container,
+.footer-links i {
+  color: #7c3aed;
+}
+
+.footer-copy {
+  color: #94a3b8;
+  font-size: 0.82rem;
+}
+
 .container {
   flex: 1;
-  width: 100% !important;
-  max-width: 100% !important;
-  padding: 12px 16px !important; /* Apenas 12px no topo para remover o buraco */
-  margin: 0 !important;
-  box-sizing: border-box !important;
+  width: 100%;
+  max-width: 100%;
+  padding: 12px 16px;
+  margin: 0;
+  box-sizing: border-box;
 }

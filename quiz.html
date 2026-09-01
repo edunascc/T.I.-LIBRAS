@@ -6,21 +6,11 @@
   <title>T.I. Libras - Quiz Interativo</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/quiz.css">
+  <script src="js/components.js"></script>
 </head>
 <body>
 
-  <header class="header">
-    <a href="index.html" class="logo"><div class="logo-icon">🤟</div> T.I Libras</a>
-    <nav class="nav-links">
-      <a href="index.html">Início</a>
-      <a href="praticar.html" class="active">Praticar</a>
-      <a href="sinalario.html">Sinalário</a>
-    </nav>
-    <div class="header-actions">
-      <button class="icon-btn">♿</button>
-      <button class="icon-btn">👤</button>
-    </div>
-  </header>
+  <app-header></app-header>
 
   <div class="quiz-top-bar">
     <span id="quizBreadcrumb">Hardware · Questão 1 de 3</span>
@@ -49,28 +39,9 @@
     </div>
   </div>
 
-  <footer class="footer">
-    <div class="logo">🤟 T.I Libras</div>
-    <div class="footer-nav">
-      <a href="#">Sobre nós</a>
-      <a href="#">Ajuda</a>
-      <a href="#">Contato</a>
-    </div>
-    <div class="footer-copy">♿ Plataforma inclusiva para surdos · 2025</div>
-  </footer>
+  <app-footer></app-footer>
 
   <script src="js/dados.js"></script>
   <script src="js/quizes.js"></script>
-  <div vw class="enabled">
-  <div vw-access-button class="active"></div>
-  <div vw-plugin-wrapper>
-    <div class="vw-plugin-top-wrapper"></div>
-  </div>
-</div>
-<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-<script>
-  new window.VLibras.Widget('https://vlibras.gov.br/app');
-</script>
-
 </body>
 </html>

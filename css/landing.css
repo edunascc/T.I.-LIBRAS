@@ -1,0 +1,343 @@
+/* ==========================================
+   LANDING PAGE — T.I. Libras
+   Tom editorial, quente e humano. Acima do
+   uso pesado de gradientes e cards repetidos.
+   ========================================== */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Poppins:wght@500;600;700;800&display=swap');
+
+body.landing {
+  background: #faf8f5;
+  color: #201d1a;
+  font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+}
+
+.landing a {
+  color: inherit;
+}
+
+/* ============ HERO ============ */
+.l-hero {
+  padding: 84px 16px 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.l-hero-inner {
+  max-width: 820px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.l-hero-icon {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: #f1e8fd;
+  color: #7c3aed;
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  margin-bottom: 22px;
+}
+
+.l-eyebrow {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #7c3aed;
+  margin-bottom: 14px;
+}
+
+.l-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  line-height: 1.1;
+  color: #201d1a;
+  max-width: 760px;
+}
+
+.l-title span {
+  color: #7c3aed;
+}
+
+.l-lead {
+  margin-top: 20px;
+  font-size: 1.12rem;
+  line-height: 1.6;
+  color: #5b544d;
+  max-width: 620px;
+}
+
+.l-cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.l-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 26px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: transform 0.12s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.l-btn-primary {
+  background: #7c3aed;
+  color: #ffffff;
+  box-shadow: 0 8px 20px -8px rgba(124, 58, 237, 0.55);
+}
+
+.l-btn-primary:hover {
+  background: #6d28d9;
+  transform: translateY(-1px);
+}
+
+.l-btn-ghost {
+  background: transparent;
+  color: #201d1a;
+  border-color: #d9d0c6;
+}
+
+.l-btn-ghost:hover {
+  border-color: #7c3aed;
+  color: #7c3aed;
+  transform: translateY(-1px);
+}
+
+.l-hero-points {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 26px;
+  margin: 34px 0 0;
+  padding: 0;
+}
+
+.l-hero-points li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #5b544d;
+}
+
+.l-hero-points i {
+  color: #7c3aed;
+  font-size: 1rem;
+}
+
+/* ============ STATS ============ */
+.l-stats {
+  border-top: 1px solid #ece5dc;
+  border-bottom: 1px solid #ece5dc;
+  background: #ffffff;
+}
+
+.l-stats-inner {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 30px 16px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.l-stat {
+  text-align: center;
+}
+
+.l-stat strong {
+  display: block;
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 700;
+  font-size: 2rem;
+  color: #201d1a;
+}
+
+.l-stat span {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #8a8278;
+  margin-top: 4px;
+}
+
+/* ============ FEATURES ============ */
+.l-feature {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 72px 16px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.l-feature-reverse {
+  grid-template-columns: 0.9fr 1.1fr;
+}
+
+.l-feature-reverse .l-feature-text {
+  order: 2;
+}
+
+.l-feature-reverse .l-feature-visual {
+  order: 1;
+}
+
+.l-kicker {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7c3aed;
+  margin-bottom: 10px;
+}
+
+.l-feature-text h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  font-size: 1.8rem;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.l-feature-text p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #5b544d;
+}
+
+.l-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  font-weight: 700;
+  color: #7c3aed;
+  text-decoration: none;
+}
+
+.l-link:hover {
+  text-decoration: underline;
+}
+
+.l-feature-visual {
+  aspect-ratio: 4 / 3;
+  border-radius: 18px;
+  border: 1px solid #ece5dc;
+  background: #ffffff;
+  display: grid;
+  place-items: center;
+  color: #7c3aed;
+  font-size: 3.4rem;
+}
+
+/* ============ SOBRE ============ */
+.l-about {
+  background: #f1e8fd;
+  padding: 72px 16px;
+}
+
+.l-about .container-l {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.l-about h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  font-size: 1.9rem;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.l-about p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #4b4457;
+}
+
+/* ============ CTA FINAL ============ */
+.l-cta-band {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 84px 16px;
+  text-align: center;
+}
+
+.l-cta-band h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.l-cta-band p {
+  color: #5b544d;
+  margin-bottom: 26px;
+}
+
+.l-btn-lg {
+  padding: 15px 34px;
+  font-size: 1.06rem;
+}
+
+/* ============ RESPONSIVO ============ */
+@media (max-width: 760px) {
+  .l-hero { padding: 56px 16px 32px; }
+
+  .l-stats-inner {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+
+  .l-feature,
+  .l-feature-reverse {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 56px 16px;
+  }
+
+  .l-feature-reverse .l-feature-text,
+  .l-feature-reverse .l-feature-visual {
+    order: initial;
+  }
+
+  .l-feature-visual {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* ============ MOVIMENTO (sutil, com respeito a reduced-motion) ============ */
+@media (prefers-reduced-motion: no-preference) {
+  .l-hero-inner {
+    animation: land-fade 0.7s ease both;
+  }
+}
+
+@keyframes land-fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -8,11 +8,11 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/sinalario.css">
 
-  <!-- REGISTRO DOS WEB COMPONENTS -->
+  
   <script src="js/components.js"></script>
-  <!-- FONTE ÚNICA DE DADOS DO SINALÁRIO -->
+  
   <script src="js/dados.js"></script>
-  <!-- API DO YOUTUBE (para detectar quando o vídeo termina de tocar) -->
+  
   <script src="https://www.youtube.com/iframe_api"></script>
 
   <style>
@@ -459,13 +459,13 @@
 </head>
 <body>
 
-  <!-- CABEÇALHO DINÂMICO -->
+  
   <app-header></app-header>
 
-  <!-- LAYOUT CENTRALIZADO E TRAVADO NA MESMA ALTURA -->
+  
   <div class="container main-layout">
     
-    <!-- SIDEBAR DA ESQUERDA -->
+    
     <aside class="sidebar-column">
       <div class="card search-card">
         <h2>Sinalário</h2>
@@ -488,16 +488,16 @@
         <span class="terms-count" id="termsCount">63 TERMOS</span>
 
         <div class="terms-list" id="termsList">
-          <!-- Lista montada via JS -->
+          
         </div>
       </div>
     </aside>
 
-    <!-- CARD DA DIREITA -->
+    
     <main class="content-column">
       <div class="card term-detail-card">
         
-        <!-- BARRA AZUL SUPERIOR -->
+        
         <div class="term-header-blue">
           <span class="category-tag" id="displayCategory">HARDWARE</span>
           <div class="term-header-title">
@@ -506,7 +506,7 @@
           </div>
         </div>
 
-        <!-- CORPO INTERNO COMPACTO -->
+        
         <div class="term-body">
           
           <div class="top-grid">
@@ -562,10 +562,10 @@
 
   </div>
 
-  <!-- RODAPÉ DINÂMICO -->
+  
   <app-footer></app-footer>
 
-  <!-- VLIBRAS -->
+  
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
     <div vw-plugin-wrapper>
@@ -577,16 +577,17 @@
     new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
 
-  <!-- SCRIPT JS FUNCIONAL -->
+  
   <script>
-    // Usa a fonte única de dados definida em js/dados.js
+    
+
     const database = bancoSinalario;
 
     const dotMap = {
       Hardware: "purple", Software: "blue", Programação: "yellow", Eletricidade: "red", Redes: "green"
     };
 
-    /* Cor temática de cada área (iguais às cores usadas na página Praticar) */
+    
     const catColors = {
       Hardware: "#8b5cf6",
       Software: "#3b82f6",
@@ -594,7 +595,7 @@
       Eletricidade: "#ef4444",
       Redes: "#10b981"
     };
-    /* Cor do botão de filtro quando selecionado, por data-cat */
+    
     const pillColors = {
       todos: "#6366f1",
       hardware: "#8b5cf6",
@@ -605,7 +606,7 @@
       favoritos: "#ec4899"
     };
 
-    /* Aplica a cor temática no botão de filtro que está selecionado */
+    
     function styleActivePill() {
       document.querySelectorAll('#categoryPills .pill').forEach(p => {
         p.style.background = '';
@@ -626,7 +627,7 @@
     let searchQuery = '';
     let currentTerm = database[0];
 
-    /* --- Controle de "Sinal Visto" (10s de visualização + vídeo até o fim) --- */
+    
     let ytPlayer = null;
     let ytReady = false;
     let pendingVideoId = '';
@@ -657,7 +658,8 @@
       if (!sinaisVistos.includes(watch.term)) {
         sinaisVistos.push(watch.term);
         localStorage.setItem('sinaisVistos', JSON.stringify(sinaisVistos));
-        renderList();           // atualiza a lista à esquerda
+        renderList();           
+
       }
     }
 
@@ -759,7 +761,8 @@
           renderCurrentTerm();
         });
 
-        // Palavra do termo na cor temática da área (facilita distinguir as áreas)
+        
+
         const strongEl = div.querySelector('.term-item-content strong');
         if (strongEl && catColors[item.cat]) {
           strongEl.style.color = catColors[item.cat];
@@ -777,8 +780,10 @@
     function renderCurrentTerm() {
       if (!currentTerm) return;
 
-      // Marcação de sinal VISTO: só conta depois de (1) ficar 10s neste sinal
-      // e (2) o vídeo do YouTube tocar até o fim. Reinicia a contagem a cada termo.
+      
+
+      
+
       resetWatch(currentTerm.term);
 
       const favs = getFavoritos();
@@ -836,8 +841,10 @@
         }
       });
 
-      // NOVO: lê o parâmetro ?cat= da URL (vindo do botão "Consultar" da página Praticar)
-      // e já abre o Sinalário filtrado direto na categoria escolhida.
+      
+
+      
+
       const urlParams = new URLSearchParams(window.location.search);
       const catParam = urlParams.get('cat');
       if (catParam) {
@@ -858,7 +865,8 @@
       renderList();
       styleActivePill();
 
-      // NOVO: se a categoria filtrada tiver algum termo, abre o primeiro termo dela automaticamente
+      
+
       const filteredAfterUrl = filterData();
       if (catParam && filteredAfterUrl.length > 0) {
         currentTerm = filteredAfterUrl[0];

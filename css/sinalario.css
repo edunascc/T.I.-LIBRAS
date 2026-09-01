@@ -1,19 +1,13 @@
-/* ==========================================
-   LAYOUT PRINCIPAL ALINHADO E FLUIDO
-   ========================================== */
-
 .main-layout {
-  display: flex; /* trocar grid por flex para evitar deslocamentos e melhor resposta ao zoom */
+  display: flex; 
   gap: 16px;
-  align-items: flex-start; /* Alinha o topo das colunas */
+  align-items: flex-start; 
   width: 100%;
 }
 
-/* Removida transformação que deslocava a sidebar e causava desalinhamento */
 
-/* ==========================================
-   SIDEBAR DA ESQUERDA
-   ========================================== */
+
+
 
 .search-card {
   padding: 14px;
@@ -104,11 +98,11 @@
   background: #f5f3ff;
 }
 
-/* Tornar as palavras pretas e maiores conforme solicitado */
+
 .term-item strong {
   display: block;
-  font-size: 1.05rem; /* aumentado */
-  color: #000 !important; /* força preto */
+  font-size: 1.05rem; 
+  color: #000 !important; 
 }
 
 .term-item small {
@@ -128,9 +122,7 @@
 .dot.red { background: #ef4444; }
 .dot.green { background: #10b981; }
 
-/* ==========================================
-   COLUNA DA DIREITA (CARD DO TERMO)
-   ========================================== */
+
 
 .term-detail-card {
   padding: 0;
@@ -140,7 +132,7 @@
   overflow: hidden;
   background: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  flex: 1 1 auto; /* permite crescer e pegar o espaço sobrando quando der zoom out */
+  flex: 1 1 auto; 
 }
 
 .term-header {
@@ -314,15 +306,13 @@
   font-weight: 700;
   cursor: pointer;
 }
-/* Quando o mouse SAI da caixa, desativa o mouse no iframe por 0.1s para o YouTube recolher o menu NA HORA */
+
 .video-wrapper-yt.mouse-out iframe {
   pointer-events: none !important;
 }
 
-/* ======================
-   CHECKBOX / ÁREA CORES
-   ====================== */
-/* Suporte moderno via accent-color + fallback com label estilizado */
+
+
 .area-checkbox {
   width: 1.1rem;
   height: 1.1rem;
@@ -331,7 +321,7 @@
   margin-right: 6px;
 }
 
-/* Fallback visual: quando houver label imediatamente após o checkbox */
+
 .area-checkbox:checked + .area-label {
   background-color: var(--area-color, #777);
   color: #fff;
@@ -339,9 +329,7 @@
   border-radius: 4px;
 }
 
-/* ==========================================
-   RESPONSIVIDADE E HEADER (impedir que botões saltem para baixo em zoom)
-   ========================================== */
+
 .header {
   display: flex;
   align-items: center;
@@ -350,19 +338,18 @@
   flex-wrap: wrap;
 }
 
-/* Evita quebra dos links do header — prevenindo que um botão caia pra baixo
-   entre os outros quando o navegador estiver em grande zoom */
+
 .nav-links {
   display: flex;
   gap: 6px;
-  flex-wrap: nowrap; /* evita wrap dentro do bloco */
+  flex-wrap: nowrap; 
 }
 
 .nav-links a {
-  white-space: nowrap; /* força cada botão a ficar inteiro em uma linha */
+  white-space: nowrap; 
 }
 
-/* Media query já presente no site: reforçar comportamento no ponto móvel */
+
 @media (max-width: 900px) {
   .header {
     flex-wrap: wrap;

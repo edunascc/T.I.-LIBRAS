@@ -540,12 +540,12 @@
 </head>
 <body>
 
-  <!-- CABEÇALHO DINÂMICO PADRONIZADO -->
+  
   <app-header></app-header>
 
   <div class="quiz-container-box">
     
-    <!-- TELA 1: SELEÇÃO DE ÁREA -->
+    
     <div id="selectionScreen">
       <div class="progress-section">
         <div class="progress-info">
@@ -565,7 +565,7 @@
             <h2 style="margin: 0; color: #0f172a; font-size: 1.3rem;"><i class="fa-solid fa-bullseye"></i> Praticar Quiz de TI em Libras</h2>
             <p style="color: #64748b; font-size: 0.9rem; margin-top: 4px; margin-bottom: 0;">Escolha uma categoria técnica para testar seus conhecimentos. Ao errar uma questão, o quiz é reiniciado!</p>
           </div>
-          <!-- BOTÕES DE NAVEGAÇÃO LATERAL (< >) — ocultos via CSS, pois o grid abaixo não precisa mais de scroll horizontal -->
+          
           <div class="carousel-nav-btns">
             <button class="btn-scroll" onclick="scrollCarousel(-360)" title="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
             <button class="btn-scroll" onclick="scrollCarousel(360)" title="Próximo"><i class="fa-solid fa-chevron-right"></i></button>
@@ -574,7 +574,7 @@
 
         <div class="selection-grid" id="selectionGrid">
           
-          <!-- HARDWARE -->
+          
           <div class="category-card cat-hardware" id="card-Hardware">
             <span class="completed-badge"><i class="fa-solid fa-check"></i> Concluído</span>
             <div>
@@ -591,7 +591,7 @@
             </div>
           </div>
 
-          <!-- SOFTWARE -->
+          
           <div class="category-card cat-software" id="card-Software">
             <span class="completed-badge"><i class="fa-solid fa-check"></i> Concluído</span>
             <div>
@@ -608,7 +608,7 @@
             </div>
           </div>
 
-          <!-- PROGRAMAÇÃO -->
+          
           <div class="category-card cat-programacao" id="card-Programação">
             <span class="completed-badge"><i class="fa-solid fa-check"></i> Concluído</span>
             <div>
@@ -625,7 +625,7 @@
             </div>
           </div>
 
-          <!-- ELETRICIDADE -->
+          
           <div class="category-card cat-eletricidade" id="card-Eletricidade">
             <span class="completed-badge"><i class="fa-solid fa-check"></i> Concluído</span>
             <div>
@@ -642,7 +642,7 @@
             </div>
           </div>
 
-          <!-- REDES -->
+          
           <div class="category-card cat-redes" id="card-Redes">
             <span class="completed-badge"><i class="fa-solid fa-check"></i> Concluído</span>
             <div>
@@ -659,7 +659,7 @@
             </div>
           </div>
 
-          <!-- SIMULADO GERAL -->
+          
           <div class="category-card cat-todos" id="card-Todos">
             <span class="completed-badge"><i class="fa-solid fa-check"></i> Concluído</span>
             <div>
@@ -680,7 +680,7 @@
       </div>
     </div>
 
-    <!-- TELA 2: EXECUÇÃO DO QUIZ -->
+    
     <div id="quizScreen" class="quiz-card" style="display: none;">
       <div class="quiz-header">
         <div>
@@ -695,7 +695,7 @@
 
       <div class="quiz-body-grid">
         
-        <!-- COLUNA 1: VÍDEO DO SINAL -->
+        
         <div class="quiz-media-col">
           <div class="video-placeholder-box">
             <span style="font-size: 3rem; margin-bottom: 8px;"><i class="fa-solid fa-video"></i></span>
@@ -704,7 +704,7 @@
           <p style="margin: 0; font-size: 0.9rem; font-weight: 600; color: #64748b; text-align: center;">Assista ao vídeo e selecione o termo correspondente à direita:</p>
         </div>
 
-        <!-- COLUNA 2: ALTERNATIVAS -->
+        
         <div class="quiz-options-col">
           <h3 style="margin: 0 0 8px 0; font-size: 1.05rem; color: #1e293b;">Qual é a resposta correta?</h3>
           <div id="optionsContainer" style="display: flex; flex-direction: column; gap: 10px;"></div>
@@ -722,13 +722,15 @@
 <app-footer></app-footer>
 
   <script>
-    // ROLAGEM DOS CARDS NO CARROSSEL (< >)
+    
+
     function scrollCarousel(distance) {
       const grid = document.getElementById('selectionGrid');
       grid.scrollBy({ left: distance, behavior: 'smooth' });
     }
 
-    // Esconde os botões < > e centraliza os cards quando NÃO há scroll necessário
+    
+
     function updateCarouselState() {
       const grid = document.getElementById('selectionGrid');
       const btns = document.querySelector('.carousel-nav-btns');
@@ -740,7 +742,8 @@
     window.addEventListener('resize', updateCarouselState);
     document.addEventListener('DOMContentLoaded', updateCarouselState);
 
-    // BASE DE DADOS COMPLETA (63 QUESTÕES)
+    
+
     const allQuestions = [
       { term: "Monitor", cat: "Hardware", img: "imagens/sinais/monitor.png" },
       { term: "Mouse", cat: "Hardware", img: "imagens/sinais/mouse.png" },
@@ -818,8 +821,10 @@
     let timeLeft = 60;
 
     document.addEventListener('DOMContentLoaded', () => {
-      // Publica os totais reais para o card SEU PROGRESSO da página inicial
-      localStorage.setItem('totalQuizzes', '6');               // são 6 categorias de quiz
+      
+
+      localStorage.setItem('totalQuizzes', '6');               
+
       localStorage.setItem('totalQuestoes', String(allQuestions.length));
 
       updateProgressDisplay();
@@ -852,7 +857,8 @@
       document.getElementById('progressText').textContent = `${completed.length} / ${totalCategories} Concluídos (${pct}%)`;
       document.getElementById('progressBar').style.width = `${pct}%`;
 
-      // NOVO: mensagem dinâmica de acordo com a quantidade de quizzes concluídos
+      
+
       const messageEl = document.getElementById('progressMessage');
       if (messageEl) {
         let msg;
@@ -1021,7 +1027,7 @@
     }
   </script>
 
-  <!-- WIDGET VLIBRAS -->
+  
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
     <div vw-plugin-wrapper>
