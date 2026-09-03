@@ -1,57 +1,97 @@
+/* ============================================================
+   T.I. Libras — página de Início (apresentação + card de vídeo)
+
+   O conteúdo aproveita as laterais da tela (banda do hero em
+   largura total e seções com um respiro lateral enxuto), sem o
+   visual "espremido e centralizado".
+   ============================================================ */
+
+/* <main> da Início: ocupa o espaço entre header e footer para que o
+   rodapé fique sempre no fim da página em todos os estados. */
+.main-inicio {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Página de Início como um todo: ocupa 100% da largura. */
 .landing {
   flex: 1;
   width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 16px clamp(16px, 3vw, 24px) 32px;
 }
+
+/* ============================================================
+   Card principal de apresentação (hero) — full-width com o
+   gradiente azul → roxo da identidade visual do site.
+   ============================================================ */
 .hero {
-  background: linear-gradient(135deg, #6d28d9 0%, #4f46e5 100%);
-  border-radius: var(--raio);
-  padding: 40px clamp(20px, 4vw, 44px);
+  width: 100%;
+  background: var(--gradiente-marca); /* azul-índigo → roxo (cores da logo) */
   color: #ffffff;
+  padding: clamp(40px, 6vw, 80px) clamp(16px, 3vw, 24px);
+  scroll-margin-top: 12px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: clamp(24px, 4vw, 56px);
+  width: 100%;
+  margin: 0 auto;
 }
 
 .hero-content {
-  max-width: 640px;
+  min-width: 0;
+}
+
+/* Selo "Plataforma Educacional" + logo: empilhados no fluxo normal,
+   sem sobreposição nem deslocamento — o selo fica acima da logo. */
+.hero-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 22px;
 }
 
 .hero-logo {
-  width: 72px;
-  height: auto;
-  border-radius: var(--raio-pequeno);
-  margin-bottom: 16px;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: var(--raio);
+  background: #ffffff;
 }
 
 .hero-tag {
-  display: inline-block;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.6px;
-  background: rgba(255, 255, 255, 0.16);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 5px 12px;
-  border-radius: var(--raio);
-  margin-bottom: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .hero h1 {
-  font-size: clamp(2rem, 4vw, 2.6rem);
+  font-size: clamp(2rem, 4vw, 2.9rem);
   line-height: 1.12;
   font-weight: 800;
-  margin: 0 0 12px;
+  color: #ffffff;
+  margin: 0 0 14px;
 }
 
 .hero-highlight {
-  color: #ddd6fe;
+  /* Palavra "Libras" no título: branco sólido, sem opacidade,
+     gradiente interno de texto ou sombras. */
+  color: #ffffff;
 }
 
 .hero p {
   font-size: 1.05rem;
   line-height: 1.6;
-  opacity: 0.95;
-  margin: 0 0 24px;
-  max-width: 560px;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0 0 26px;
+  max-width: 620px;
 }
 
 .hero-actions {
@@ -62,7 +102,7 @@
 
 .hero .btn-light {
   background: #ffffff;
-  color: #4f46e5;
+  color: var(--cor-primaria-2);
   border: none;
 }
 
@@ -71,16 +111,82 @@
 }
 
 .hero .btn-ghost-light {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.12);
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .hero .btn-ghost-light:hover {
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.24);
 }
+
+/* ============================================================
+   Card de vídeo (YouTube) na coluna direita do hero
+   ============================================================ */
+.hero-media {
+  min-width: 0;
+}
+
+.video-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: var(--raio);
+  padding: 12px;
+}
+
+.video-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 2px 4px 10px;
+  flex-wrap: wrap;
+}
+
+.video-card-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.video-card-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--raio-pequeno);
+  overflow: hidden;
+}
+
+.video-card-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.video-card-hint {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 10px 4px 2px;
+}
+
+/* ============================================================
+   Conteúdo de apresentação (sobre + vantagens)
+   ============================================================ */
 .presentation {
-  margin-top: 16px;
+  /* Mesmo respiro lateral do Header para alinhar bordas verticais. */
+  width: 100%;
+  margin-top: 36px;
+  padding: 0 clamp(16px, 3vw, 24px);
+  scroll-margin-top: 12px;
 }
 
 .pres-card {
@@ -154,164 +260,76 @@
 .pres-points i {
   color: #10b981;
 }
+
+/* Vantagens: exatamente 3 cards lado a lado ocupando a largura útil */
 .perks {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  margin-top: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2vw, 24px);
+  margin-top: 24px;
+  margin-bottom: 48px;
 }
 
+/* Cards divididos em 2 partes horizontais:
+   1ª (menos larga): ícone sobre fundo em gradiente
+   2ª (mais larga): textos (título + descrição) */
 .perk-card {
-  display: flex;
-  align-items: center;
-  gap: 14px;
+  display: grid;
+  grid-template-columns: 104px 1fr; /* coluna estreita (ícone) + coluna de texto */
   background: #ffffff;
   border: var(--borda);
   border-radius: var(--raio);
-  padding: 16px 18px;
+  overflow: hidden; /* gradiente respeita o raio do card */
+  min-height: 132px;
 }
 
+/* 1ª parte: ícone com fundo em gradiente (preenche toda a altura) */
 .perk-icon {
-  flex: 0 0 44px;
-  height: 44px;
-  border-radius: var(--raio);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ede9fe;
-  color: var(--cor-primaria);
-  font-size: 1.1rem;
+  background: var(--gradiente-marca);
+  color: #ffffff;
+  font-size: 1.7rem;
+}
+
+/* 2ª parte: área de texto, ocupa a maior largura do card */
+.perk-card > div:not(.perk-icon) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  min-width: 0;
+  padding: 20px 22px 20px 18px;
 }
 
 .perk-card strong {
-  display: block;
-  font-size: 1rem;
+  font-size: 1.05rem;
+  line-height: 1.25;
   color: var(--cor-texto);
 }
 
 .perk-card p {
   font-size: 0.86rem;
+  line-height: 1.45;
   color: var(--cor-texto-suave);
-  margin: 2px 0 0;
-}
-.pres-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin-top: 16px;
-}
-
-.pres-item {
-  padding: 20px 18px;
-}
-
-.pres-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: var(--raio);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: #ede9fe;
-  color: var(--cor-primaria);
-  font-size: 1.1rem;
-  margin-bottom: 12px;
-}
-
-.pres-item h3 {
-  font-size: 1.05rem;
-  color: var(--cor-texto);
-  margin: 0 0 6px;
-}
-
-.pres-item p {
-  font-size: 0.88rem;
-  color: var(--cor-texto-suave);
-  line-height: 1.5;
   margin: 0;
 }
-.auth-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-}
 
-.auth-modal[hidden] {
+/* Estados da página trocados por js/inicio.js (Início/Login/Cadastro) */
+.landing[hidden],
+.auth-inline[hidden] {
   display: none;
 }
 
-.auth-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.55);
-}
-
-.auth-panel {
-  position: relative;
-  width: 100%;
-  max-width: 420px;
-  background: #ffffff;
-  border: var(--borda);
-  border-radius: var(--raio);
-  padding: 28px;
-  max-height: 92vh;
-  overflow-y: auto;
-}
-
-.auth-close {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  width: 32px;
-  height: 32px;
-  border: none;
-  border-radius: var(--raio);
-  background: #f1f5f9;
-  color: #475569;
-  font-size: 1rem;
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-  transition: var(--transicao);
-}
-
-.auth-close:hover {
-  background: #e2e8f0;
-}
-
-.auth-view h2 {
-  font-size: 1.35rem;
-  color: var(--cor-texto);
-  margin: 0 0 16px;
-}
-
-.auth-switch {
-  margin-top: 14px;
-  font-size: 0.9rem;
-  color: var(--cor-texto-suave);
-  text-align: center;
-}
-
-.auth-switch button {
-  border: none;
-  background: none;
-  color: var(--cor-primaria-2);
-  font-weight: 700;
-  font-size: 0.9rem;
-  cursor: pointer;
-  padding: 0;
-}
-
-.auth-switch button:hover {
-  text-decoration: underline;
-}
 @media (max-width: 900px) {
   .hero {
-    padding: 30px 20px;
+    padding: 32px 20px;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 
   .pres-feature {
@@ -320,8 +338,7 @@
     padding: 20px;
   }
 
-  .perks,
-  .pres-grid {
+  .perks {
     grid-template-columns: 1fr;
   }
 }

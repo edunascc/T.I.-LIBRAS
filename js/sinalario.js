@@ -12,8 +12,8 @@ const mapaDePontos = {
 
 // Cor do cabeçalho de cada área (iguais às usadas na página Praticar)
 const coresDasAreas = {
-  Hardware: '#8b5cf6',
-  Software: '#3b82f6',
+  Hardware: '#7b46ce', /* roxo da nova logo */
+  Software: '#3f86dc', /* azul da nova logo */
   'Programação': '#f59e0b',
   Eletricidade: '#ef4444',
   Redes: '#10b981'
@@ -138,7 +138,7 @@ function renderizarLista() {
   filtrados.forEach((item) => {
     const ativo = !!(termoAtual && termoAtual.term === item.term);
     const ehFavorito = favoritos.includes(item.term);
-    const cor = coresDasAreas[item.cat] || '#8b5cf6';
+    const cor = coresDasAreas[item.cat] || '#7b46ce';
 
     const linha = document.createElement('div');
     linha.className = `term-item${ativo ? ' active' : ''}`;
@@ -191,7 +191,7 @@ function exibirTermoAtual() {
 
   const favoritos = obterFavoritos();
   const ehFavorito = favoritos.includes(termoAtual.term);
-  const cor = coresDasAreas[termoAtual.cat] || '#8b5cf6';
+  const cor = coresDasAreas[termoAtual.cat] || '#7b46ce';
 
   // Cabeçalho na cor da área
   const cabecalho = document.getElementById('termHeader');

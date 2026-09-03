@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cardQuiz.innerHTML = `
       <div style="text-align: center; padding: 2rem 1rem;">
         <span style="font-size: 3.5rem;">🎉</span>
-        <h2 style="margin: 10px 0; color: #7c3aed;">Parabéns! Quiz Concluído!</h2>
+        <h2 style="margin: 10px 0; color: #7b46ce;">Parabéns! Quiz Concluído!</h2>
         <p style="color: #64748b; margin-bottom: 20px;">
           Você acertou todas as ${perguntasAtivas.length} questões da categoria ${categoriaDaUrl}!
         </p>

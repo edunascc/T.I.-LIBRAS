@@ -5,8 +5,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --cor-primaria: #7c3aed;
-  --cor-primaria-2: #4f46e5;
+  /* ===== Paleta extraída da nova logo (img/logo.png) =====
+     Gradiente índigo/azul → roxo/violeta, com azul como acento. */
+  --cor-primaria: #7b46ce;   /* roxo/violeta da logo (destaques) */
+  --cor-primaria-2: #3e4bc6; /* azul-índigo da logo (botões/links) */
+  --cor-azul: #3f86dc;       /* azul da logo (acentos/categorias) */
   --cor-fundo: #f8fafc;
   --cor-card: #ffffff;
   --cor-texto: #0f172a;
@@ -15,6 +18,8 @@
   --raio: 6px;
   --raio-pequeno: 4px;
   --transicao: all 0.2s ease;
+  /* Gradiente padrão do site, baseado na logo */
+  --gradiente-marca: linear-gradient(135deg, #3e4bc6 0%, #5b45c8 45%, #7b46ce 100%);
 }
 
 * {
@@ -140,6 +145,21 @@ app-footer {
   filter: brightness(1.05);
 }
 
+/* Botão Sair (logado) — discreto, alinhado aos demais botões do header */
+.auth-btn.auth-logout {
+  gap: 7px;
+  background: transparent;
+  color: #475569;
+  border: var(--borda);
+}
+
+.auth-btn.auth-logout:hover {
+  background: #fef2f2;
+  color: #b91c1c;
+  border-color: #fecaca;
+  filter: none;
+}
+
 .icon-btn {
   width: 38px;
   height: 38px;
@@ -168,8 +188,8 @@ app-footer {
 }
 
 .footer-top {
-  max-width: 1400px;
-  margin: 0 auto;
+  /* Mesmo respiro lateral do Header para alinhar as bordas verticais. */
+  width: 100%;
   padding: 24px clamp(16px, 3vw, 24px);
   display: flex;
   align-items: center;
@@ -230,8 +250,7 @@ app-footer {
 }
 
 .footer-links {
-  max-width: 1400px;
-  margin: 0 auto;
+  width: 100%;
   padding: 16px clamp(16px, 3vw, 24px);
   border-top: var(--borda);
   display: flex;
@@ -263,8 +282,26 @@ app-footer {
   color: var(--cor-primaria-2);
 }
 
-.footer-links i {
-  color: var(--cor-primaria);
+/* Contato formal no rodapé — sutil e integrado (sem ícone de envelope,
+   sem fundo/borda/destaque exagerado; mailto segue clicável) */
+.footer-contact {
+  display: inline-flex;
+  align-items: center;
+  color: var(--cor-texto-suave);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.footer-contact a {
+  color: inherit;
+  font-weight: inherit;
+  text-decoration: none;
+  transition: var(--transicao);
+}
+
+.footer-contact a:hover {
+  color: var(--cor-primaria-2);
+  text-decoration: underline;
 }
 
 .footer-copy {
@@ -296,7 +333,7 @@ app-footer {
 }
 
 .btn-primary:hover {
-  background: #6d28d9;
+  background: #6a3dc4;
 }
 
 .btn-ghost,

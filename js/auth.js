@@ -49,7 +49,10 @@ onAuthStateChanged(auth, async (user) => {
     await createUserDocIfMissing(user);
     await mergeProgressToLocal(user);
     window.currentUser = { uid: user.uid, email: user.email, name: user.displayName };
+    // Persiste a sessão para o Header 2 (Praticar/Sinalário) reconhecê-la.
+    localStorage.setItem('isLoggedIn', 'true');
   } else {
+    localStorage.removeItem('isLoggedIn');
     const protectedPages = ['/sinalario.html', '/praticar.html'];
     const pathname = window.location.pathname;
     if (protectedPages.some(p => pathname.endsWith(p))) {
