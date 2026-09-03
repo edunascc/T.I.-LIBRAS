@@ -1,41 +1,26 @@
-html, body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
 .landing {
   flex: 1;
   width: 100%;
-  max-width: 1480px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 20px clamp(20px, 4vw, 60px) 34px;
-  box-sizing: border-box;
+  padding: 16px clamp(16px, 3vw, 24px) 32px;
 }
-
 .hero {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, #6d28d9 0%, #4f46e5 45%, #2563eb 100%);
-  border-radius: 14px;
-  padding: 44px 40px;
+  background: linear-gradient(135deg, #6d28d9 0%, #4f46e5 100%);
+  border-radius: var(--raio);
+  padding: 40px clamp(20px, 4vw, 44px);
   color: #ffffff;
 }
 
 .hero-content {
-  position: relative;
-  z-index: 2;
   max-width: 640px;
-  text-align: left;
 }
 
 .hero-logo {
-  width: 74px;
+  width: 72px;
   height: auto;
-  border-radius: 14px;
-  margin-bottom: 18px;
+  border-radius: var(--raio-pequeno);
+  margin-bottom: 16px;
 }
 
 .hero-tag {
@@ -43,26 +28,22 @@ html, body {
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.6px;
-  background: rgba(255, 255, 255, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  padding: 6px 12px;
-  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 5px 12px;
+  border-radius: var(--raio);
   margin-bottom: 14px;
 }
 
 .hero h1 {
-  font-size: 2.6rem;
-  line-height: 1.1;
-  margin: 0 0 12px;
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  line-height: 1.12;
   font-weight: 800;
+  margin: 0 0 12px;
 }
 
 .hero-highlight {
-  background: linear-gradient(90deg, #ffffff, #d8b4fe);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-fill-color: transparent;
+  color: #ddd6fe;
 }
 
 .hero p {
@@ -70,6 +51,7 @@ html, body {
   line-height: 1.6;
   opacity: 0.95;
   margin: 0 0 24px;
+  max-width: 560px;
 }
 
 .hero-actions {
@@ -78,84 +60,71 @@ html, body {
   gap: 12px;
 }
 
-.btn-light {
+.hero .btn-light {
   background: #ffffff;
   color: #4f46e5;
+  border: none;
 }
 
-.btn-ghost-light {
-  background: rgba(255, 255, 255, 0.16);
+.hero .btn-light:hover {
+  background: #eef2ff;
+}
+
+.hero .btn-ghost-light {
+  background: transparent;
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-.btn-ghost-light:hover {
-  background: rgba(255, 255, 255, 0.28);
+.hero .btn-ghost-light:hover {
+  background: rgba(255, 255, 255, 0.14);
 }
-
-.hero .btn-light,
-.hero .btn-ghost-light {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 22px;
-  border-radius: 999px;
-  font-size: 0.95rem;
-  font-weight: 700;
-  cursor: pointer;
-  text-decoration: none;
-  transition: transform 0.2s ease, background 0.2s ease;
-  border: none;
-}
-
 .presentation {
-  margin-top: 18px;
+  margin-top: 16px;
 }
 
 .pres-card {
   background: #ffffff;
-  border-radius: 10px;
-  border: 1px solid #eef0f5;
+  border: var(--borda);
+  border-radius: var(--raio);
 }
 
 .pres-feature {
   display: flex;
   align-items: center;
-  gap: 26px;
-  padding: 28px 30px;
-  border-left: 5px solid;
-  border-image: linear-gradient(135deg, #7c3aed, #3b82f6) 1;
-  border-left-style: solid;
+  gap: 24px;
+  padding: 24px;
+  border-left: 4px solid var(--cor-primaria);
 }
 
 .pres-media {
-  flex: 0 0 120px;
-  height: 120px;
-  border-radius: 12px;
+  flex: 0 0 96px;
+  height: 96px;
+  border-radius: var(--raio);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #7c3aed, #3b82f6);
-  color: #ffffff;
-  font-size: 2.6rem;
+  background: #ede9fe;
+  color: var(--cor-primaria);
+  font-size: 2.2rem;
 }
 
 .pres-body {
-  text-align: left;
+  flex: 1;
 }
 
 .pres-tag {
-  display: inline-block;
+  display: block;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.5px;
-  color: #6d28d9;
+  color: var(--cor-primaria);
   margin-bottom: 6px;
 }
 
 .pres-body h2 {
   font-size: 1.5rem;
-  color: #1e1b4b;
+  color: var(--cor-texto);
   margin: 0 0 8px;
 }
 
@@ -168,8 +137,6 @@ html, body {
 
 .pres-points {
   list-style: none;
-  padding: 0;
-  margin: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 8px 22px;
@@ -181,13 +148,12 @@ html, body {
   gap: 8px;
   font-size: 0.9rem;
   font-weight: 600;
-  color: #1e1b4b;
+  color: var(--cor-texto);
 }
 
 .pres-points i {
   color: #10b981;
 }
-
 .perks {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -200,35 +166,34 @@ html, body {
   align-items: center;
   gap: 14px;
   background: #ffffff;
-  border: 1px solid #eef0f5;
-  border-radius: 10px;
-  padding: 18px 20px;
+  border: var(--borda);
+  border-radius: var(--raio);
+  padding: 16px 18px;
 }
 
 .perk-icon {
-  flex: 0 0 46px;
-  height: 46px;
-  border-radius: 10px;
+  flex: 0 0 44px;
+  height: 44px;
+  border-radius: var(--raio);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #a855f7, #3b82f6);
-  color: #ffffff;
-  font-size: 1.2rem;
+  background: #ede9fe;
+  color: var(--cor-primaria);
+  font-size: 1.1rem;
 }
 
 .perk-card strong {
   display: block;
   font-size: 1rem;
-  color: #1e1b4b;
+  color: var(--cor-texto);
 }
 
 .perk-card p {
   font-size: 0.86rem;
-  color: #64748b;
+  color: var(--cor-texto-suave);
   margin: 2px 0 0;
 }
-
 .pres-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -237,36 +202,34 @@ html, body {
 }
 
 .pres-item {
-  padding: 22px 20px;
-  text-align: left;
+  padding: 20px 18px;
 }
 
 .pres-icon {
-  width: 46px;
-  height: 46px;
-  border-radius: 10px;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--raio);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #a855f7, #3b82f6);
-  color: #ffffff;
-  font-size: 1.2rem;
+  background: #ede9fe;
+  color: var(--cor-primaria);
+  font-size: 1.1rem;
   margin-bottom: 12px;
 }
 
 .pres-item h3 {
   font-size: 1.05rem;
-  color: #1e1b4b;
+  color: var(--cor-texto);
   margin: 0 0 6px;
 }
 
 .pres-item p {
   font-size: 0.88rem;
-  color: #64748b;
+  color: var(--cor-texto-suave);
   line-height: 1.5;
   margin: 0;
 }
-
 .auth-modal {
   position: fixed;
   inset: 0;
@@ -284,16 +247,16 @@ html, body {
 .auth-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(3px);
+  background: rgba(15, 23, 42, 0.55);
 }
 
 .auth-panel {
   position: relative;
   width: 100%;
-  max-width: 430px;
+  max-width: 420px;
   background: #ffffff;
-  border-radius: 14px;
+  border: var(--borda);
+  border-radius: var(--raio);
   padding: 28px;
   max-height: 92vh;
   overflow-y: auto;
@@ -303,16 +266,17 @@ html, body {
   position: absolute;
   top: 14px;
   right: 14px;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
+  width: 32px;
+  height: 32px;
   border: none;
+  border-radius: var(--raio);
   background: #f1f5f9;
   color: #475569;
   font-size: 1rem;
   cursor: pointer;
   display: grid;
   place-items: center;
+  transition: var(--transicao);
 }
 
 .auth-close:hover {
@@ -320,22 +284,22 @@ html, body {
 }
 
 .auth-view h2 {
-  font-size: 1.4rem;
-  color: #1e1b4b;
+  font-size: 1.35rem;
+  color: var(--cor-texto);
   margin: 0 0 16px;
 }
 
 .auth-switch {
   margin-top: 14px;
   font-size: 0.9rem;
-  color: #64748b;
+  color: var(--cor-texto-suave);
   text-align: center;
 }
 
 .auth-switch button {
   border: none;
   background: none;
-  color: #4f46e5;
+  color: var(--cor-primaria-2);
   font-weight: 700;
   font-size: 0.9rem;
   cursor: pointer;
@@ -345,26 +309,18 @@ html, body {
 .auth-switch button:hover {
   text-decoration: underline;
 }
-
 @media (max-width: 900px) {
   .hero {
-    padding: 34px 24px;
-  }
-
-  .hero h1 {
-    font-size: 2rem;
+    padding: 30px 20px;
   }
 
   .pres-feature {
     flex-direction: column;
     align-items: flex-start;
-    padding: 22px;
+    padding: 20px;
   }
 
-  .perks {
-    grid-template-columns: 1fr;
-  }
-
+  .perks,
   .pres-grid {
     grid-template-columns: 1fr;
   }

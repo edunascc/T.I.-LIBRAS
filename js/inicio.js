@@ -1,19 +1,44 @@
+// Lógica da página inicial: abrir e fechar o modal de login/cadastro.
 document.addEventListener('DOMContentLoaded', () => {
-  const totalSinais = 60;
-  const totalQuizzes = 40;
+  const modal = document.getElementById('authModal');
+  const visaoLogin = document.getElementById('viewLogin');
+  const visaoCadastro = document.getElementById('viewRegister');
 
-  const sinaisAprendidos = JSON.parse(localStorage.getItem('sinaisAprendidos') || '[]');
-  const quizzesFeitos = JSON.parse(localStorage.getItem('quizzesConcluidos') || '[]');
+  function abrirModal(visao) {
+    if (!modal) return;
+    visaoLogin.hidden = visao !== 'login';
+    visaoCadastro.hidden = visao !== 'register';
+    modal.hidden = false;
+  }
 
-  const qtdSinais = sinaisAprendidos.length;
-  const qtdQuizzes = quizzesFeitos.length;
+  function fecharModal() {
+    if (modal) modal.hidden = true;
+  }
 
-  const pctSinais = Math.min(Math.round((qtdSinais / totalSinais) * 100), 100);
-  const pctQuizzes = Math.min(Math.round((qtdQuizzes / totalQuizzes) * 100), 100);
+  // Botões da faixa principal e trocas dentro do modal
+  document.getElementById('openLogin')?.addEventListener('click', () => abrirModal('login'));
+  document.getElementById('openRegister')?.addEventListener('click', () => abrirModal('register'));
+  document.getElementById('switchToRegister')?.addEventListener('click', () => abrirModal('register'));
+  document.getElementById('switchToLogin')?.addEventListener('click', () => abrirModal('login'));
 
-  document.getElementById('lblSinais').innerText = `${qtdSinais}/${totalSinais}`;
-  document.getElementById('barSinais').style.width = `${pctSinais}%`;
+  // Botões do cabeçalho (gerados por js/components.js)
+  document.getElementById('headerLogin')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    abrirModal('login');
+  });
+  document.getElementById('headerRegister')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    abrirModal('register');
+  });
 
-  document.getElementById('lblQuizzes').innerText = `${qtdQuizzes}/${totalQuizzes}`;
-  document.getElementById('barQuizzes').style.width = `${pctQuizzes}%`;
+  document.getElementById('authClose')?.addEventListener('click', fecharModal);
+  document.getElementById('authBackdrop')?.addEventListener('click', fecharModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') fecharModal();
+  });
+
+  // Abre a aba correta quando a URL pede (?auth=login|register ou ?next=...)
+  const parametros = new URLSearchParams(window.location.search);
+  if (parametros.get('auth') === 'register') abrirModal('register');
+  else if (parametros.get('auth') === 'login' || parametros.get('next')) abrirModal('login');
 });

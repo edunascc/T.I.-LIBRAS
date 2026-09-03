@@ -5,552 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>T.I Libras - Quiz Prático</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/sinalario.css">
+  <link rel="stylesheet" href="css/praticar.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <style>
-    /* TRAVA DEFINITIVA CONTRA SCROLL HORIZONTAL DA PÁGINA (ALTERADO/NOVO):
-       o carrossel de categorias é intencionalmente mais largo que a tela e rola
-       por dentro dele mesmo (.selection-grid tem overflow-x: auto). Sem esta trava,
-       o navegador também cria um scroll horizontal da PÁGINA INTEIRA por baixo do
-       carrossel, o que empurra/desalinha o rodapé. Isso impede esse cenário de
-       acontecer de novo, seja qual for o conteúdo interno. */
-    html, body {
-      max-width: 100%;
-      overflow-x: hidden;
-    }
-
-    /* CABEÇALHO LARGURA TOTAL */
-    .header-fix {
-      width: 100% !important;
-      background: #ffffff !important;
-      border-bottom: 1px solid #e2e8f0 !important;
-      padding: 16px 0 !important;
-      box-sizing: border-box !important;
-    }
-
-    .header-grid {
-      width: 100% !important;
-      max-width: 100% !important;
-      margin: 0 !important;
-      padding: 0 clamp(10px, 2vw, 28px) !important; /* ALTERADO: era clamp(16px, 3.5vw, 44px) — ainda mais próximo das bordas */
-      display: flex !important;
-      align-items: center !important;
-      justify-content: space-between !important;
-      box-sizing: border-box !important;
-    }
-
-    /* LOGO */
-    .brand-logo {
-      display: flex !important;
-      align-items: center !important;
-      gap: 12px !important;
-      text-decoration: none !important;
-      flex-shrink: 0 !important;
-    }
-    .brand-icon {
-      background: #7c3aed !important;
-      color: #ffffff !important;
-      width: 38px !important;
-      height: 38px !important;
-      border-radius: 12px !important;
-      font-size: 1.3rem !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-    }
-    .brand-text {
-      font-weight: 800 !important;
-      font-size: 1.4rem !important;
-      color: #7c3aed !important;
-      white-space: nowrap !important;
-    }
-
-    /* MENU CENTRAL */
-    .nav-pill {
-      display: flex !important;
-      align-items: center !important;
-      background: #f1f5f9 !important;
-      padding: 7px !important;
-      border-radius: 30px !important;
-      gap: 4px !important;
-      flex-shrink: 0 !important;
-    }
-    .nav-pill a {
-      padding: 9px 24px !important;
-      border-radius: 30px !important;
-      text-decoration: none !important;
-      font-size: 0.95rem !important;
-      font-weight: 600 !important;
-      color: #475569 !important;
-      transition: all 0.2s !important;
-      white-space: nowrap !important;
-    }
-    .nav-pill a.active {
-      background: #e9d5ff !important;
-      color: #7c3aed !important;
-    }
-
-    /* BOTOES DIREITA */
-    .actions-right {
-      display: flex !important;
-      align-items: center !important;
-      gap: 12px !important;
-      flex-shrink: 0 !important;
-    }
-    .action-btn {
-      width: 44px !important;
-      height: 44px !important;
-      border-radius: 50% !important;
-      border: none !important;
-      background: #f1f5f9 !important;
-      color: #475569 !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      cursor: pointer !important;
-      font-size: 1.1rem !important;
-    }
-
-    /* CONTAINER DO CONTEÚDO EXPANDIDO */
-    .quiz-container-box {
-      flex: 1 0 auto !important; /* NOVO: esta classe não estava na lista de seletores que ganham flex:1 em css/style.css — sem isso, o comportamento do rodapé fica inconsistente com as outras páginas em certos cenários de conteúdo */
-      width: 100% !important;
-      max-width: 100% !important;
-      padding: 0 clamp(10px, 2vw, 28px) !important; /* ALTERADO: era clamp(16px, 3.5vw, 44px) — ainda mais próximo das bordas */
-      margin: 24px 0 !important;
-      box-sizing: border-box !important;
-    }
-
-    .progress-section {
-      background: linear-gradient(135deg, #6366f1 0%, #7c3aed 100%); /* ALTERADO: era #ffffff sólido — gradiente azul/roxo igual ao resto do site, pra dar destaque */
-      border-radius: 12px;
-      padding: 18px 24px;
-      margin-bottom: 24px;
-      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.25);
-      border: none;
-    }
-    .progress-info {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-    .progress-info h4 {
-      margin: 0;
-      color: #ffffff; /* ALTERADO: era #0f172a — texto branco sobre o novo fundo gradiente */
-      font-size: 0.95rem;
-    }
-    .progress-bar-bg {
-      background: rgba(255, 255, 255, 0.25); /* ALTERADO: era #e2e8f0 — trilho translúcido combinando com o gradiente */
-      height: 10px;
-      border-radius: 5px;
-      overflow: hidden;
-    }
-    .progress-bar-fill {
-      background: #ffffff; /* ALTERADO: era gradiente indigo/verde — agora branco sólido, com contraste sobre o fundo colorido */
-      height: 100%;
-      width: 0%;
-      transition: width 0.4s ease;
-    }
-    .progress-message {
-      margin: 10px 0 0 0;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.92);
-    }
-
-    /* CABEÇALHO DO CARROSSEL DE CARDS */
-    .carousel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .carousel-nav-btns {
-      display: flex; /* ALTERADO: era "none" — voltam a aparecer, pois o carrossel horizontal precisa delas de novo */
-      gap: 8px;
-    }
-
-    .btn-scroll {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      border: 1px solid #cbd5e1;
-      background: #ffffff;
-      color: #475569;
-      font-size: 1.1rem;
-      font-weight: bold;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-
-    .btn-scroll:hover {
-      background: #6366f1;
-      color: #ffffff;
-      border-color: #6366f1;
-      transform: scale(1.05);
-    }
-
-    /* CARROSSEL HORIZONTAL COMPACTO (ALTERADO: volta a ser carrossel com scroll,
-       só que com cards bem menores que o original — mais compacto que várias linhas de grid) */
-    .selection-grid {
-      display: flex !important;
-      overflow-x: auto !important;
-      overflow-y: visible !important; /* NOVO: garante que o hover (translateY) nunca seja cortado verticalmente */
-      gap: 14px !important;
-      padding: 16px 4px 10px 4px !important; /* ALTERADO: padding-top de 4px para 16px — dá respiro para o card "subir" no hover sem colidir com a borda do card branco de fora */
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      scrollbar-width: thin;
-      scrollbar-color: #cbd5e1 #f1f5f9;
-    }
-
-    /* CARD MAIS COMPACTO (ALTERADO: altura e respiros internos reduzidos) */
-    .category-card {
-      min-width: 250px !important; /* NOVO: largura fixa necessária de volta ao modelo de carrossel (flex) */
-      max-width: 260px !important; /* NOVO: idem */
-      flex: 0 0 auto !important; /* NOVO: impede que os cards espremam/estiquem dentro do flex do carrossel */
-      scroll-snap-align: start; /* NOVO: encaixe suave ao rolar */
-      min-height: 300px !important; /* ALTERADO: era 420px */
-      background: #ffffff;
-      border: 2px solid #e2e8f0;
-      border-radius: 16px; /* ALTERADO: era 20px, levemente menor para acompanhar o card mais compacto */
-      padding: 18px 18px !important; /* ALTERADO: era 28px 24px */
-      text-align: left !important;
-      transition: all 0.25s ease;
-      position: relative;
-      display: flex !important;
-      flex-direction: column !important;
-      justify-content: space-between !important;
-      box-sizing: border-box !important;
-    }
-
-    .category-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.08);
-      z-index: 2; /* NOVO: garante que o card em hover sempre fique por cima dos vizinhos, nunca "atrás" deles */
-    }
-
-    .completed-badge {
-      display: none;
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      background: #10b981;
-      color: #ffffff;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 20px;
-      box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
-    }
-
-    .category-card.completed .completed-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .category-card.cat-hardware { border-color: #8b5cf6; }
-    .category-card.cat-software { border-color: #3b82f6; }
-    .category-card.cat-programacao { border-color: #f59e0b; }
-    .category-card.cat-eletricidade { border-color: #ef4444; }
-    .category-card.cat-redes { border-color: #10b981; }
-    .category-card.cat-todos { border-color: #6366f1; background: #faf5ff; }
-
-    .category-card .badge-icon {
-      font-size: 2rem; /* ALTERADO: era 2.5rem */
-      margin-bottom: 8px; /* ALTERADO: era 12px */
-      display: block;
-    }
-
-    .category-card h3 {
-      margin: 0 0 6px 0; /* ALTERADO: era 0 0 8px 0 */
-      color: #0f172a;
-      font-size: 1.2rem; /* ALTERADO: era 1.3rem */
-      font-weight: 800;
-    }
-
-    .category-card .desc-text {
-      font-size: 0.85rem; /* ALTERADO: era 0.9rem */
-      color: #475569;
-      line-height: 1.45;
-      margin: 8px 0 14px 0; /* ALTERADO: era 10px 0 18px 0 */
-    }
-
-    .category-card .meta-info {
-      font-size: 0.78rem; /* ALTERADO: era 0.82rem */
-      font-weight: 700;
-      color: #6366f1;
-      background: #f5f3ff;
-      padding: 6px 12px; /* ALTERADO: era 8px 14px */
-      border-radius: 10px;
-      display: inline-block;
-      width: fit-content;
-      margin-bottom: 12px; /* ALTERADO: era 16px */
-    }
-
-    /* BOTÕES DO CARD DE SELEÇÃO */
-    .card-actions {
-      display: flex;
-      gap: 8px; /* ALTERADO: era 10px */
-      width: 100%;
-      margin-top: auto;
-    }
-
-    .btn-card-start {
-      flex: 1;
-      background: #6366f1;
-      color: #ffffff;
-      border: none;
-      padding: 9px 12px; /* ALTERADO: era 10px 14px */
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 0.82rem; /* ALTERADO: era 0.85rem */
-      cursor: pointer;
-      text-align: center;
-      transition: background 0.2s;
-    }
-
-    .btn-card-start:hover {
-      background: #4f46e5;
-    }
-
-    .btn-card-consult {
-      flex: 1;
-      background: #f1f5f9;
-      color: #475569;
-      border: 1px solid #cbd5e1;
-      padding: 9px 12px; /* ALTERADO: era 10px 14px */
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 0.82rem; /* ALTERADO: era 0.85rem */
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .btn-card-consult:hover {
-      background: #e2e8f0;
-      color: #0f172a;
-    }
-
-    /* ESTRUTURA DO QUIZ (LAYOUT 2 COLUNAS) */
-    .quiz-card {
-      background: #ffffff;
-      border-radius: 20px;
-      padding: 28px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      border: 1px solid #e2e8f0;
-    }
-    
-    .quiz-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid #f1f5f9;
-      padding-bottom: 12px;
-      margin-bottom: 20px;
-    }
-    
-    .timer-badge {
-      background: #fee2e2;
-      color: #dc2626;
-      font-weight: 700;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-    }
-
-    .quiz-body-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      align-items: start;
-    }
-
-    /* COLUNA VÍDEO DO SINAL */
-    .quiz-media-col {
-      background: #f8fafc;
-      border-radius: 16px;
-      padding: 20px;
-      border: 1px solid #e2e8f0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .video-placeholder-box {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      height: auto;
-      background: #e2e8f0;
-      border-radius: 14px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: #475569;
-      margin-bottom: 16px;
-      border: 2px dashed #cbd5e1;
-      box-sizing: border-box;
-      overflow: hidden;
-    }
-
-    /* COLUNA OPÇÕES DE RESPOSTA */
-    .quiz-options-col {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .option-btn-card {
-      background: #f8fafc;
-      border: 2px solid #e2e8f0;
-      padding: 12px 16px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      cursor: pointer;
-      text-align: left;
-      transition: all 0.2s ease;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .option-btn-card:hover:not(:disabled) {
-      border-color: #6366f1;
-      background: #f5f3ff;
-      transform: translateX(4px);
-    }
-
-    .option-img-thumb {
-      width: 50px;
-      height: 50px;
-      border-radius: 10px;
-      object-fit: cover;
-      background: #e2e8f0;
-      flex-shrink: 0;
-      border: 1px solid #cbd5e1;
-    }
-
-    .option-term-text {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #1e293b;
-    }
-
-    /* MENSAGEM / STATUS DENTRO DO CARD DA OPCÃO */
-    .answer-status-tag {
-      margin-left: auto;
-      font-size: 0.8rem;
-      font-weight: 800;
-      padding: 4px 10px;
-      border-radius: 6px;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      white-space: nowrap;
-    }
-
-    .option-btn-card.correct {
-      background: #dcfce7 !important;
-      border-color: #10b981 !important;
-    }
-    .option-btn-card.correct .option-term-text { color: #15803d !important; }
-    .option-btn-card.correct .answer-status-tag {
-      background: #10b981;
-      color: #ffffff;
-    }
-
-    .option-btn-card.wrong {
-      background: #fee2e2 !important;
-      border-color: #ef4444 !important;
-    }
-    .option-btn-card.wrong .option-term-text { color: #b91c1c !important; }
-    .option-btn-card.wrong .answer-status-tag {
-      background: #ef4444;
-      color: #ffffff;
-    }
-
-    .feedback-banner {
-      margin-top: 16px;
-      padding: 12px;
-      border-radius: 10px;
-      text-align: center;
-      font-weight: 700;
-      font-size: 0.9rem;
-      display: none;
-    }
-    .feedback-banner.error {
-      background: #fef2f2;
-      color: #991b1b;
-      border: 1px solid #fecaca;
-    }
-
-    @media (max-width: 900px) {
-      .quiz-body-grid {
-        grid-template-columns: 1fr;
-      }
-      .header-grid, .quiz-container-box {
-        padding: 0 20px !important;
-      }
-    }
-    .brand-icon i, .action-btn i, .badge-icon i, .timer-badge i,
-    .completed-badge i, .feedback-banner i, .carousel-header h2 i,
-    .progress-info h4 i, .footer i, .quiz-header button i {
-      line-height: 1;
-    }
-
-    .badge-icon {
-      color: inherit;
-    }
-
-    .card-actions .btn-card-start::before {
-      content: "\f144";
-      font-family: "Font Awesome 6 Free";
-      font-weight: 900;
-      margin-right: 7px;
-    }
-
-    .card-actions .btn-card-consult::before {
-      content: "\f002";
-      font-family: "Font Awesome 6 Free";
-      font-weight: 900;
-      margin-right: 7px;
-    }
-  </style>
-</head>
-<body>
-
   <script src="js/components.js"></script>
 </head>
 <body>
-
-  
   <app-header></app-header>
 
   <div class="quiz-container-box">
-    
-    
+    <!-- Tela de seleção de categorias -->
     <div id="selectionScreen">
       <div class="progress-section">
         <div class="progress-info">
           <h4><i class="fa-solid fa-chart-simple"></i> Progresso nos Quizes</h4>
-          <span style="font-size: 0.85rem; font-weight: 700; color: #ffffff;" id="progressText">0 / 6 Concluídos (0%)</span>
+          <span class="progress-pct" id="progressText">0 / 6 Concluídos (0%)</span>
         </div>
         <div class="progress-bar-bg">
           <div class="progress-bar-fill" id="progressBar"></div>
@@ -558,23 +26,19 @@
         <p class="progress-message" id="progressMessage">Vamos começar? Escolha uma categoria abaixo!</p>
       </div>
 
-      <div class="card" style="padding: 24px; background: #ffffff; border-radius: 20px; border: 1px solid #e2e8f0; overflow: visible;">
-        
+      <div class="card carousel-card">
         <div class="carousel-header">
           <div>
-            <h2 style="margin: 0; color: #0f172a; font-size: 1.3rem;"><i class="fa-solid fa-bullseye"></i> Praticar Quiz de TI em Libras</h2>
-            <p style="color: #64748b; font-size: 0.9rem; margin-top: 4px; margin-bottom: 0;">Escolha uma categoria técnica para testar seus conhecimentos. Ao errar uma questão, o quiz é reiniciado!</p>
+            <h2><i class="fa-solid fa-bullseye"></i> Praticar Quiz de TI em Libras</h2>
+            <p class="carousel-sub">Escolha uma categoria técnica para testar seus conhecimentos. Ao errar uma questão, o quiz é reiniciado!</p>
           </div>
-          
           <div class="carousel-nav-btns">
-            <button class="btn-scroll" onclick="scrollCarousel(-360)" title="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
-            <button class="btn-scroll" onclick="scrollCarousel(360)" title="Próximo"><i class="fa-solid fa-chevron-right"></i></button>
+            <button class="btn-scroll" type="button" onclick="rolarCarrossel(-360)" title="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="btn-scroll" type="button" onclick="rolarCarrossel(360)" title="Próximo"><i class="fa-solid fa-chevron-right"></i></button>
           </div>
         </div>
 
         <div class="selection-grid" id="selectionGrid">
-          
-          
           <div class="category-card cat-hardware" id="card-Hardware">
             <span class="completed-badge"><i class="fa-solid fa-check"></i> Concluído</span>
             <div>
@@ -585,13 +49,12 @@
             <div>
               <div class="meta-info">17 Questões · Peças e Componentes</div>
               <div class="card-actions">
-                <button class="btn-card-start" onclick="startQuiz('Hardware')">Começar</button>
+                <button class="btn-card-start" type="button" onclick="iniciarQuiz('Hardware')">Começar</button>
                 <a href="sinalario.html?cat=Hardware" class="btn-card-consult">Consultar</a>
               </div>
             </div>
           </div>
 
-          
           <div class="category-card cat-software" id="card-Software">
             <span class="completed-badge"><i class="fa-solid fa-check"></i> Concluído</span>
             <div>
@@ -602,13 +65,12 @@
             <div>
               <div class="meta-info">11 Questões · Sistemas e Apps</div>
               <div class="card-actions">
-                <button class="btn-card-start" onclick="startQuiz('Software')">Começar</button>
+                <button class="btn-card-start" type="button" onclick="iniciarQuiz('Software')">Começar</button>
                 <a href="sinalario.html?cat=Software" class="btn-card-consult">Consultar</a>
               </div>
             </div>
           </div>
 
-          
           <div class="category-card cat-programacao" id="card-Programação">
             <span class="completed-badge"><i class="fa-solid fa-check"></i> Concluído</span>
             <div>
@@ -619,13 +81,12 @@
             <div>
               <div class="meta-info">12 Questões · Código e Algoritmos</div>
               <div class="card-actions">
-                <button class="btn-card-start" onclick="startQuiz('Programação')">Começar</button>
+                <button class="btn-card-start" type="button" onclick="iniciarQuiz('Programação')">Começar</button>
                 <a href="sinalario.html?cat=Programacao" class="btn-card-consult">Consultar</a>
               </div>
             </div>
           </div>
 
-          
           <div class="category-card cat-eletricidade" id="card-Eletricidade">
             <span class="completed-badge"><i class="fa-solid fa-check"></i> Concluído</span>
             <div>
@@ -636,13 +97,12 @@
             <div>
               <div class="meta-info">11 Questões · Circuitos Elétricos</div>
               <div class="card-actions">
-                <button class="btn-card-start" onclick="startQuiz('Eletricidade')">Começar</button>
+                <button class="btn-card-start" type="button" onclick="iniciarQuiz('Eletricidade')">Começar</button>
                 <a href="sinalario.html?cat=Eletricidade" class="btn-card-consult">Consultar</a>
               </div>
             </div>
           </div>
 
-          
           <div class="category-card cat-redes" id="card-Redes">
             <span class="completed-badge"><i class="fa-solid fa-check"></i> Concluído</span>
             <div>
@@ -653,381 +113,68 @@
             <div>
               <div class="meta-info">12 Questões · Internet e Conexões</div>
               <div class="card-actions">
-                <button class="btn-card-start" onclick="startQuiz('Redes')">Começar</button>
+                <button class="btn-card-start" type="button" onclick="iniciarQuiz('Redes')">Começar</button>
                 <a href="sinalario.html?cat=Redes" class="btn-card-consult">Consultar</a>
               </div>
             </div>
           </div>
 
-          
           <div class="category-card cat-todos" id="card-Todos">
             <span class="completed-badge"><i class="fa-solid fa-check"></i> Concluído</span>
             <div>
               <span class="badge-icon"><i class="fa-solid fa-trophy"></i></span>
-              <h3 style="color: #4f46e5;">Simulado Geral</h3>
+              <h3>Simulado Geral</h3>
               <p class="desc-text">Desafio completo reunindo todas as 5 categorias misturadas aleatoriamente em um só teste.</p>
             </div>
             <div>
-              <div class="meta-info" style="color: #4f46e5; background: #eef2ff;">63 Questões · Todas as Áreas</div>
+              <div class="meta-info">63 Questões · Todas as Áreas</div>
               <div class="card-actions">
-                <button class="btn-card-start" style="background: #4f46e5;" onclick="startQuiz('Todos')">Começar</button>
+                <button class="btn-card-start" type="button" onclick="iniciarQuiz('Todos')">Começar</button>
                 <a href="sinalario.html" class="btn-card-consult">Consultar</a>
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
 
-    
-    <div id="quizScreen" class="quiz-card" style="display: none;">
+    <!-- Tela do quiz -->
+    <div id="quizScreen" class="quiz-card quiz-screen">
       <div class="quiz-header">
         <div>
-          <button onclick="backToSelection()" style="border: none; background: transparent; color: #6366f1; font-weight: 700; cursor: pointer; padding: 0; font-size: 0.85rem;"><i class="fa-solid fa-arrow-left"></i> Voltar à Seleção</button>
-          <div style="margin-top: 4px;">
-            <span class="category-tag" id="qCategory" style="color: #6366f1; font-weight: 800; font-size: 0.85rem;">HARDWARE</span>
-            <h2 id="qTitle" style="margin: 2px 0 0 0; font-size: 1.2rem; color: #0f172a;">Pergunta 1 de 17</h2>
+          <button class="btn-back" type="button" onclick="voltarParaSelecao()"><i class="fa-solid fa-arrow-left"></i> Voltar à Seleção</button>
+          <div class="quiz-header-info">
+            <span class="category-tag" id="qCategory">HARDWARE</span>
+            <h2 id="qTitle">Pergunta 1 de 17</h2>
           </div>
         </div>
         <div class="timer-badge"><i class="fa-solid fa-clock"></i> Tempo: <span id="timer">01:00</span></div>
       </div>
 
       <div class="quiz-body-grid">
-        
-        
         <div class="quiz-media-col">
           <div class="video-placeholder-box">
-            <span style="font-size: 3rem; margin-bottom: 8px;"><i class="fa-solid fa-video"></i></span>
-            <span id="qVideoText" style="font-weight: 700; text-align: center; padding: 0 16px;">Sinal Demonstrativo em Libras</span>
+            <span class="video-icon"><i class="fa-solid fa-video"></i></span>
+            <span class="video-label" id="qVideoText">Sinal Demonstrativo em Libras</span>
           </div>
-          <p style="margin: 0; font-size: 0.9rem; font-weight: 600; color: #64748b; text-align: center;">Assista ao vídeo e selecione o termo correspondente à direita:</p>
+          <p class="quiz-media-hint">Assista ao vídeo e selecione o termo correspondente à direita:</p>
         </div>
 
-        
         <div class="quiz-options-col">
-          <h3 style="margin: 0 0 8px 0; font-size: 1.05rem; color: #1e293b;">Qual é a resposta correta?</h3>
-          <div id="optionsContainer" style="display: flex; flex-direction: column; gap: 10px;"></div>
+          <h3 class="options-title">Qual é a resposta correta?</h3>
+          <div class="options-list" id="optionsContainer"></div>
         </div>
-
       </div>
 
       <div id="feedbackBanner" class="feedback-banner error">
         <i class="fa-solid fa-circle-xmark"></i> Resposta Incorreta ou Tempo Esgotado! Reiniciando o quiz...
       </div>
     </div>
-
   </div>
 
-<app-footer></app-footer>
+  <app-footer></app-footer>
 
-  <script>
-    
-
-    function scrollCarousel(distance) {
-      const grid = document.getElementById('selectionGrid');
-      grid.scrollBy({ left: distance, behavior: 'smooth' });
-    }
-
-    
-
-    function updateCarouselState() {
-      const grid = document.getElementById('selectionGrid');
-      const btns = document.querySelector('.carousel-nav-btns');
-      if (!grid) return;
-      const hasOverflow = grid.scrollWidth > grid.clientWidth + 1;
-      if (btns) btns.style.display = hasOverflow ? 'flex' : 'none';
-      grid.style.justifyContent = hasOverflow ? 'flex-start' : 'center';
-    }
-    window.addEventListener('resize', updateCarouselState);
-    document.addEventListener('DOMContentLoaded', updateCarouselState);
-
-    
-
-    const allQuestions = [
-      { term: "Monitor", cat: "Hardware", img: "imagens/sinais/monitor.png" },
-      { term: "Mouse", cat: "Hardware", img: "imagens/sinais/mouse.png" },
-      { term: "Teclado", cat: "Hardware", img: "imagens/sinais/teclado.png" },
-      { term: "Fone (de ouvido)", cat: "Hardware", img: "imagens/sinais/fone.png" },
-      { term: "Microfone", cat: "Hardware", img: "imagens/sinais/microfone.png" },
-      { term: "Webcam", cat: "Hardware", img: "imagens/sinais/webcam.png" },
-      { term: "Impressora", cat: "Hardware", img: "imagens/sinais/impressora.png" },
-      { term: "Placa Mãe", cat: "Hardware", img: "imagens/sinais/placa-mae.png" },
-      { term: "Memória RAM", cat: "Hardware", img: "imagens/sinais/memoria-ram.png" },
-      { term: "Fonte de alimentação", cat: "Hardware", img: "imagens/sinais/fonte.png" },
-      { term: "HD", cat: "Hardware", img: "imagens/sinais/hd.png" },
-      { term: "SSD", cat: "Hardware", img: "imagens/sinais/ssd.png" },
-      { term: "Processador", cat: "Hardware", img: "imagens/sinais/processador.png" },
-      { term: "Gabinete", cat: "Hardware", img: "imagens/sinais/gabinete.png" },
-      { term: "Laptop", cat: "Hardware", img: "imagens/sinais/laptop.png" },
-      { term: "Cooler", cat: "Hardware", img: "imagens/sinais/cooler.png" },
-      { term: "Pendrive", cat: "Hardware", img: "imagens/sinais/pendrive.png" },
-      
-      { term: "Sistema Operacional", cat: "Software", img: "imagens/sinais/so.png" },
-      { term: "Linux", cat: "Software", img: "imagens/sinais/linux.png" },
-      { term: "Windows", cat: "Software", img: "imagens/sinais/windows.png" },
-      { term: "Office", cat: "Software", img: "imagens/sinais/office.png" },
-      { term: "Aplicativo", cat: "Software", img: "imagens/sinais/app.png" },
-      { term: "Kernel", cat: "Software", img: "imagens/sinais/kernel.png" },
-      { term: "E-Mail", cat: "Software", img: "imagens/sinais/email.png" },
-      { term: "Mac", cat: "Software", img: "imagens/sinais/mac.png" },
-      { term: "Word", cat: "Software", img: "imagens/sinais/word.png" },
-      { term: "Excel", cat: "Software", img: "imagens/sinais/excel.png" },
-      { term: "PowerPoint", cat: "Software", img: "imagens/sinais/powerpoint.png" },
-
-      { term: "Algoritmo", cat: "Programação", img: "imagens/sinais/algoritmo.png" },
-      { term: "Variável", cat: "Programação", img: "imagens/sinais/variavel.png" },
-      { term: "Laço de Repetição", cat: "Programação", img: "imagens/sinais/laco.png" },
-      { term: "Operador", cat: "Programação", img: "imagens/sinais/operador.png" },
-      { term: "Java", cat: "Programação", img: "imagens/sinais/java.png" },
-      { term: "HTML", cat: "Programação", img: "imagens/sinais/html.png" },
-      { term: "CSS", cat: "Programação", img: "imagens/sinais/css.png" },
-      { term: "JavaScript", cat: "Programação", img: "imagens/sinais/javascript.png" },
-      { term: "Python", cat: "Programação", img: "imagens/sinais/python.png" },
-      { term: "NetBeans", cat: "Programação", img: "imagens/sinais/netbeans.png" },
-      { term: "GitHub", cat: "Programação", img: "imagens/sinais/github.png" },
-      { term: "Repositório", cat: "Programação", img: "imagens/sinais/repositorio.png" },
-
-      { term: "Potência", cat: "Eletricidade", img: "imagens/sinais/potencia.png" },
-      { term: "Resistor", cat: "Eletricidade", img: "imagens/sinais/resistor.png" },
-      { term: "Tensão", cat: "Eletricidade", img: "imagens/sinais/tensao.png" },
-      { term: "Corrente Elétrica", cat: "Eletricidade", img: "imagens/sinais/corrente.png" },
-      { term: "Cabo", cat: "Eletricidade", img: "imagens/sinais/cabo.png" },
-      { term: "Alicate", cat: "Eletricidade", img: "imagens/sinais/alicate.png" },
-      { term: "Condutor", cat: "Eletricidade", img: "imagens/sinais/condutor.png" },
-      { term: "LED", cat: "Eletricidade", img: "imagens/sinais/led.png" },
-      { term: "Corrente Alternada", cat: "Eletricidade", img: "imagens/sinais/ca.png" },
-      { term: "Disjuntor", cat: "Eletricidade", img: "imagens/sinais/disjuntor.png" },
-      { term: "Multímetro", cat: "Eletricidade", img: "imagens/sinais/multimetro.png" },
-
-      { term: "Site", cat: "Redes", img: "imagens/sinais/site.png" },
-      { term: "Navegador de Internet", cat: "Redes", img: "imagens/sinais/navegador.png" },
-      { term: "Google Chrome", cat: "Redes", img: "imagens/sinais/chrome.png" },
-      { term: "Edge", cat: "Redes", img: "imagens/sinais/edge.png" },
-      { term: "Firefox", cat: "Redes", img: "imagens/sinais/firefox.png" },
-      { term: "Abas", cat: "Redes", img: "imagens/sinais/abas.png" },
-      { term: "Maximizar e Minimizar", cat: "Redes", img: "imagens/sinais/window-actions.png" },
-      { term: "Google", cat: "Redes", img: "imagens/sinais/google.png" },
-      { term: "Vírus", cat: "Redes", img: "imagens/sinais/virus.png" },
-      { term: "Antivírus", cat: "Redes", img: "imagens/sinais/antivirus.png" },
-      { term: "Backup", cat: "Redes", img: "imagens/sinais/backup.png" },
-      { term: "Link", cat: "Redes", img: "imagens/sinais/link.png" }
-    ];
-
-    let currentCategory = 'Hardware';
-    let activeQuestions = [];
-    let currentQ = 0;
-    let timerInterval;
-    let timeLeft = 60;
-
-    document.addEventListener('DOMContentLoaded', () => {
-      
-
-      localStorage.setItem('totalQuizzes', '6');               
-
-      localStorage.setItem('totalQuestoes', String(allQuestions.length));
-
-      updateProgressDisplay();
-
-      const urlParams = new URLSearchParams(window.location.search);
-      const categoryParam = urlParams.get('cat');
-      if (categoryParam) {
-        startQuiz(categoryParam);
-      }
-    });
-
-    function updateProgressDisplay() {
-      const completed = JSON.parse(localStorage.getItem('completedQuizzes') || '[]');
-      const categories = ['Hardware', 'Software', 'Programação', 'Eletricidade', 'Redes', 'Todos'];
-      
-      categories.forEach(cat => {
-        const cardElem = document.getElementById(`card-${cat}`);
-        if (cardElem) {
-          if (completed.includes(cat)) {
-            cardElem.classList.add('completed');
-          } else {
-            cardElem.classList.remove('completed');
-          }
-        }
-      });
-
-      const totalCategories = categories.length;
-      const pct = Math.round((completed.length / totalCategories) * 100);
-      
-      document.getElementById('progressText').textContent = `${completed.length} / ${totalCategories} Concluídos (${pct}%)`;
-      document.getElementById('progressBar').style.width = `${pct}%`;
-
-      
-
-      const messageEl = document.getElementById('progressMessage');
-      if (messageEl) {
-        let msg;
-        const n = completed.length;
-        if (n === 0) {
-          msg = 'Vamos começar? Escolha uma categoria abaixo!';
-        } else if (n < totalCategories / 2) {
-          msg = `Bom começo! Você já concluiu ${n} quiz${n > 1 ? 'zes' : ''}, continue praticando.`;
-        } else if (n < totalCategories - 1) {
-          msg = 'Você está indo muito bem, continue assim!';
-        } else if (n < totalCategories) {
-          msg = `Quase lá! Falta só mais ${totalCategories - n} para concluir tudo.`;
-        } else {
-          msg = 'Parabéns! Você concluiu todos os quizzes! 🎉';
-        }
-        messageEl.textContent = msg;
-      }
-    }
-
-    function startQuiz(category) {
-      currentCategory = category;
-      if (category === 'Todos') {
-        activeQuestions = [...allQuestions].sort(() => 0.5 - Math.random());
-      } else {
-        activeQuestions = allQuestions.filter(q => q.cat === category);
-      }
-
-      currentQ = 0;
-      document.getElementById('selectionScreen').style.display = 'none';
-      document.getElementById('quizScreen').style.display = 'block';
-      loadQuestion(currentQ);
-    }
-
-    function backToSelection() {
-      clearInterval(timerInterval);
-      document.getElementById('quizScreen').style.display = 'none';
-      document.getElementById('selectionScreen').style.display = 'block';
-      updateProgressDisplay();
-    }
-
-    function startTimer() {
-      clearInterval(timerInterval);
-      timeLeft = 60;
-      updateTimerDisplay();
-      timerInterval = setInterval(() => {
-        timeLeft--;
-        updateTimerDisplay();
-        if (timeLeft <= 0) {
-          clearInterval(timerInterval);
-          handleError();
-        }
-      }, 1000);
-    }
-
-    function updateTimerDisplay() {
-      const mins = Math.floor(timeLeft / 60);
-      const secs = timeLeft % 60;
-      document.getElementById('timer').textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    }
-
-    function getFallbackImage(term) {
-      return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23e2e8f0'/><text x='50%' y='55%' font-size='28' text-anchor='middle' dominant-baseline='middle'>?</text></svg>";
-    }
-
-    function loadQuestion(index) {
-      if (index >= activeQuestions.length) {
-        const completed = JSON.parse(localStorage.getItem('completedQuizzes') || '[]');
-        if (!completed.includes(currentCategory)) {
-          completed.push(currentCategory);
-          localStorage.setItem('completedQuizzes', JSON.stringify(completed));
-        }
-
-        alert(`Parabéns! Você concluiu o Quiz de ${currentCategory} com ${activeQuestions.length} questões sem erros!`);
-        backToSelection();
-        return;
-      }
-
-      document.getElementById('feedbackBanner').style.display = 'none';
-      const q = activeQuestions[index];
-      document.getElementById('qCategory').textContent = q.cat.toUpperCase();
-      document.getElementById('qTitle').textContent = `Pergunta ${index + 1} de ${activeQuestions.length}`;
-      document.getElementById('qVideoText').textContent = `Sinal demonstrativo de: "${q.term}"`;
-
-      let areaPool = [];
-      if (currentCategory === 'Todos') {
-        areaPool = allQuestions.filter(x => x.term !== q.term);
-      } else {
-        areaPool = allQuestions.filter(x => x.cat === q.cat && x.term !== q.term);
-      }
-
-      const fakes = areaPool.sort(() => 0.5 - Math.random()).slice(0, 3);
-      const optionsObjects = [q, ...fakes].sort(() => 0.5 - Math.random());
-
-      const container = document.getElementById('optionsContainer');
-      container.innerHTML = '';
-
-      optionsObjects.forEach(opt => {
-        const card = document.createElement('button');
-        card.className = 'option-btn-card';
-        card.onclick = () => checkAnswer(opt.term, q.term, card);
-
-        const img = document.createElement('img');
-        img.className = 'option-img-thumb';
-        img.src = opt.img;
-        img.alt = opt.term;
-        img.onerror = function() { this.src = getFallbackImage(opt.term); };
-
-        const text = document.createElement('span');
-        text.className = 'option-term-text';
-        text.textContent = opt.term;
-
-        card.appendChild(img);
-        card.appendChild(text);
-        container.appendChild(card);
-      });
-
-      startTimer();
-    }
-
-    function checkAnswer(selectedTerm, correctTerm, cardElement) {
-      const allCards = document.querySelectorAll('.option-btn-card');
-      allCards.forEach(c => c.disabled = true);
-      clearInterval(timerInterval);
-
-      if (selectedTerm === correctTerm) {
-        cardElement.classList.add('correct');
-        
-        const statusTag = document.createElement('span');
-        statusTag.className = 'answer-status-tag';
-        statusTag.innerHTML = '<i class="fa-solid fa-check"></i> Correto';
-        cardElement.appendChild(statusTag);
-
-        setTimeout(() => {
-          currentQ++;
-          loadQuestion(currentQ);
-        }, 1200);
-      } else {
-        cardElement.classList.add('wrong');
-
-        const wrongTag = document.createElement('span');
-        wrongTag.className = 'answer-status-tag';
-        wrongTag.innerHTML = '<i class="fa-solid fa-xmark"></i> Incorreto';
-        cardElement.appendChild(wrongTag);
-
-        allCards.forEach(c => {
-          const termText = c.querySelector('.option-term-text').textContent;
-          if (termText === correctTerm) {
-            c.classList.add('correct');
-            const correctTag = document.createElement('span');
-            correctTag.className = 'answer-status-tag';
-            correctTag.innerHTML = '<i class="fa-solid fa-check"></i> Resposta Certa';
-            c.appendChild(correctTag);
-          }
-        });
-
-        handleError();
-      }
-    }
-
-    function handleError() {
-      const banner = document.getElementById('feedbackBanner');
-      banner.style.display = 'block';
-      setTimeout(() => {
-        startQuiz(currentCategory);
-      }, 2000);
-    }
-  </script>
-
-  
+  <!-- VLibras (tradutor para Libras) -->
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
     <div vw-plugin-wrapper>
@@ -1035,8 +182,8 @@
     </div>
   </div>
   <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
-  </script>
+  <script src="js/vlibras.js"></script>
+
+  <script src="js/praticar.js"></script>
 </body>
 </html>

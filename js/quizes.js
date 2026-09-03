@@ -1,200 +1,199 @@
+// Quiz interativo: mostra as perguntas da categoria escolhida e registra o progresso.
+
+const bancoPerguntas = {
+  hardware: [
+    {
+      pergunta: 'Qual termo de Hardware está sendo sinalizado?',
+      correta: 'Mouse',
+      opcoes: [
+        { nome: 'Mouse', icone: '🖱️' },
+        { nome: 'Teclado', icone: '⌨️' },
+        { nome: 'Monitor', icone: '🖥️' },
+        { nome: 'Processador', icone: '💾' }
+      ]
+    },
+    {
+      pergunta: 'Qual termo representa a unidade de entrada do computador?',
+      correta: 'Teclado',
+      opcoes: [
+        { nome: 'Processador', icone: '💾' },
+        { nome: 'Teclado', icone: '⌨️' },
+        { nome: 'Mouse', icone: '🖱️' },
+        { nome: 'Monitor', icone: '🖥️' }
+      ]
+    },
+    {
+      pergunta: 'Qual periférico exibe as informações visuais na tela?',
+      correta: 'Monitor',
+      opcoes: [
+        { nome: 'Teclado', icone: '⌨️' },
+        { nome: 'Mouse', icone: '🖱️' },
+        { nome: 'Monitor', icone: '🖥️' },
+        { nome: 'Processador', icone: '💾' }
+      ]
+    }
+  ],
+  software: [
+    {
+      pergunta: 'Qual item é considerado um Sistema Operacional?',
+      correta: 'Linux',
+      opcoes: [
+        { nome: 'Linux', icone: '🐧' },
+        { nome: 'HDMI', icone: '🔌' },
+        { nome: 'RAM', icone: '🎰' },
+        { nome: 'Fonte', icone: '⚡' }
+      ]
+    },
+    {
+      pergunta: 'Qual software é utilizado para navegar na Web?',
+      correta: 'Navegador Web',
+      opcoes: [
+        { nome: 'Navegador Web', icone: '🌐' },
+        { nome: 'Placa Mãe', icone: '🎛️' },
+        { nome: 'Cabo de Rede', icone: '🧶' },
+        { nome: 'HD Externo', icone: '💽' }
+      ]
+    }
+  ],
+  redes: [
+    {
+      pergunta: 'Qual dispositivo conecta computadores em uma rede local?',
+      correta: 'Roteador',
+      opcoes: [
+        { nome: 'Roteador', icone: '📡' },
+        { nome: 'Monitor', icone: '🖥️' },
+        { nome: 'Teclado', icone: '⌨️' },
+        { nome: 'Pendrive', icone: '💾' }
+      ]
+    }
+  ]
+};
+
 document.addEventListener('DOMContentLoaded', () => {
-  const optionsGrid = document.getElementById('optionsGrid');
-  const btnNext = document.getElementById('btnNext');
-  const quizBreadcrumb = document.getElementById('quizBreadcrumb');
-  const quizPercent = document.getElementById('quizPercent');
-  const qNum = document.getElementById('qNum');
-  const quizCard = document.querySelector('.quiz-card');
+  const gradeOpcoes = document.getElementById('optionsGrid');
+  const botaoProxima = document.getElementById('btnNext');
+  const caminhoQuiz = document.getElementById('quizBreadcrumb');
+  const porcentagemQuiz = document.getElementById('quizPercent');
+  const numeroPergunta = document.getElementById('qNum');
+  const cardQuiz = document.querySelector('.quiz-card');
 
-  // Identifica a categoria vinda da URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const catParam = urlParams.get('categoria') || 'hardware';
+  // Categoria recebida pela URL (?categoria=...)
+  const parametros = new URLSearchParams(window.location.search);
+  const categoriaDaUrl = parametros.get('categoria') || 'hardware';
 
-  // Banco de Questões por Categoria
-  const bancoQuestoes = {
-    hardware: [
-      {
-        pergunta: "Qual termo de Hardware está sendo sinalizado?",
-        correta: "Mouse",
-        opcoes: [
-          { nome: "Mouse", icone: "🖱️" },
-          { nome: "Teclado", icone: "⌨️" },
-          { nome: "Monitor", icone: "🖥️" },
-          { nome: "Processador", icone: "💾" }
-        ]
-      },
-      {
-        pergunta: "Qual termo representa a unidade de entrada do computador?",
-        correta: "Teclado",
-        opcoes: [
-          { nome: "Processador", icone: "💾" },
-          { nome: "Teclado", icone: "⌨️" },
-          { nome: "Mouse", icone: "🖱️" },
-          { nome: "Monitor", icone: "🖥️" }
-        ]
-      },
-      {
-        pergunta: "Qual periférico exibe as informações visuais na tela?",
-        correta: "Monitor",
-        opcoes: [
-          { nome: "Teclado", icone: "⌨️" },
-          { nome: "Mouse", icone: "🖱️" },
-          { nome: "Monitor", icone: "🖥️" },
-          { nome: "Processador", icone: "💾" }
-        ]
-      }
-    ],
-    software: [
-      {
-        pergunta: "Qual item é considerado um Sistema Operacional?",
-        correta: "Linux",
-        opcoes: [
-          { nome: "Linux", icone: "🐧" },
-          { nome: "HDMI", icone: "🔌" },
-          { nome: "RAM", icone: "🎰" },
-          { nome: "Fonte", icone: "⚡" }
-        ]
-      },
-      {
-        pergunta: "Qual software é utilizado para navegar na Web?",
-        correta: "Navegador Web",
-        opcoes: [
-          { nome: "Navegador Web", icone: "🌐" },
-          { nome: "Placa Mãe", icone: "🎛️" },
-          { nome: "Cabo de Rede", icone: "🧶" },
-          { nome: "HD Externo", icone: "💽" }
-        ]
-      }
-    ],
-    redes: [
-      {
-        pergunta: "Qual dispositivo conecta computadores em uma rede local?",
-        correta: "Roteador",
-        opcoes: [
-          { nome: "Roteador", icone: "📡" },
-          { nome: "Monitor", icone: "🖥️" },
-          { nome: "Teclado", icone: "⌨️" },
-          { nome: "Pendrive", icone: "💾" }
-        ]
-      }
-    ]
-  };
-
-  const perguntasQuiz = bancoQuestoes[catParam] || bancoQuestoes['hardware'];
-  let questaoAtualIndex = 0;
+  const perguntasAtivas = bancoPerguntas[categoriaDaUrl] || bancoPerguntas.hardware;
+  let indicePerguntaAtual = 0;
   let pontuacao = 0;
 
-  // Funções de Persistência via LocalStorage
+  // Salva uma questão respondida no LocalStorage
   function registrarQuestaoFeita(categoria) {
-    let stats = JSON.parse(localStorage.getItem('statsQuestoes') || '{}');
-    stats[categoria] = (stats[categoria] || 0) + 1;
-    localStorage.setItem('statsQuestoes', JSON.stringify(stats));
+    const estatisticas = JSON.parse(localStorage.getItem('statsQuestoes') || '{}');
+    estatisticas[categoria] = (estatisticas[categoria] || 0) + 1;
+    localStorage.setItem('statsQuestoes', JSON.stringify(estatisticas));
 
-    // Incrementa contador geral de questões
-    let total = parseInt(localStorage.getItem('totalQuestoesFeitas') || '0', 10);
+    const total = parseInt(localStorage.getItem('totalQuestoesFeitas') || '0', 10);
     localStorage.setItem('totalQuestoesFeitas', (total + 1).toString());
   }
 
+  // Marca o quiz da categoria como concluído
   function registrarQuizConcluido(categoria) {
-    let concluidos = JSON.parse(localStorage.getItem('quizzesConcluidos') || '[]');
+    const concluidos = JSON.parse(localStorage.getItem('quizzesConcluidos') || '[]');
     if (!concluidos.includes(categoria)) {
       concluidos.push(categoria);
       localStorage.setItem('quizzesConcluidos', JSON.stringify(concluidos));
     }
   }
 
-  function carregarQuestao() {
-    btnNext.style.display = 'none';
-    optionsGrid.innerHTML = '';
+  function carregarPergunta() {
+    botaoProxima.style.display = 'none';
+    gradeOpcoes.innerHTML = '';
 
-    const questao = perguntasQuiz[questaoAtualIndex];
-    const total = perguntasQuiz.length;
-    const progresso = Math.round((questaoAtualIndex / total) * 100);
+    const pergunta = perguntasAtivas[indicePerguntaAtual];
+    const total = perguntasAtivas.length;
+    const progresso = Math.round((indicePerguntaAtual / total) * 100);
 
-    const nomeCat = catParam.charAt(0).toUpperCase() + catParam.slice(1);
-    quizBreadcrumb.innerText = `${nomeCat} · Questão ${questaoAtualIndex + 1} de ${total}`;
-    quizPercent.innerText = `${progresso}% concluído`;
-    qNum.innerText = questaoAtualIndex + 1;
+    const nomeCategoria = categoriaDaUrl.charAt(0).toUpperCase() + categoriaDaUrl.slice(1);
+    caminhoQuiz.innerText = `${nomeCategoria} · Questão ${indicePerguntaAtual + 1} de ${total}`;
+    porcentagemQuiz.innerText = `${progresso}% concluído`;
+    numeroPergunta.innerText = indicePerguntaAtual + 1;
 
-    document.querySelector('.quiz-header h2').innerText = questao.pergunta;
+    document.querySelector('.quiz-header h2').innerText = pergunta.pergunta;
 
-    questao.opcoes.forEach(opt => {
-      const btn = document.createElement('button');
-      btn.className = 'option-btn';
-      btn.innerHTML = `
-        <span class="opt-icon">${opt.icone}</span>
+    pergunta.opcoes.forEach((opcao) => {
+      const botao = document.createElement('button');
+      botao.className = 'option-btn';
+      botao.innerHTML = `
+        <span class="opt-icon">${opcao.icone}</span>
         <div>
-          <div>${opt.nome}</div>
+          <div>${opcao.nome}</div>
           <span class="status-badge"></span>
         </div>
       `;
 
-      btn.addEventListener('click', () => selecionarResposta(btn, opt.nome, questao.correta));
-      optionsGrid.appendChild(btn);
+      botao.addEventListener('click', () => selecionarResposta(botao, opcao.nome, pergunta.correta));
+      gradeOpcoes.appendChild(botao);
     });
   }
 
-  function selecionarResposta(btnSelecionado, opcaoEscolhida, opcaoCorreta) {
-    const todosBotoes = optionsGrid.querySelectorAll('.option-btn');
-    todosBotoes.forEach(b => b.style.pointerEvents = 'none');
+  function selecionarResposta(botaoEscolhido, opcaoEscolhida, opcaoCorreta) {
+    const todosOsBotoes = gradeOpcoes.querySelectorAll('.option-btn');
+    todosOsBotoes.forEach((botao) => { botao.style.pointerEvents = 'none'; });
 
     if (opcaoEscolhida === opcaoCorreta) {
-      btnSelecionado.classList.add('correct');
-      btnSelecionado.querySelector('.status-badge').innerText = '✓ Correto!';
+      botaoEscolhido.classList.add('correct');
+      botaoEscolhido.querySelector('.status-badge').innerText = '✓ Correto!';
       pontuacao++;
 
-      // Contabiliza a questão respondida com sucesso
-      registrarQuestaoFeita(catParam);
+      registrarQuestaoFeita(categoriaDaUrl);
 
-      if (questaoAtualIndex < perguntasQuiz.length - 1) {
-        btnNext.innerText = 'Próxima Questão →';
-      } else {
-        btnNext.innerText = 'Finalizar Quiz 🏆';
-      }
-      btnNext.style.display = 'block';
-
+      botaoProxima.innerText = indicePerguntaAtual < perguntasAtivas.length - 1
+        ? 'Próxima Questão →'
+        : 'Finalizar Quiz 🏆';
+      botaoProxima.style.display = 'block';
     } else {
-      btnSelecionado.classList.add('incorrect');
-      btnSelecionado.querySelector('.status-badge').innerText = 'X Errou! Reiniciando...';
+      botaoEscolhido.classList.add('incorrect');
+      botaoEscolhido.querySelector('.status-badge').innerText = 'X Errou! Reiniciando...';
 
-      todosBotoes.forEach(b => {
-        if (b.innerText.includes(opcaoCorreta)) {
-          b.classList.add('correct');
+      todosOsBotoes.forEach((botao) => {
+        if (botao.innerText.includes(opcaoCorreta)) {
+          botao.classList.add('correct');
         }
       });
 
       setTimeout(() => {
         alert('Você errou uma questão! O quiz será reiniciado do começo.');
-        questaoAtualIndex = 0;
+        indicePerguntaAtual = 0;
         pontuacao = 0;
-        carregarQuestao();
+        carregarPergunta();
       }, 1800);
     }
   }
 
-  btnNext.addEventListener('click', () => {
-    if (questaoAtualIndex < perguntasQuiz.length - 1) {
-      questaoAtualIndex++;
-      carregarQuestao();
+  botaoProxima.addEventListener('click', () => {
+    if (indicePerguntaAtual < perguntasAtivas.length - 1) {
+      indicePerguntaAtual++;
+      carregarPergunta();
     } else {
-      registrarQuizConcluido(catParam);
+      registrarQuizConcluido(categoriaDaUrl);
       exibirResultadoFinal();
     }
   });
 
   function exibirResultadoFinal() {
-    quizCard.innerHTML = `
+    cardQuiz.innerHTML = `
       <div style="text-align: center; padding: 2rem 1rem;">
         <span style="font-size: 3.5rem;">🎉</span>
-        <h2 style="margin: 10px 0; color: var(--primary);">Parabéns! Quiz Concluído!</h2>
-        <p style="color: var(--text-muted); margin-bottom: 20px;">Você acertou todas as ${perguntasQuiz.length} questões da categoria ${catParam}!</p>
-        <a href="praticar.html" class="btn btn-white" style="background: var(--primary-gradient); color: white; display: inline-block;">Voltar para Praticar</a>
+        <h2 style="margin: 10px 0; color: #7c3aed;">Parabéns! Quiz Concluído!</h2>
+        <p style="color: #64748b; margin-bottom: 20px;">
+          Você acertou todas as ${perguntasAtivas.length} questões da categoria ${categoriaDaUrl}!
+        </p>
+        <a href="praticar.html" class="btn btn-primary">Voltar para Praticar</a>
       </div>
     `;
-    optionsGrid.innerHTML = '';
-    btnNext.style.display = 'none';
-    quizPercent.innerText = '100% concluído';
+    gradeOpcoes.innerHTML = '';
+    botaoProxima.style.display = 'none';
+    porcentagemQuiz.innerText = '100% concluído';
   }
 
-  carregarQuestao();
+  carregarPergunta();
 });

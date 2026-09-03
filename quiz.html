@@ -9,7 +9,6 @@
   <script src="js/components.js"></script>
 </head>
 <body>
-
   <app-header></app-header>
 
   <div class="quiz-top-bar">
@@ -25,23 +24,21 @@
       </div>
       <div class="video-quiz-box">
         <div class="video-content">
-          <span style="font-size: 2.5rem;">🤟</span>
+          <span class="video-emoji">🤟</span>
           <h4>Vídeo do Sinal em Libras</h4>
           <p>Observe atentamente e identifique o termo</p>
-          <button class="quiz-play-btn">▶</button>
+          <button class="quiz-play-btn" type="button">▶</button>
         </div>
       </div>
     </div>
-    <div class="options-grid" id="optionsGrid">
-    </div>
+    <div class="options-grid" id="optionsGrid"></div>
     <div class="quiz-actions">
-      <button id="btnNext" class="btn-next" style="display: none;">Próxima →</button>
+      <button id="btnNext" class="btn-next" type="button">Próxima →</button>
     </div>
   </div>
 
   <app-footer></app-footer>
 
-  <script src="js/dados.js"></script>
   <script src="js/quizes.js"></script>
 </body>
 </html>
